@@ -5,7 +5,6 @@ class Deck(deck: Set[Card]) {
 
   /** Draw a card from the deck. */
   def drawCard(): Unit = {
-    // elegir una carta random? 
+    // elegir una carta random?
     // o inicializar el mazo, revolver y luego empezar a sacar
-  }
 }
