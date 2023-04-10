@@ -12,7 +12,7 @@ class Player(private val name: String, private val boardSection: String, private
   def playCard(card: Card): Unit = {
     // posicionarla en el tablero y "eliminarla" de la mano
   }
-  
+
   /** Draw a card from your deck. */
   def drawCard(): Unit = {
     cardDeck.drawCard()
