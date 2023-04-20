@@ -7,13 +7,20 @@ class Deck {
    *
    * @return A card if the deck is not empty.
    */
-  def drawCard(): Any = {
-    if(deck.nonEmpty) {
-      val card = deck.head
-      deck=deck-card
-      return card
-    }
-    // elegir una carta random?
-    // o inicializar el mazo, revolver y luego empezar a sacar
+  def drawCard(): Card = {
+    val card = deck.head
+    deck=deck-card
+    return card
+    //falta el caso en que está vacío el deck
+  }
+
+  /** Set your card hand.
+   *
+   * @param quantity the number of cards you want on your hand.
+   */
+  def setCardHand(quantity: Int): Unit = {
+    for (w <- 0 to quantity)
+      val card: Card = drawCard()
+      deck=deck+card
   }
 }
