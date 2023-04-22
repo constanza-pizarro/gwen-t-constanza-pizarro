@@ -1,5 +1,8 @@
-package cl.uchile.dcc.gwent
+package cl.uchile.dcc
+package gwent
 
-class Hand {
+import scala.collection.mutable.ListBuffer
 
+class Hand() extends ICardList {
+  val deck: ListBuffer[ICard] = ListBuffer()
 }
