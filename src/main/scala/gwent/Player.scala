@@ -2,7 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 /** A class that represents a player from the game. */
-class Player(private val name: String, private val boardSection: String, private val gemCount: Int,
+class Player(private val name: String, private val gemCount: Int,
              private val cardDeck: Deck, private val cardHand: Deck) {
   /** Set your card hand.
    *
@@ -22,5 +22,20 @@ class Player(private val name: String, private val boardSection: String, private
   /** Draw a card from your deck. */
   def drawCard(): Unit = {
     cardDeck.drawCard()
+  }
+
+  /** Compare a Player object with an object of any type.
+   *
+   * @param obj object to compare.
+   */
+  override def equals(obj: Any): Boolean = {
+    if (obj.isInstanceOf[Player]) {
+      val other = obj.asInstanceOf[Player]
+      (this eq other) || (name == other.name &&
+        gemCount == other.gemCount &&
+        cardDeck == other.cardDeck &&
+        cardHand == other.cardHand)
+    } else
+      false
   }
 }
