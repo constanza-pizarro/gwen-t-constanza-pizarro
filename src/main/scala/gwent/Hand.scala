@@ -12,7 +12,7 @@ class Hand extends ICardList {
    */
   def setCardHand(deck: Deck, quantity: Int): Unit = {
     for(i <- 0.until(quantity)) {
-      card=deck.drawCard
+      val card=deck.drawCard
       this.deck+=card
     }
   }
