@@ -12,15 +12,14 @@ class Player(private val name: String, private val gemCount: Int,
    * @param quantity The number of cards in your hand
    */
   def setHand(quantity: Int): Unit = cardHand.setHand(cardDeck, quantity)
+  /** Draw a card from your deck. */
+  def drawCard(): Unit = cardHand.setHand(cardDeck, 1)
   /** Place a selected card from your hand on the board.
    *
    * param card the card you choose to put on the board.
    */
   //def playCard(card: Card): Unit = {
     // posicionarla en el tablero y "eliminarla" de la mano
-
-  /** Draw a card from your deck. */
-  //def drawCard: Unit = cardHand.drawCard(cardDeck)
 
   /** Compare a Player object with an object of any type.
    *
