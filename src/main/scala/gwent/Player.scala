@@ -4,7 +4,12 @@ package gwent
 import cl.uchile.dcc.gwent.cards.ICard
 import cl.uchile.dcc.gwent.cardsets.classes.{Deck, Hand}
 
-/** Represents a player from the game. */
+/** Represents a player from the game.
+ *
+ * @param name The identifier of a player
+ * @param gemCount The number of gems of a player
+ * @param cardDeck The card deck each player has
+ * @param cardHand The card han each player has */
 class Player(private val name: String, private val gemCount: Int,
              val cardDeck: Deck, private val cardHand: Hand) {
   /** Set your card hand.
