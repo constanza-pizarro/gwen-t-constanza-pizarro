@@ -1,9 +1,8 @@
 package cl.uchile.dcc
-package gwent.cards
+package gwent.cardsets.classes
 
 import gwent.cards.ICard
-
-import cl.uchile.dcc.gwent.cardsets.AbstractCardSet
+import gwent.cardsets.AbstractCardSet
 
 import java.util.Objects
 import scala.collection.mutable
@@ -34,7 +33,6 @@ class Deck(set: mutable.Set[ICard] = mutable.Set()) extends AbstractCardSet(set)
       super.equals(other)
     case _ => false
   }
-
   //DOCUMENTAR!!!
   override def hashCode(): Int = Objects.hash(classOf[Deck], set)
 }
