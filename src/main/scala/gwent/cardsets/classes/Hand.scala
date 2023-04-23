@@ -6,9 +6,9 @@ import gwent.cardsets.AbstractCardSet
 
 import java.util.Objects
 import scala.collection.mutable
+
 /** A class that represents a card hand that each player has. */
 class Hand(set: mutable.Set[ICard] = mutable.Set()) extends AbstractCardSet(set) {
-  
   //def drawCard(): Unit = this.deck += cardDeck.drawCard
   /** Set your card hand.
    *

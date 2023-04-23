@@ -23,7 +23,6 @@ class Deck(set: mutable.Set[ICard] = mutable.Set()) extends AbstractCardSet(set)
   }
   //DOCUMENTAR!!
   override def canEqual(obj: Any): Boolean = obj.isInstanceOf[Deck]
-
   /** Compare a Deck object with an object of any type.
    *
    * @param obj object to compare.
