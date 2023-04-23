@@ -3,6 +3,8 @@ package gwent.cards
 
 import gwent.cards.ICard
 
+import cl.uchile.dcc.gwent.cardsets.AbstractCardSet
+
 import java.util.Objects
 import scala.collection.mutable
 import scala.util.Random
@@ -10,17 +12,16 @@ import scala.util.Random
 /** A class that represents a card deck that each player has. */
 class Deck(set: mutable.Set[ICard] = mutable.Set()) extends AbstractCardSet(set) {
   /** Shuffles the card deck.*/
-  def setCardDeck(): Unit = Random.shuffle(set)
+  def setDeck(): Unit = Random.shuffle(set)
   /** Draw a card from the deck.
    *
    * @return A card if the deck is not empty.
    */
-  def drawCard: ICard = {
+  def drawCard(): ICard = {
     val card: ICard = set.head
     set-=card
     return card
   }
-
   //DOCUMENTAR!!
   override def canEqual(obj: Any): Boolean = obj.isInstanceOf[Deck]
 
