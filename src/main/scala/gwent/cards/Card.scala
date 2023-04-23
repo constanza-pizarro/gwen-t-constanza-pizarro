@@ -1,5 +1,7 @@
 package cl.uchile.dcc
-package gwent
+package gwent.cards
+
+import gwent.ICard
 
 class Card(private val name: String, private val classification: String) extends ICard {
   override def playCard(card: Card): Unit = {

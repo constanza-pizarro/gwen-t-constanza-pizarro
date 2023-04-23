@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent
+package gwent.cards
 
 trait ICard {
   /** Place a selected card from your hand on the board.
