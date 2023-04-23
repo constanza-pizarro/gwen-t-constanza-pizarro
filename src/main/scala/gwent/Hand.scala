@@ -16,4 +16,15 @@ class Hand extends ICardList {
       this.deck+=card
     }
   }
+  /** Compare a Hand object with an object of any type.
+   *
+   * @param obj object to compare.
+   */
+  override def equals(obj: Any): Boolean = {
+    if (obj.isInstanceOf[Hand]) {
+      val other = obj.asInstanceOf[Hand]
+      (this eq other) || (deck == other.deck)
+    } else
+      false
+  }
 }
