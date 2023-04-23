@@ -25,14 +25,12 @@ class Player(private val name: String, private val gemCount: Int,
    *
    * @param obj object to compare.
    */
-  override def equals(obj: Any): Boolean = {
-    if (obj.isInstanceOf[Player]) {
-      val other = obj.asInstanceOf[Player]
-      (this eq other) || (name == other.name &&
-        gemCount == other.gemCount &&
-        cardDeck == other.cardDeck &&
-        cardHand == other.cardHand)
-    } else
-      false
+  override def equals(obj: Any): Boolean = obj match {
+    case other: Player =>
+      (this eq other) || (name == other.name
+                      && gemCount == other.gemCount
+                      && cardDeck == other.cardDeck
+                      && cardHand == other.cardHand)
+    case _ => false
   }
 }
