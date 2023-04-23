@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.cards.{Deck, ICard}
+
 import scala.collection.mutable.ListBuffer
 /** A class that represents a card hand that each player has. */
 class Hand extends ICardList {
