@@ -6,14 +6,16 @@ import scala.collection.mutable.ListBuffer
 class Deck() extends ICardList {
   private val deck: ListBuffer[ICard] = ListBuffer()
   /** Shuffles card deck.*/
-  def setCardDeck(): Unit = {
+  def setCardDeck(newDeck: ListBuffer[ICard]): Unit = {
+    for (c <- newDeck)
+        deck+=c
     Random.shuffle(deck)
   }
   /** Draw a card from the deck.
    *
    * @return A card if the deck is not empty.
    */
-  def drawCard(): ICard = {
+  def drawCard: ICard = {
     val card = deck.head
     deck-=card
     return card
