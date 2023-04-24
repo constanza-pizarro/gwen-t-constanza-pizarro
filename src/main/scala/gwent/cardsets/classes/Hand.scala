@@ -28,6 +28,7 @@ class Hand(set: mutable.Set[ICard] = mutable.Set()) extends AbstractCardSet(set)
   /** Sets your card hand by adding the quantity of cards you choose from the deck.
    *
    * @param deck The deck you're getting the cards from.
+   * @param quantity The quantity of card you draw from the deck.
    */
   def setHand(deck: Deck, quantity: Int): Unit = {
     for(i <- 0.until(quantity)) {

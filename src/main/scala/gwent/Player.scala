@@ -4,31 +4,37 @@ package gwent
 import cl.uchile.dcc.gwent.cards.ICard
 import cl.uchile.dcc.gwent.cardsets.classes.{Deck, Hand}
 
-/** Represents a player from the game.
+/** A class representing a player from the game.
  *
- * @param name The identifier of a player
- * @param gemCount The number of gems of a player
- * @param cardDeck The card deck each player has
- * @param cardHand The card han each player has */
-class Player(private val name: String, private val gemCount: Int,
-             val cardDeck: Deck, private val cardHand: Hand) {
-  /** Set your card hand.
+ * This player is defined by its name, gemCount, cardDeck and cardHand.
+ *
+ * @param name The identifier of a player.
+ * @param gemCount The number of gems of a player.
+ * @param cardDeck The card deck each player has.
+ * @param cardHand The card hand each player has.
+ *
+ * @constructor Creates a new player with the specified name, gemCount, cardDeck and cardHand.
+ *
+ * @author Constanza Pizarro
+ */
+class Player(val name: String, val gemCount: Int, val cardDeck: Deck, val cardHand: Hand) {
+  /** Sets your card hand by adding the quantity of cards you choose from the deck.
    *
-   * @param quantity The number of cards in your hand
+   * @param quantity The quantity of cards you draw from the deck.
    */
   def setHand(quantity: Int): Unit = cardHand.setHand(cardDeck, quantity)
-  /** Draw a card from your deck. */
-  def drawCard(): Unit = cardHand.setHand(cardDeck, 1)
-  /** Place a selected card from your hand on the board.
-   *
-   * param card the card you choose to put on the board.
+  /** Draws a card from your deck and puts it in your hand.
    */
-  //def playCard(card: Card): Unit = {
-    // posicionarla en el tablero y "eliminarla" de la mano
-
-  /** Compare a Player object with an object of any type.
+  def drawCard(): Unit = cardHand.setHand(cardDeck, 1)
+  /*
+  def playCard(card: Card): Unit = {
+    //posicionarla en el tablero y "eliminarla" de la mano
+  }
+  */
+  /** Compares a player with an object of any type.
    *
-   * @param obj object to compare.
+   * @param obj object to compare with this instance.
+   * @return true if the object and this instance are equal (structurally or referentially).
    */
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
