@@ -16,7 +16,7 @@ import java.util.Objects
  *
  * @example
  * {{{
- * val unitCard = new UnitCard("card1", "Close Combat", 20)
+ * val unitCard = new UnitCard("Ballista", "Siege", 6)
  * }}}
  *
  * @author Constanza Pizarro
@@ -34,7 +34,7 @@ class UnitCard(name: String, val classification: String, val strength: Int) exte
   /** Compares an unit card with an object of any type.
    *
    * @param obj object to compare with this instance.
-   * @return true if the object and this instance are equal (structurally or referentially)
+   * @return true if the object and this instance are equal (structurally or referentially).
    */
   override def equals(obj: Any): Boolean = obj match {
     case other: UnitCard =>
