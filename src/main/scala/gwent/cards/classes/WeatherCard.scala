@@ -27,9 +27,8 @@ class WeatherCard(name: String, val ability: String) extends AbstractCard(name){
    * @param obj The value being probed for possible equality.
    * @return true if this instance can possibly equal obj, otherwise false.
    */
-  override def canEqual(obj: Any): Boolean = {
+  override def canEqual(obj: Any): Boolean =
     obj.isInstanceOf[WeatherCard]
-  }
   /** Compares a weather card with an object of any type.
    *
    * @param obj object to compare with this instance.
@@ -46,9 +45,10 @@ class WeatherCard(name: String, val ability: String) extends AbstractCard(name){
    *
    * @return a hash code value for this weather card.
    */
-  override def hashCode(): Int = {
+  override def hashCode(): Int =
     Objects.hash(classOf[WeatherCard], name, ability)
-  }
-  /** Generates a string expressing the statistics of the weather card. */
-  override def toString = s"WeatherCard(name: $name, ability: $ability)"
+  /** Generates a string expressing the statistics of the weather card.
+   */
+  override def toString =
+    s"WeatherCard(name: $name, ability: $ability)"
 }

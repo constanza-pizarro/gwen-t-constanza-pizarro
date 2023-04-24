@@ -59,6 +59,7 @@ class DeckTest extends munit.FunSuite {
     val s1 = d1.set.size
     d1.drawCard()
     assertEquals(d1.set.size, s1-1)
+    d1.drawCard()
   }
 
   test("hashCode") {

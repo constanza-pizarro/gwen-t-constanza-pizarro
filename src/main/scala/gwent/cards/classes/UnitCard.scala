@@ -28,9 +28,8 @@ class UnitCard(name: String, val classification: String, val strength: Int) exte
    *  @param obj The value being probed for possible equality.
    *  @return true if this instance can possibly equal obj, otherwise false.
    */
-  override def canEqual(obj: Any): Boolean = {
+  override def canEqual(obj: Any): Boolean =
     obj.isInstanceOf[UnitCard]
-  }
   /** Compares a unit card with an object of any type.
    *
    * @param obj object to compare with this instance.
@@ -48,14 +47,12 @@ class UnitCard(name: String, val classification: String, val strength: Int) exte
    *
    *  @return a hash code value for this unit card.
    */
-  override def hashCode(): Int = {
+  override def hashCode(): Int =
     Objects.hash(classOf[UnitCard], name, classification, strength)
-  }
   /** Generates a string expressing the statistics of the unit card.
    *
    * @return A string showing the attributes of the unit card.
    */
-  override def toString: String = {
+  override def toString: String =
     s"UnitCard(name: $name, classification: $classification, strength: $strength)"
-  }
 }
