@@ -4,7 +4,7 @@ package gwent.cards.classes
 import gwent.cards.AbstractCard
 import java.util.Objects
 
-/** A class representing an unit card from the game.
+/** A class representing a unit card from the game.
  *
  * This card is defined by its name, classification and strength.
  *
@@ -31,7 +31,7 @@ class UnitCard(name: String, val classification: String, val strength: Int) exte
   override def canEqual(obj: Any): Boolean = {
     obj.isInstanceOf[UnitCard]
   }
-  /** Compares an unit card with an object of any type.
+  /** Compares a unit card with an object of any type.
    *
    * @param obj object to compare with this instance.
    * @return true if the object and this instance are equal (structurally or referentially).
