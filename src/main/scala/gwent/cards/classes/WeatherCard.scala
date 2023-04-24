@@ -30,7 +30,6 @@ class WeatherCard(name: String, val ability: String) extends AbstractCard(name){
   override def canEqual(obj: Any): Boolean = {
     obj.isInstanceOf[WeatherCard]
   }
-
   /** Compares a weather card with an object of any type.
    *
    * @param obj object to compare with this instance.
