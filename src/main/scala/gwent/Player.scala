@@ -14,6 +14,10 @@ import cards.Card
  * @param gemCounter The initial gem count for the player.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
+ * @param board The board the player is playing in.
+ * @param closeCombatZone The list of cards in the player's close combat zone.
+ * @param rangedCombatZone The list of cards in the player's ranged combat zone.
+ * @param siegeCombatZone The list of cards in the player's siege combat zone.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
