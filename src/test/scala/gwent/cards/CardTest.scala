@@ -1,8 +1,6 @@
 package cl.uchile.dcc
 package gwent.cards
 
-//import cl.uchile.dcc.gwent.cards.*
-
 class CardTest extends munit.FunSuite {
   val cc1 = new CloseCombatCard("Berserker",
                 "Transforms into a bear when a Mardroeme card is on its row.", 4)
