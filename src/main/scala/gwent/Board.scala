@@ -5,8 +5,8 @@ import gwent.Player
 import gwent.cards.Card
 /** Class representing a board in the Gwen't game.
  *
- * The boards has 2 symmetric sections, one for each player, each section is divided by
- * 3 zones or rows. The board also has a weather zone, shared by the players.
+ * The boards has 2 players, each one has their respective combat section defined on the Player class.
+ * The board also has a weather zone, shared by the players.
  *
  * @constructor Create a new board with 2 players.
  * @param player1 The player one of the game
