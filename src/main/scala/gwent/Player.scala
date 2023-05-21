@@ -1,47 +1,60 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.cards.ICard
-import cl.uchile.dcc.gwent.cardsets.classes.{Deck, Hand}
-
-/** A class representing a player from the game.
+import cards.Card
+/** Class representing a player in the Gwen't game.
  *
- * This player is defined by its name, gemCount, cardDeck and cardHand.
+ * Each player has a name, a gem counter, a deck of cards, and a hand of cards.
+ * The deck and hand are private variables, but can be accessed via their corresponding
+ * getter methods.
  *
- * @param name The identifier of a player.
- * @param gemCount The number of gems of a player.
- * @param cardDeck The card deck each player has.
- * @param cardHand The card hand each player has.
+ * @constructor Create a new player with a name, gem counter, deck, and hand.
+ * @param name The name of the player.
+ * @param gemCounter The initial gem count for the player.
+ * @param _deck The initial list of cards in the player's deck.
+ * @param _hand The initial list of cards in the player's hand.
  *
- * @constructor Creates a new player with the specified name, gemCount, cardDeck and cardHand.
- *
+ * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, val gemCount: Int, val cardDeck: Deck, val cardHand: Hand) {
-  /** Sets your card hand by adding the quantity of cards you choose from the deck.
+class Player(val name: String, var gemCounter: Int, private var _deck: List[Card],
+             private var _hand: List[Card]) {
+  /** Accessor method for the player's deck */
+  def deck: List[Card] = _deck
+  /** Accessor method for the player's hand */
+  def hand: List[Card] = _hand
+  /** Draws a card from the deck and adds it to the hand.
    *
-   * @param quantity The quantity of cards you draw from the deck.
+   * The top card from the deck is removed and added to the player's hand.
+   *
+   * @return The card that was drawn from the deck.
    */
-  def setHand(quantity: Int): Unit = cardHand.setHand(cardDeck, quantity)
-  /** Draws a card from your deck and puts it in your hand.
+  def drawCard(): Card = {
+    val card = deck.head
+    _deck = deck.tail
+    _hand = card :: hand
+    card
+  }
+  /** Shuffles the player's deck.
+   *
+   * The order of cards in the player's deck is randomized.
    */
-  def drawCard(): Unit = cardHand.setHand(cardDeck, 1)
-  /*
+  def shuffleDeck(): Unit = {
+    _deck = scala.util.Random.shuffle(_deck)
+  }
+  /* posicionarla en el tablero y sacarla de la mano
   def playCard(card: Card): Unit = {
-    //posicionarla en el tablero y "eliminarla" de la mano
+    assert _deck.contains(card)
+    _deck = _deck.filter(_!=card)
+    card.playCard()
   }
   */
-  /** Compares a player with an object of any type.
-   *
-   * @param obj object to compare with this instance.
-   * @return true if the object and this instance are equal (structurally or referentially).
-   */
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
-                      && gemCount == other.gemCount
-                      && cardDeck == other.cardDeck
-                      && cardHand == other.cardHand)
+                      && gemCounter == other.gemCounter
+                      && _deck == other._deck
+                      && _hand == other._hand)
     case _ => false
   }
 }
