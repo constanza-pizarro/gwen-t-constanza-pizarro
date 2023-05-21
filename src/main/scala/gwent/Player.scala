@@ -19,9 +19,9 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, var gemCounter: Int, private var _deck: List[Card],
-             private var _hand: List[Card], var closeCombatZone: List[Card]=List(),
-             var rangedCombatZone: List[Card]=List(), var siegeCombatZone: List[Card]=List(),
-             var board: Board) {
+             private var _hand: List[Card],  var board: Board,
+             var closeCombatZone: List[Card]=List(), var rangedCombatZone: List[Card]=List(),
+             var siegeCombatZone: List[Card]=List()) {
   require(gemCounter >= 0, "the gemCounter must be non-negative.")
   /** Accessor method for the player's deck */
   def deck: List[Card] = _deck
