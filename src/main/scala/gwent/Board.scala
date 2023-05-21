@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent.board
+package gwent
 
 import gwent.Player
 import gwent.cards.Card
@@ -11,14 +11,11 @@ import gwent.cards.Card
  * @constructor Create a new board with 2 players.
  * @param player1 The player one of the game
  * @param player2 The player two of the game
+ * @param weatherZone The weather zone shared by the players
  *
  * @author Constanza Pizarro
  */
-class Board(val player1: Player, val player2: Player) {
-  //considerando que cada jugador tiene zona de cc, rc, sc y weather
-  
-  
-  
-  
-
+class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
+  player1.board = this
+  player2.board = this
 }
