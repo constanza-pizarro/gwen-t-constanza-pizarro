@@ -46,6 +46,11 @@ class Player(val name: String, var gemCounter: Int, private var _deck: List[Card
   def shuffleDeck(): Unit = {
     _deck = scala.util.Random.shuffle(_deck)
   }
+  def playCard(card: Card): Unit = {
+    require(_hand.contains(card), "the card must be on the player's hand.")
+    _hand = _hand.filter(_ != card)
+    board.playCard(this, card)
+  }
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
