@@ -25,22 +25,30 @@ class PlayerTest extends munit.FunSuite {
   val d2: List[Card] = List(cc2, rc2, rc1, sc2, sc1, wc2)
 
   val h1: List[Card] = List(sc2, wc2)
-  val h2: List[Card] = List(cc1, wc1)
+  val h2: List[Card] = List(cc1, wc1, rc1)
 
   var p1: Player = _
   var p2: Player = _
 
+  var board: Board = _
+
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1", 3, d1, h1)
-    p2 = new Player("player2", 3, d2, h2)
+    p1 = new Player("player1", 2, d1, h1, board)
+    p2 = new Player("player2", 2, d2, h2, board)
+    board = new Board(p1, p2)
   }
 
   test("well defined player") {
     assertEquals(p1.name, "player1")
-    assertEquals(p1.gemCounter, 3)
+    assertEquals(p1.gemCounter, 2)
     assertEquals(p1.deck, d1)
     assertEquals(p1.hand, h1)
+    assertEquals(p1.board, board)
+    assertEquals(p1.closeCombatZone, List())
+    assertEquals(p1.rangedCombatZone, List())
+    assertEquals(p1.siegeCombatZone, List())
 
+    assertEquals(p1.board, p2.board)
     p1.shuffleDeck()
     p2.shuffleDeck()
     p2.deck == d2
@@ -53,11 +61,18 @@ class PlayerTest extends munit.FunSuite {
     println(d2)
   }
 
+  test("play card") {
+    p1.playCard(sc2)
+    p1.playCard(wc2)
+    p2.playCard(cc1)
+    p2.playCard(rc1)
+    p1.playCard(cc1) //tira exception porque la carta no está en la mano
+  }
   test("equals") {
     assertEquals(p1, p1)
     assertEquals(p2, p2)
-    assertEquals(p1, new Player("player1", 3, d1, h1))
-    assertEquals(p2, new Player("player2", 3, d2, h2))
+    assertEquals(p1, new Player("player1", 2, d1, h1, board))
+    assertEquals(p2, new Player("player2", 2, d2, h2, board))
 
     assert(!p1.equals(cc1))
   }
