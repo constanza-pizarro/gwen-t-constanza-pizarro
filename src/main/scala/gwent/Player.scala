@@ -50,6 +50,10 @@ class Player(val name: String, var gemCounter: Int, private var _deck: List[Card
   def shuffleDeck(): Unit = {
     _deck = scala.util.Random.shuffle(_deck)
   }
+  /** Plays the given card.
+   *
+   * Draws the card from the hand and puts it on its respective zone of the board.
+   */
   def playCard(card: Card): Unit = {
     require(_hand.contains(card), "the card must be on the player's hand.")
     _hand = _hand.filter(_ != card)
