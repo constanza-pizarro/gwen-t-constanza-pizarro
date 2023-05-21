@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import cards.Card
+
 /** Class representing a player in the Gwen't game.
  *
  * Each player has a name, a gem counter, a deck of cards, and a hand of cards.
@@ -18,7 +19,10 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, var gemCounter: Int, private var _deck: List[Card],
-             private var _hand: List[Card]) {
+             private var _hand: List[Card], var closeCombatZone: List[Card]=List(),
+             var rangedCombatZone: List[Card]=List(), var siegeCombatZone: List[Card]=List(),
+             var board: Board) {
+  require(gemCounter >= 0, "the gemCounter must be non-negative.")
   /** Accessor method for the player's deck */
   def deck: List[Card] = _deck
   /** Accessor method for the player's hand */
@@ -42,13 +46,6 @@ class Player(val name: String, var gemCounter: Int, private var _deck: List[Card
   def shuffleDeck(): Unit = {
     _deck = scala.util.Random.shuffle(_deck)
   }
-  /* posicionarla en el tablero y sacarla de la mano
-  def playCard(card: Card): Unit = {
-    assert _deck.contains(card)
-    _deck = _deck.filter(_!=card)
-    card.playCard()
-  }
-  */
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
