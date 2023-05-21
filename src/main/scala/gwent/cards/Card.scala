@@ -17,7 +17,7 @@ trait Card {
    * This is an immutable property.
    */
   val description: String
-  /** Puts the card on its section of the board
+  /** Puts the card on its respective section of the board
    * */
   def playCard(board: Board, player: Player): Unit
 }
