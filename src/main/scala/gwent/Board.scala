@@ -18,4 +18,8 @@ import gwent.cards.Card
 class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
   player1.board = this
   player2.board = this
+  def playCard(player: Player, card: Card): Unit = {
+    require(player.equals(player1) || player.equals(player2), "the player must be on this game.")
+    card.playCard(this, player)
+  }
 }
