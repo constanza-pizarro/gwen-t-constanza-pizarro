@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import cl.uchile.dcc.gwent.{Board, Player}
 import java.util.Objects
+
 /** Abstract class representing a unit card in the Gwen't game.
  *
  * An `AbstractUnitCard` is a type of [[Card]] that has a power value which contributes to
