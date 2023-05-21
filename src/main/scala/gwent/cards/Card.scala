@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import gwent.{Board, Player}
+
 /**
  * Represents the common structure of a card in the game.
  *
@@ -15,5 +17,5 @@ trait Card {
    * This is an immutable property.
    */
   val description: String
-  //def playCard(): Unit
+  def playCard(board: Board, player: Player): Unit
 }
