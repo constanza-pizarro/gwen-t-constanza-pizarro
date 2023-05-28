@@ -28,11 +28,12 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
    * Initially set to the base [[power]] of the card.
    */
   var currentPower: Int = power
+  /** Plays the card as an unit card. */
   override def playCard(player: Player): Unit = {
     this.playUnitCard(player)
   }
-  def playUnitCard(player: Player): Unit =
-    require(player.hand.nonEmpty, "the player's hand must not be empty")
+  /** Puts the unit card in its respective section of the board. */
+  def playUnitCard(player: Player): Unit 
   override def equals(obj: Any): Boolean = obj match {
     case other: AbstractUnitCard =>
       (this eq other) ||
