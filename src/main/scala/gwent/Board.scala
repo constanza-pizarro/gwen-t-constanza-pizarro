@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.Player
 import gwent.cards.Card
+
 /** Class representing a board in the Gwen't game.
  *
  * The boards has 2 players, each one has their respective combat section defined on the Player class.
@@ -16,14 +16,7 @@ import gwent.cards.Card
  * @author Constanza Pizarro
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
+  require(player1.name!=player2.name, "the players must be different.")
   player1.board = this
   player2.board = this
-  /** The given player plays the given card.
-   *
-   * Checks if the player is on the current game and plays the card.
-   * */
-  def playCard(player: Player, card: Card): Unit = {
-    require(player.equals(player1) || player.equals(player2), "the player must be on this game.")
-    card.playCard(this, player)
-  }
 }
