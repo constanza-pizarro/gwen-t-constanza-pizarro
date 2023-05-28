@@ -15,17 +15,12 @@ import cards.Card
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
  * @param board The board the player is playing in.
- * @param closeCombatZone The list of cards in the player's close combat zone.
- * @param rangedCombatZone The list of cards in the player's ranged combat zone.
- * @param siegeCombatZone The list of cards in the player's siege combat zone.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, private var _gemCounter: Int, private var _deck: List[Card],
-             private var _hand: List[Card],  var board: Board,
-             var closeCombatZone: List[Card]=List(), var rangedCombatZone: List[Card]=List(),
-             var siegeCombatZone: List[Card]=List()) {
+class Player(val name: String, var section: Section, private var _gemCounter: Int,
+             private var _deck: List[Card], private var _hand: List[Card], var board: Board = null) {
   require(gemCounter>=0, "the gemCounter must be non-negative.")
   /** Accessor method for the player's gem counter */
   def gemCounter: Int = _gemCounter
@@ -64,7 +59,7 @@ class Player(val name: String, private var _gemCounter: Int, private var _deck: 
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
-                      && gemCounter == other.gemCounter
+                      && _gemCounter == other._gemCounter
                       && _deck == other._deck
                       && _hand == other._hand)
     case _ => false
