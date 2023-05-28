@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.Section
+import gwent.*
 import java.util.Objects
 
 /** Class representing a weather card in the Gwen't game.
@@ -18,19 +18,14 @@ import java.util.Objects
  * @author Constanza Pizarro
  */
 class WeatherCard(val name: String, val description: String) extends Card {
-  override def playCard(section: Section): Section = {
-   playWeatherCard(section)
-  }
+  override def playCard(section: Section, board: Board): Unit =
+    playWeatherCard(board)
   /** Puts the weather card on the weather zone of the board the player's playing in.
    *
    * @return The section with the added weather card.
    */
-  def playWeatherCard(section: Section): Section = {
-    var zone: List[Card] = section.board.weatherZone
-    require(zone.isEmpty, "only one weather card can be placed on the board")
-    section.board.weatherZone = this :: zone
-    section
-  }
+  def playWeatherCard(board: Board): Unit =
+    board.playWeatherCard(this)
   override def equals(obj: Any): Boolean = obj match {
     case other: WeatherCard =>
       (this eq other) || name == other.name && description == other.description

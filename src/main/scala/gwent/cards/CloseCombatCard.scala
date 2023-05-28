@@ -22,11 +22,8 @@ import java.util.Objects
  */
 class CloseCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
-  override def playUnitCard(section: Section): Section = {
-    val zone: List[Card] = section.closeCombatZone
-    section.closeCombatZone = this :: zone
-    section
-  }
+  override def playUnitCard(section: Section): Unit =
+    section.playCloseCombatCard(this)
   override def equals(obj: Any): Boolean = obj match {
     case other: CloseCombatCard =>
       super.equals(other)

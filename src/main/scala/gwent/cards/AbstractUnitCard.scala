@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import cl.uchile.dcc.gwent.Section
+import gwent.*
 import java.util.Objects
 
 /** Abstract class representing a unit card in the Gwen't game.
@@ -28,14 +28,13 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
    * Initially set to the base [[power]] of the card.
    */
   var currentPower: Int = power
-  override def playCard(section: Section): Section = {
+  override def playCard(section: Section, board: Board): Unit =
     this.playUnitCard(section)
-  }
   /** Puts the unit card in its respective section of the board.
    *
    * @return The section with the added unit card.
    */
-  def playUnitCard(section: Section): Section
+  def playUnitCard(section: Section): Unit
   override def equals(obj: Any): Boolean = obj match {
     case other: AbstractUnitCard =>
       (this eq other) ||

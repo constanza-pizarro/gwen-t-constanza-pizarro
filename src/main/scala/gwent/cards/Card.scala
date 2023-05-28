@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.Section
+import gwent.*
 
 /**
  * Represents the common structure of a card in the game.
@@ -21,5 +21,5 @@ trait Card {
    *
    * @return The section with the added card.
    */
-  def playCard(section: Section): Section
+  def playCard(section: Section, board: Board): Unit
 }
