@@ -59,6 +59,7 @@ class Player(val name: String, var section: Section, private var _gemCounter: In
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
+                      && section == other.section
                       && _gemCounter == other._gemCounter
                       && _deck == other._deck
                       && _hand == other._hand)
