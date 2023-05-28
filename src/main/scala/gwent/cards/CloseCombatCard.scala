@@ -23,7 +23,6 @@ import java.util.Objects
 class CloseCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
   override def playUnitCard(player: Player): Unit = {
-    super.playUnitCard(player)
     val zone = player.section.closeCombatZone
     player.section.closeCombatZone = this :: zone
   }

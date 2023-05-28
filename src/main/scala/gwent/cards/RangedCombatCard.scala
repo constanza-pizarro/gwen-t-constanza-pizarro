@@ -22,7 +22,6 @@ import java.util.Objects
 class RangedCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
   override def playUnitCard(player: Player): Unit = {
-    super.playUnitCard(player)
     val zone = player.section.rangedCombatZone
     player.section.rangedCombatZone = this :: zone
   }
