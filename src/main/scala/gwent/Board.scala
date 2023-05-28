@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.cards.Card
+import gwent.cards.{Card, WeatherCard}
 
 /** Class representing a board in the Gwen't game.
  *
@@ -17,6 +17,8 @@ import gwent.cards.Card
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
   require(player1.name!=player2.name, "the players must be different.")
-  player1.section.board = this
-  player2.section.board = this
+  def playWeatherCard(wCard: WeatherCard): Unit = {
+    require(weatherZone.isEmpty, "only one weather card can be placed on the board")
+    weatherZone = wCard :: weatherZone
+  }
 }
