@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import cl.uchile.dcc.gwent.{Board, Player}
+import cl.uchile.dcc.gwent.Player
 import java.util.Objects
 
 /** Class representing a ranged combat unit card in the Gwen't game.
@@ -21,10 +21,10 @@ import java.util.Objects
  */
 class RangedCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
-  override def playCard(board: Board, player: Player): Unit = {
-    require(player.hand.nonEmpty, "the player's hand must not be empty")
-    val zone = player.rangedCombatZone
-    player.rangedCombatZone = this :: zone
+  override def playUnitCard(player: Player): Unit = {
+    super.playUnitCard(player)
+    val zone = player.section.rangedCombatZone
+    player.section.rangedCombatZone = this :: zone
   }
   override def equals(obj: Any): Boolean = obj match {
     case other: RangedCombatCard =>
