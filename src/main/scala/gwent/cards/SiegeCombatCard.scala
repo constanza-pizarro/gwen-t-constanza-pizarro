@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import cl.uchile.dcc.gwent.Player
+import cl.uchile.dcc.gwent.Section
 import java.util.Objects
 
 /** Class representing a siege combat unit card in the Gwen't game.
@@ -21,9 +21,10 @@ import java.util.Objects
  */
 class SiegeCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
-  override def playUnitCard(player: Player): Unit = {
-    val zone = player.section.siegeCombatZone
-    player.section.siegeCombatZone = this :: zone
+  override def playUnitCard(section: Section): Section = {
+    val zone: List[Card] = section.siegeCombatZone
+    section.siegeCombatZone = this :: zone
+    section
   }
   override def equals(obj: Any): Boolean = obj match {
     case other: SiegeCombatCard =>
