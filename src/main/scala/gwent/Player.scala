@@ -11,7 +11,7 @@ import cards.Card
  *
  * @constructor Create a new player with a name, gem counter, deck, and hand.
  * @param name The name of the player.
- * @param gemCounter The initial gem count for the player.
+ * @param _gemCounter The initial gem count for the player.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
  * @param board The board the player is playing in.
