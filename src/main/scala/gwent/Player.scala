@@ -20,7 +20,9 @@ import cards.Card
  */
 class Player(val name: String, private var _section: Section,
              private var _deck: List[Card]=List(), private var _hand: List[Card]=List()) {
-  /** The gem count for the player */
+  /** The current gems of the player.
+   * Initially set to 2.
+   */
   private var _gemCounter = 2
   /** Accessor method for the player's section */
   def section: Section = {
