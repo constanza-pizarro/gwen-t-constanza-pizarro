@@ -29,11 +29,12 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
    * Initially set to the base [[power]] of the card.
    */
   var currentPower: Int = power
-  /** Plays the card as an unit card. */
   override def playCard(section: Section): Section = {
     this.playUnitCard(section)
   }
-  /** Puts the unit card in its respective section of the board. */
+  /** Puts the unit card in its respective section of the board.
+   *
+   * @return the section with the added unit card. */
   def playUnitCard(section: Section): Section
   override def equals(obj: Any): Boolean = obj match {
     case other: AbstractUnitCard =>
