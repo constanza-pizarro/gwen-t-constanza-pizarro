@@ -5,12 +5,14 @@ import cards.Card
 
 /** Class representing a player in the Gwen't game.
  *
- * Each player has a name, a gem counter, a deck of cards, and a hand of cards.
- * The deck and hand are private variables, but can be accessed via their corresponding
+ * Each player has a name, a section, a gem counter, a deck of cards and a hand of cards
+ * and belongs to a table.
+ * The gem counter, deck and hand are private variables, but can be accessed via their corresponding
  * getter methods.
  *
- * @constructor Create a new player with a name, gem counter, deck, and hand.
+ * @constructor Create a new player with a name, section, gem counter, deck, hand and board.
  * @param name The name of the player.
+ * @param section The player's unit section.
  * @param _gemCounter The initial gem count for the player.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
