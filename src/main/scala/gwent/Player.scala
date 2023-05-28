@@ -22,11 +22,13 @@ import cards.Card
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, var gemCounter: Int, private var _deck: List[Card],
+class Player(val name: String, private var _gemCounter: Int, private var _deck: List[Card],
              private var _hand: List[Card],  var board: Board,
              var closeCombatZone: List[Card]=List(), var rangedCombatZone: List[Card]=List(),
              var siegeCombatZone: List[Card]=List()) {
-  require(gemCounter >= 0, "the gemCounter must be non-negative.")
+  require(gemCounter>=0, "the gemCounter must be non-negative.")
+  /** Accessor method for the player's gem counter */
+  def gemCounter: Int = _gemCounter
   /** Accessor method for the player's deck */
   def deck: List[Card] = _deck
   /** Accessor method for the player's hand */
