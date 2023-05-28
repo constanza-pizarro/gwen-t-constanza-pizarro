@@ -20,7 +20,7 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, var section: Section, private var _gemCounter: Int,
-             private var _deck: List[Card], private var _hand: List[Card]) {
+             private var _deck: List[Card]=List(), private var _hand: List[Card]=List()) {
   require(gemCounter>=0, "the gemCounter must be non-negative.")
   /** Accessor method for the player's gem counter */
   def gemCounter: Int = _gemCounter
