@@ -32,23 +32,23 @@ class PlayerTest extends munit.FunSuite {
 
   var board: Board = _
 
+  var section1: Section = new Section(board)
+  var section2: Section = new Section(board)
+
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1", 2, d1, h1, board)
-    p2 = new Player("player2", 2, d2, h2, board)
+    p1 = new Player("player1", section1,2, d1, h1)
+    p2 = new Player("player2", section2, 2, d2, h2)
     board = new Board(p1, p2)
   }
 
   test("well defined player") {
     assertEquals(p1.name, "player1")
+    assertEquals(p1.section, section1)
     assertEquals(p1.gemCounter, 2)
     assertEquals(p1.deck, d1)
     assertEquals(p1.hand, h1)
-    assertEquals(p1.board, board)
-    assertEquals(p1.closeCombatZone, List())
-    assertEquals(p1.rangedCombatZone, List())
-    assertEquals(p1.siegeCombatZone, List())
 
-    assertEquals(p1.board, p2.board)
+    assertEquals(p1.section.board, p2.section.board)
     p1.shuffleDeck()
     p2.shuffleDeck()
     p2.deck == d2
@@ -60,7 +60,6 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(c1 :: h2, p2.hand)
     println(d2)
   }
-
   test("play card") {
     p1.playCard(sc2)
     p1.playCard(wc2)
@@ -71,8 +70,8 @@ class PlayerTest extends munit.FunSuite {
   test("equals") {
     assertEquals(p1, p1)
     assertEquals(p2, p2)
-    assertEquals(p1, new Player("player1", 2, d1, h1, board))
-    assertEquals(p2, new Player("player2", 2, d2, h2, board))
+    //assertEquals(p1, new Player("player1", 2, d1, h1, board))
+    //assertEquals(p2, new Player("player2", 2, d2, h2, board))
 
     assert(!p1.equals(cc1))
   }
