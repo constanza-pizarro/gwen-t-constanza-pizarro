@@ -21,7 +21,9 @@ class WeatherCard(val name: String, val description: String) extends Card {
   override def playCard(section: Section): Section = {
    playWeatherCard(section)
   }
-  /** Puts the weather card on the weather zone of the board the player's playing in. */
+  /** Puts the weather card on the weather zone of the board the player's playing in.
+   *
+   * @return the section with the added weather card. */
   def playWeatherCard(section: Section): Section = {
     var zone: List[Card] = section.board.weatherZone
     require(zone.isEmpty, "only one weather card can be placed on the board")
