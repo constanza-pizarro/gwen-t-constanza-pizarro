@@ -18,12 +18,15 @@ import java.util.Objects
 class Section(var closeCombatZone: List[Card] = List(),
               var rangedCombatZone: List[Card] = List(),
               var siegeCombatZone: List[Card] = List()) {
+  /** Adds a close combat card to the close combat zone. */
   def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
     closeCombatZone = ccCard :: closeCombatZone
   }
+  /** Adds a ranged combat card to the ranged combat zone. */
   def playRangedCombatCard(rcCard: RangedCombatCard): Unit = {
     rangedCombatZone = rcCard :: rangedCombatZone
   }
+  /** Adds a siege combat card to the siege combat zone. */
   def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
     siegeCombatZone = scCard :: siegeCombatZone
   }
