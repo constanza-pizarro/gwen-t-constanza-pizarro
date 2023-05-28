@@ -8,7 +8,7 @@ import gwent.cards.Card
  * The boards has 2 players, each one has their respective combat section defined on the Player class.
  * The board also has a weather zone, shared by the players.
  *
- * @constructor Create a new board with 2 players.
+ * @constructor Create a new board with 2 players and a weather zone.
  * @param player1 The player one of the game
  * @param player2 The player two of the game
  * @param weatherZone The weather zone shared by the players
