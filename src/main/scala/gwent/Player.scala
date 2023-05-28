@@ -5,24 +5,22 @@ import cards.Card
 
 /** Class representing a player in the Gwen't game.
  *
- * Each player has a name, a section, a gem counter, a deck of cards and a hand of cards
- * and belongs to a table.
+ * Each player has a name, a section, a gem counter, a deck of cards and a hand of cards..
  * The gem counter, deck and hand are private variables, but can be accessed via their corresponding
  * getter methods.
  *
- * @constructor Create a new player with a name, section, gem counter, deck, hand and board.
+ * @constructor Create a new player with a name, section, gem counter, deck and hand.
  * @param name The name of the player.
  * @param section The player's unit section.
  * @param _gemCounter The initial gem count for the player.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
- * @param board The board the player is playing in.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
 class Player(val name: String, var section: Section, private var _gemCounter: Int,
-             private var _deck: List[Card], private var _hand: List[Card], var board: Board = null) {
+             private var _deck: List[Card], private var _hand: List[Card]) {
   require(gemCounter>=0, "the gemCounter must be non-negative.")
   /** Accessor method for the player's gem counter */
   def gemCounter: Int = _gemCounter
@@ -56,7 +54,7 @@ class Player(val name: String, var section: Section, private var _gemCounter: In
   def playCard(card: Card): Unit = {
     require(_hand.contains(card), "the card must be on the player's hand.")
     _hand = _hand.filter(_ != card)
-    card.playCard(this)
+    section = card.playCard(section)
   }
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
