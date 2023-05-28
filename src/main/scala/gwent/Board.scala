@@ -17,6 +17,6 @@ import gwent.cards.Card
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
   require(player1.name!=player2.name, "the players must be different.")
-  player1.board = this
-  player2.board = this
+  player1.section.board = this
+  player2.section.board = this
 }
