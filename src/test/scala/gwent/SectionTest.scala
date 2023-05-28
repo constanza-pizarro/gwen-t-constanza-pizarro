@@ -28,17 +28,15 @@ class SectionTest extends munit.FunSuite {
   val h2: List[Card] = List(cc1, wc1, rc1)
 
   var board: Board = _
+  val s1: Section = new Section()
+  val s2: Section = new Section()
 
-  val s1: Section = new Section(board)
-  val s2: Section = new Section(board)
-
-  val p1 = new Player("player1", s1, 2, d1, h1)
-  val p2 = new Player("player2", s2, 2, d2, h2)
+  val p1 = new Player("player1", s1, d1, h1)
+  val p2 = new Player("player2", s2, d2, h2)
   board = new Board(p1, p2)
-  p2.playCard(cc1)
+  p2.playCard(cc1, board)
 
   test("well defined section and board") {
-    assertEquals(s1.board, board)
     assertEquals(s1.closeCombatZone, List())
     assertEquals(s1.rangedCombatZone, List())
     assertEquals(s1.siegeCombatZone, List())
@@ -48,5 +46,10 @@ class SectionTest extends munit.FunSuite {
     assertEquals(board.player1, p1)
     assertEquals(board.player2, p2)
     assertEquals(board.weatherZone, List())
+  }
+
+  test("equals") {
+    assertEquals(s1, new Section())
+    assert(!s1.equals(p1))
   }
 }

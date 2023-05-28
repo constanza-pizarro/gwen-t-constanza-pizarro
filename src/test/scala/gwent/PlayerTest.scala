@@ -30,11 +30,11 @@ class PlayerTest extends munit.FunSuite {
 
   var board: Board = _
 
-  val s1: Section = new Section(board)
+  var s1: Section = new Section()
 
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1", s1,2)
-    p2 = new Player("player2", s1, 2, d2, h2)
+    p1 = new Player("player1", s1)
+    p2 = new Player("player2", s1, d2, h2)
     board = new Board(p1, p2)
   }
 
@@ -42,12 +42,13 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(p1.name, "player1")
     assertEquals(p1.section, s1)
     assertEquals(p1.gemCounter, 2)
+    p1.loseGem()
+    assertEquals(p1.gemCounter,1)
     assertEquals(p1.deck, List())
     assertEquals(p2.deck, d2)
     assertEquals(p1.hand, List())
     assertEquals(p2.hand, h2)
 
-    assertEquals(p1.section.board, p2.section.board)
     p2.shuffleDeck()
     p2.deck == d2
 
@@ -60,17 +61,17 @@ class PlayerTest extends munit.FunSuite {
   }
 
   test("play card") {
-    p2.playCard(cc1)
-    p2.playCard(wc1)
-    p2.playCard(rc1)
-    p2.playCard(sc1)
+    p2.playCard(cc1, board)
+    p2.playCard(wc1, board)
+    p2.playCard(rc1, board)
+    p2.playCard(sc1, board)
   }
 
   test("equals") {
     assertEquals(p1, p1)
     assertEquals(p2, p2)
-    assertEquals(p1, new Player("player1", s1,2))
-    assertEquals(p2, new Player("player2", s1,2, d2, h2))
+    assertEquals(p1, new Player("player1", s1))
+    assertEquals(p2, new Player("player2", s1, d2, h2))
 
     assert(!p1.equals(cc1))
   }
