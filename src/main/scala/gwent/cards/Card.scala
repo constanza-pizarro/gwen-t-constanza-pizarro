@@ -18,6 +18,8 @@ trait Card {
    */
   val description: String
   /** Puts the card on its respective section of the board.
+   *
+   * @return the section with the added card.
    */
   def playCard(section: Section): Section
 }
