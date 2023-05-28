@@ -54,7 +54,7 @@ class Player(val name: String, var section: Section, private var _gemCounter: In
   def playCard(card: Card): Unit = {
     require(_hand.contains(card), "the card must be on the player's hand.")
     _hand = _hand.filter(_ != card)
-    board.playCard(this, card)
+    card.playCard(this)
   }
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
