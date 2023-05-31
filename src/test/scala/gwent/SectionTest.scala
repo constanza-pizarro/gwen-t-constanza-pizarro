@@ -34,7 +34,7 @@ class SectionTest extends munit.FunSuite {
   val p1 = new Player("player1", s1, d1, h1)
   val p2 = new Player("player2", s2, d2, h2)
   board = new Board(p1, p2)
-  p2.playCard(cc1, board)
+  board.playCard(p2, cc1)
 
   test("well defined section and board") {
     assertEquals(s1.closeCombatZone, List())
