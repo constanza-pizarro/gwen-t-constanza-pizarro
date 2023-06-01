@@ -18,11 +18,11 @@ import gwent.cards.{Card, WeatherCard}
 class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
   require(player1.name!=player2.name, "the players must be different.")
   def playCard(player: Player, card: Card): Unit = {
-    require(player==player1 || player==player2, "the player must be on the board")
+    require(player==player1 || player==player2, "the player must be on the board.")
     player.playCard(card, this)
   }
   def playWeatherCard(wCard: WeatherCard): Unit = {
-    require(weatherZone.isEmpty, "only one weather card can be placed on the board")
+    require(weatherZone.isEmpty, "only one weather card can be placed on the board.")
     weatherZone = wCard :: weatherZone
   }
 }
