@@ -27,9 +27,6 @@ class CloseCombatCard(name: String, description: String, power: Int)
   override def canEqual(that: Any): Boolean = {
     that.isInstanceOf[CloseCombatCard]
   }
-  override def equals(obj: Any): Boolean = {
-    super.equals(obj)
-  }
   override def hashCode(): Int =
     Objects.hash(classOf[CloseCombatCard], name, description, power)
   override def toString =

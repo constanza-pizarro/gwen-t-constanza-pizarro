@@ -26,9 +26,6 @@ class RangedCombatCard(name: String, description: String, power: Int)
   override def canEqual(that: Any): Boolean = {
     that.isInstanceOf[RangedCombatCard]
   }
-  override def equals(obj: Any): Boolean = {
-    super.equals(obj)
-  }
   override def hashCode(): Int =
     Objects.hash(classOf[RangedCombatCard], name, description, power)
   override def toString =
