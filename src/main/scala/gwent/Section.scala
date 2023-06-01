@@ -17,7 +17,7 @@ import java.util.Objects
  */
 class Section(var closeCombatZone: List[CloseCombatCard] = List(),
               var rangedCombatZone: List[RangedCombatCard] = List(),
-              var siegeCombatZone: List[SiegeCombatCard] = List()) {
+              var siegeCombatZone: List[SiegeCombatCard] = List()) extends Equals {
   /** Adds a close combat card to the close combat zone. */
   def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
     closeCombatZone = ccCard :: closeCombatZone
@@ -30,12 +30,18 @@ class Section(var closeCombatZone: List[CloseCombatCard] = List(),
   def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
     siegeCombatZone = scCard :: siegeCombatZone
   }
-  override def equals(obj: Any): Boolean = obj match {
-    case other: Section =>
+  override def canEqual(that: Any): Boolean = {
+    that.isInstanceOf[Section]
+  }
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[Section]
       (this eq other) || (closeCombatZone == other.closeCombatZone
         && rangedCombatZone == other.rangedCombatZone
         && siegeCombatZone == other.siegeCombatZone)
-    case _ => false
+    } else {
+      false
+    }
   }
   override def hashCode(): Int =
     Objects.hash(classOf[Section], closeCombatZone, rangedCombatZone, siegeCombatZone)
