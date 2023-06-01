@@ -73,7 +73,7 @@ class Player(val name: String, private var _section: Section = new Section(),
    * Draws the card from the hand and puts it on its respective zone of the board.
    */
   def playCard(card: Card, board: Board): Unit = {
-    require(_hand.contains(card), "the card must be on the player's hand")
+    require(_hand.contains(card), "the card must be on the player's hand.")
     _hand = _hand.filterNot(_ eq card)
     card.playCard(board, section)
   }
