@@ -21,10 +21,7 @@ class WeatherCard(val name: String, val description: String) extends Card with E
   override def playCard(section: Section, board: Board): Unit = {
     playWeatherCard(board)
   }
-  /** Puts the weather card on the weather zone of the board the player's playing in.
-   *
-   * @return The section with the added weather card.
-   */
+  /** Puts the weather card on the weather zone of the board the player's playing in. */
   def playWeatherCard(board: Board): Unit = {
     board.playWeatherCard(this)
   }
