@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.*
+import gwent.{Board, Section}
 import java.util.Objects
 
 /** Class representing a weather card in the Gwen't game.
@@ -17,20 +17,28 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class WeatherCard(val name: String, val description: String) extends Card {
-  override def playCard(section: Section, board: Board): Unit =
+class WeatherCard(val name: String, val description: String) extends Card with Equals {
+  override def playCard(section: Section, board: Board): Unit = {
     playWeatherCard(board)
+  }
   /** Puts the weather card on the weather zone of the board the player's playing in.
    *
    * @return The section with the added weather card.
    */
-  def playWeatherCard(board: Board): Unit =
+  def playWeatherCard(board: Board): Unit = {
     board.playWeatherCard(this)
-  override def equals(obj: Any): Boolean = obj match {
-    case other: WeatherCard =>
-      (this eq other) || name == other.name && description == other.description
-    case _ =>
+  }
+  override def canEqual(that: Any): Boolean = {
+    that.isInstanceOf[WeatherCard]
+  }
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[WeatherCard]
+      (this eq other) || (name == other.name
+        && description == other.description)
+    } else {
       false
+    }
   }
   override def hashCode(): Int =
     Objects.hash(classOf[WeatherCard], name, description)
