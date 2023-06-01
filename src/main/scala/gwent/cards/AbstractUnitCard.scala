@@ -28,7 +28,7 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
    * Initially set to the base [[power]] of the card.
    */
   var currentPower: Int = power
-  override def playCard(section: Section, board: Board): Unit =
+  override def playCard(board: Board, section: Section): Unit =
     this.playUnitCard(section)
   /** Puts the unit card in its respective section of the board. */
   def playUnitCard(section: Section): Unit

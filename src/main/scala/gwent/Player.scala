@@ -18,7 +18,7 @@ import cards.Card
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, private var _section: Section,
+class Player(val name: String, private var _section: Section = new Section(),
              private var _deck: List[Card]=List(), private var _hand: List[Card]=List()) {
   /** The current gems of the player.
    * Initially set to 2.
@@ -73,9 +73,9 @@ class Player(val name: String, private var _section: Section,
    * Draws the card from the hand and puts it on its respective zone of the board.
    */
   def playCard(card: Card, board: Board): Unit = {
-    require(_hand.contains(card), "the card must be on the player's hand.")
+    require(_hand.contains(card), "the card must be on the player's hand")
     _hand = _hand.filterNot(_ eq card)
-    card.playCard(section, board)
+    card.playCard(board, section)
   }
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
