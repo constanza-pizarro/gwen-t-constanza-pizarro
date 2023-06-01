@@ -15,9 +15,9 @@ import java.util.Objects
  *
  * @author Constanza Pizarro
  */
-class Section(var closeCombatZone: List[Card] = List(),
-              var rangedCombatZone: List[Card] = List(),
-              var siegeCombatZone: List[Card] = List()) {
+class Section(var closeCombatZone: List[CloseCombatCard] = List(),
+              var rangedCombatZone: List[RangedCombatCard] = List(),
+              var siegeCombatZone: List[SiegeCombatCard] = List()) {
   /** Adds a close combat card to the close combat zone. */
   def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
     closeCombatZone = ccCard :: closeCombatZone
