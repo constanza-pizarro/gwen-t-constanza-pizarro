@@ -9,26 +9,41 @@ import java.util.Objects
  * Each section has Close, Ranged and Siege combat zones.
  *
  * @constructor Create a new section with Close, Ranged and Siege combat zones
- * @param closeCombatZone The list of cards in the close combat zone.
- * @param rangedCombatZone The list of cards in the ranged combat zone.
- * @param siegeCombatZone The list of cards in the siege combat zone.
+ * @param _closeCombatZone The list of cards in the close combat zone.
+ * @param _rangedCombatZone The list of cards in the ranged combat zone.
+ * @param _siegeCombatZone The list of cards in the siege combat zone.
  *
  * @author Constanza Pizarro
  */
-class Section(var closeCombatZone: List[CloseCombatCard] = List(),
-              var rangedCombatZone: List[RangedCombatCard] = List(),
-              var siegeCombatZone: List[SiegeCombatCard] = List()) extends Equals {
+class Section(private var _closeCombatZone: List[CloseCombatCard] = List(),
+              private var _rangedCombatZone: List[RangedCombatCard] = List(),
+              private var _siegeCombatZone: List[SiegeCombatCard] = List()) extends Equals {
+  /** Accessor method for the section's close combat zone */
+  def closeCombatZone: List[CloseCombatCard] = {
+    val ccCopy = _closeCombatZone
+    ccCopy
+  }
+  /** Accessor method for the section's ranged combat zone */
+  def rangedCombatZone: List[RangedCombatCard] = {
+    val rcCopy = _rangedCombatZone
+    rcCopy
+  }
+  /** Accessor method for the section's siege combat zone */
+  def siegeCombatZone: List[SiegeCombatCard] = {
+    val scCopy = _siegeCombatZone
+    scCopy
+  }
   /** Adds a close combat card to the close combat zone. */
   def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
-    closeCombatZone = ccCard :: closeCombatZone
+    _closeCombatZone = ccCard :: closeCombatZone
   }
   /** Adds a ranged combat card to the ranged combat zone. */
   def playRangedCombatCard(rcCard: RangedCombatCard): Unit = {
-    rangedCombatZone = rcCard :: rangedCombatZone
+    _rangedCombatZone = rcCard :: rangedCombatZone
   }
   /** Adds a siege combat card to the siege combat zone. */
   def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
-    siegeCombatZone = scCard :: siegeCombatZone
+    _siegeCombatZone = scCard :: siegeCombatZone
   }
   override def canEqual(that: Any): Boolean = {
     that.isInstanceOf[Section]
