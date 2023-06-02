@@ -30,7 +30,10 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
   var currentPower: Int = power
   override def playCard(board: Board, section: Section): Unit =
     this.playUnitCard(section)
-  /** Puts the unit card in its respective section of the board. */
+  /** Puts the unit card in its respective section of the board.
+   *
+   * @param section the section the unit card will be added to
+   * */
   def playUnitCard(section: Section): Unit
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
