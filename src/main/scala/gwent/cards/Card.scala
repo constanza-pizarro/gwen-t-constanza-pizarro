@@ -21,6 +21,6 @@ trait Card {
    *
    * @param board the board a card can be added to
    * @param section the section of a player a card can be added to
-   * */
+   */
   def playCard(board: Board, section: Section): Unit
 }

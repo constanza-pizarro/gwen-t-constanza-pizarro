@@ -33,7 +33,7 @@ abstract class AbstractUnitCard protected(val name: String, val description: Str
   /** Puts the unit card in its respective section of the board.
    *
    * @param section the section the unit card will be added to
-   * */
+   */
   def playUnitCard(section: Section): Unit
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
