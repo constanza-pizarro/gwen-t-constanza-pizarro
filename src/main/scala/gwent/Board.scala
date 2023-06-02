@@ -15,7 +15,7 @@ import gwent.cards.{Card, WeatherCard}
  *
  * @author Constanza Pizarro
  */
-class Board(var player1: Player, var player2: Player, var weatherZone: List[Card]=List()) {
+class Board(var player1: Player, var player2: Player, var weatherZone: List[WeatherCard]=List()) {
   require(player1.name!=player2.name, "the players must be different.")
   def playCard(player: Player, card: Card): Unit = {
     require(player==player1 || player==player2, "the player must be on the board.")
