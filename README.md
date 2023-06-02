@@ -24,6 +24,7 @@ have different purposes, the most important things to know is that Unit cards ha
 cards can affect that strength for every Unit card place in the board, so the winner of the round is the player that 
 adds the most strength with their cards placed on the board. To win the game you need to win 2 out of 3 rounds.
 
-Up until now, this implementation only allows instancing a player (with a name, a card deck, a card hand and a gem 
-counter), setting your card deck (shuffling the cards) which needs to be done before each round, and drawing a card 
-from your deck and adding it to your hand. But don't worry, in the near future we'll be adding more, stay tuned! 
+Up until now, this implementation allows instancing a board (with a Weather zone), a section (with zones for the 
+Unit cards zones) and a player, setting your card deck (shuffling the cards) which needs to be done before each 
+round, drawing a card from your deck and adding it to your hand and playing a card, which means you put it on the 
+board, the section the card is put on is determined by its type. More updates in the near future, stay tuned! 
