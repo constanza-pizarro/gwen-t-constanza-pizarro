@@ -34,20 +34,16 @@ class Section(private var _closeCombatZone: List[CloseCombatCard] = List(),
     scCopy
   }
   /** Adds a close combat card to the close combat zone. */
-  def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
+  def playCloseCombatCard(ccCard: CloseCombatCard): Unit =
     _closeCombatZone = ccCard :: closeCombatZone
-  }
   /** Adds a ranged combat card to the ranged combat zone. */
-  def playRangedCombatCard(rcCard: RangedCombatCard): Unit = {
+  def playRangedCombatCard(rcCard: RangedCombatCard): Unit =
     _rangedCombatZone = rcCard :: rangedCombatZone
-  }
   /** Adds a siege combat card to the siege combat zone. */
-  def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
+  def playSiegeCombatCard(scCard: SiegeCombatCard): Unit =
     _siegeCombatZone = scCard :: siegeCombatZone
-  }
-  override def canEqual(that: Any): Boolean = {
+  override def canEqual(that: Any): Boolean =
     that.isInstanceOf[Section]
-  }
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[Section]

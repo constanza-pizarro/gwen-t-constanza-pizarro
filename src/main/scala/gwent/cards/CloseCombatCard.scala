@@ -24,9 +24,8 @@ class CloseCombatCard(name: String, description: String, power: Int)
   extends AbstractUnitCard(name, description, power) {
   override def playUnitCard(section: Section): Unit =
     section.playCloseCombatCard(this)
-  override def canEqual(that: Any): Boolean = {
+  override def canEqual(that: Any): Boolean = 
     that.isInstanceOf[CloseCombatCard]
-  }
   override def hashCode(): Int =
     Objects.hash(classOf[CloseCombatCard], name, description, power)
   override def toString =

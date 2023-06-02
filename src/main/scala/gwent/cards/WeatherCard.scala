@@ -18,16 +18,13 @@ import java.util.Objects
  * @author Constanza Pizarro
  */
 class WeatherCard(val name: String, val description: String) extends Card with Equals {
-  override def playCard(board: Board, section: Section): Unit = {
+  override def playCard(board: Board, section: Section): Unit = 
     playWeatherCard(board)
-  }
   /** Puts the weather card on the weather zone of the board. */
-  def playWeatherCard(board: Board): Unit = {
+  def playWeatherCard(board: Board): Unit = 
     board.playWeatherCard(this)
-  }
-  override def canEqual(that: Any): Boolean = {
+  override def canEqual(that: Any): Boolean = 
     that.isInstanceOf[WeatherCard]
-  }
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[WeatherCard]
