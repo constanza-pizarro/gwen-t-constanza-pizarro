@@ -65,11 +65,14 @@ class Player(val name: String, private var _section: Section = new Section(),
    *
    * The order of cards in the player's deck is randomized.
    */
-  def shuffleDeck(): Unit = 
+  def shuffleDeck(): Unit =
     _deck = scala.util.Random.shuffle(_deck)
   /** Plays the given card.
    *
    * Draws the card from the hand and puts it on its respective zone of the board.
+   *
+   * @param card the card to be played
+   * @param board the board the player's in
    */
   def playCard(card: Card, board: Board): Unit = {
     require(_hand.contains(card), "the card must be on the player's hand.")
