@@ -22,6 +22,10 @@ class Board(var player1: Player, var player2: Player, var weatherZone: List[Weat
     require(player==player1 || player==player2, "the player must be on the board.")
     player.playCard(card, this)
   }
+  /** Places a weather card on the weather zone of the board.
+   *
+   * @param wCard the weather card that will be added to the weather zone of the board
+   */
   def playWeatherCard(wCard: WeatherCard): Unit = {
     require(weatherZone.isEmpty, "only one weather card can be placed on the board.")
     weatherZone = wCard :: weatherZone
