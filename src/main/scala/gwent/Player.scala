@@ -53,18 +53,17 @@ class Player(val name: String, private var _section: Section = new Section(),
     val hCopy: List[Card] = _hand
     hCopy
   }
-  /** Draws a card from the deck and adds it to the hand.
+  /** Draws a [[quantity]] of cards from the deck and adds them to the hand.
    *
-   * The top card from the deck is removed and added to the player's hand.
-   *
-   * @return The card that was drawn from the deck.
+   * The top card from the deck is removed and added to the player's hand
+   * a [[quantity]] of times.
    */
-  def drawCard(): Card = {
-    val card: Card = deck.head
-    _deck = deck.tail
-    _hand = card :: hand
-    card
-  }
+  def drawCard(quantity: Int = 1): Unit = 
+    for(i <- 0 until quantity) {
+      val card: Card = deck.head
+      _deck = deck.tail
+      _hand = card :: hand
+    }
   /** Shuffles the player's deck.
    *
    * The order of cards in the player's deck is randomized.
