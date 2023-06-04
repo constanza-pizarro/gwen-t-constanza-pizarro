@@ -23,7 +23,8 @@ class Player(val name: String, private var _section: Section = new Section(),
   /** The current gems of the player.
    * Initially set to 2.
    */
-  private var _gemCounter = 2
+  private var _gemCounter: Int = 2
+  var isPlaying: Boolean = true
   /** Accessor method for the player's section */
   def section: Section = {
     val sCopy = _section
@@ -31,7 +32,7 @@ class Player(val name: String, private var _section: Section = new Section(),
   }
   /** Accessor method for the player's gem counter */
   def gemCounter: Int = {
-    val gcCopy = _gemCounter
+    val gcCopy: Int = _gemCounter
     gcCopy
   }
   /** Subtract a gem from the player */
@@ -41,12 +42,15 @@ class Player(val name: String, private var _section: Section = new Section(),
   }
   /** Accessor method for the player's deck */
   def deck: List[Card] = {
-    val dCopy =_deck
+    val dCopy: List[Card] =_deck
     dCopy
+  }
+  def deck_=(newDeck: List[Card]): Unit = {
+    _deck = newDeck
   }
   /** Accessor method for the player's hand */
   def hand: List[Card] = {
-    val hCopy = _hand
+    val hCopy: List[Card] = _hand
     hCopy
   }
   /** Draws a card from the deck and adds it to the hand.
@@ -56,7 +60,7 @@ class Player(val name: String, private var _section: Section = new Section(),
    * @return The card that was drawn from the deck.
    */
   def drawCard(): Card = {
-    val card = deck.head
+    val card: Card = deck.head
     _deck = deck.tail
     _hand = card :: hand
     card
@@ -75,7 +79,9 @@ class Player(val name: String, private var _section: Section = new Section(),
    * @param board the board the player's in
    */
   def playCard(card: Card, board: Board): Unit = {
-    require(_hand.contains(card), "the card must be on the player's hand.")
+    if (!_hand.contains(card)) {
+      throw new InvalidCardException("the card must be on the player's hand.")
+    }
     _hand = _hand.filterNot(_ eq card)
     card.playCard(board, section)
   }
