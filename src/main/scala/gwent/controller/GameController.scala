@@ -81,7 +81,7 @@ class GameController {
     val player: Player = currentPlayer.get
     val hand: List[Card] = player.hand
     if (hand.isEmpty) {
-      state.endTurn()
+      endTurn()
     } else {
       println(s"${player.name}: Choose a card")
       for (i <- hand.indices) {
@@ -91,5 +91,8 @@ class GameController {
       board.get.playCard(player, hand(c))
     }
     state.playCard()
+  }
+  def endTurn(): Unit = {
+    state.endTurn()
   }
 }
