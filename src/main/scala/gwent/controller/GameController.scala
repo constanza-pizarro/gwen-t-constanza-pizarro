@@ -81,7 +81,7 @@ class GameController {
     val player: Player = currentPlayer.get
     val hand: List[Card] = player.hand
     if (hand.isEmpty) {
-      // new AloneState(controller)
+      state.endTurn()
     } else {
       println(s"${player.name}: Choose a card")
       for (i <- hand.indices) {
@@ -90,7 +90,7 @@ class GameController {
       val c = scala.io.StdIn.readInt()
       board.get.playCard(player, hand(c))
     }
-    
+
     state.playCard()
   }
 }
