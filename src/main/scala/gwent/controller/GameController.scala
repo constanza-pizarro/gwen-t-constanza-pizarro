@@ -7,11 +7,13 @@ import gwent.{Board, Player}
 import scala.util.Random
 
 class GameController {
-  var board: Board
-  var players: List[Player] = List()
   // Estado actual del juego
   var state: GameState = new StartState(this)
-  val weatherCards: List[Card] = List(
+
+  private var board: Option[Board] = None
+  private var players: List[Player] = List()
+
+  private val weatherCards: List[Card] = List(
     new WeatherCard("Biting Frost",
       "Sets the strength of all Close Combat cards to 1 for both players."),
     new WeatherCard("Impenetrable Fog",
@@ -20,7 +22,7 @@ class GameController {
       "Sets the strength of all Siege Combat cards to 1 for both players."),
     new WeatherCard("Clear Weather",
       "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects."))
-  val unitCards: List[Card] = List(
+  private val unitCards: List[Card] = List(
     new CloseCombatCard("Blue Stripes Commando", "Tight Bond", 4),
     new CloseCombatCard("Blueboy Lugos", "", 6),
     new CloseCombatCard("Botchling", "", 4),
@@ -38,7 +40,15 @@ class GameController {
     new SiegeCombatCard("Fire Elemental", "", 6),
     new SiegeCombatCard("Kaedweni Siege Expert", "Morale boost", 1),
     new SiegeCombatCard("Siege Engineer", "", 6))
-  // agrega las 4 cartas de clima y después elige una random de unidad y la agrega. 21 veces
+  /** Sets a deck with 25 cards.
+   *
+   * Chooses 25 cards (4 weather cards and 21 unit cards) from a card list,
+   * allowing unit cards to be repeated on the new deck.
+   *
+   * @param uCards a list of unit cards
+   * @param wCards a list of weather cards
+   * @return a deck of 25 cards
+   */
   def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
     val deck: List[Card] = List()
     for (i <- wCards) {
@@ -56,7 +66,7 @@ class GameController {
     val name2: String = scala.io.StdIn.readLine()
     val player1: Player = new Player(name1, _deck = setDeck(unitCards, weatherCards))
     val player2: Player = new Player(name2, _deck = setDeck(unitCards, weatherCards))
-    board = new Board(player1, player2)
+    board = Some(new Board(player1, player2))
     players = List(player1, player2)
     state.startGame()
   }
