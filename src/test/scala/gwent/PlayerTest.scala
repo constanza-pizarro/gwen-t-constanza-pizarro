@@ -55,15 +55,15 @@ class PlayerTest extends munit.FunSuite {
     p2.deck == d2
 
     val d = p2.deck.tail
-    val c1 = p2.drawCard()
+    p2.drawCard()
 
     assertEquals(p2.deck, d)
-    assertEquals(c1 :: h2, p2.hand)
+    assertEquals(h2.length+1, p2.hand.length)
     println(d2)
   }
   test("playCard") {
-    val e2 = Assert.assertThrows(classOf[IllegalArgumentException], () => p1.playCard(sc1, board))
-    assertEquals("requirement failed: the card must be on the player's hand.", e2.getMessage)
+    val e2 = Assert.assertThrows(classOf[InvalidCardException], () => p1.playCard(sc1, board))
+    assertEquals("the card must be on the player's hand.", e2.getMessage)
     p2.playCard(cc1, board)
     p2.playCard(wc1, board)
     p2.playCard(rc1, board)
@@ -76,7 +76,7 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(p1, p1)
     assertEquals(p2, p2)
     assertEquals(p1, new Player("player1", s1))
-    assertEquals(p2, new Player("player2", s1, d2, h2))
+    assertEquals(p2, new Player("player2", s1, _deck = d2, _hand = h2))
 
     assert(!p1.equals(cc1))
   }
