@@ -16,14 +16,18 @@ import gwent.cards.{Card, WeatherCard}
  * @author Constanza Pizarro
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[WeatherCard]=List()) {
-  require(player1.name!=player2.name, "the players must be different.")
+  if (player1.name == player2.name) {
+    throw new InvalidNameException("the players must have different names.")
+  }
   /** A player plays a card, putting it on its respective zone of the board.
    *
    * @param player the player playing the card
    * @param card the card that will be added to the board
    */
   def playCard(player: Player, card: Card): Unit = {
-    require(player==player1 || player==player2, "the player must be on the board.")
+    if (player != player1 && player != player2) {
+      throw new InvalidPlayerException("the player must be on the board.")
+    }
     player.playCard(card, this)
   }
   /** Places a weather card on the weather zone of the board.
