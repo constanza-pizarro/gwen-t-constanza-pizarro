@@ -90,7 +90,6 @@ class GameController {
       val c = scala.io.StdIn.readInt()
       board.get.playCard(player, hand(c))
     }
-
     state.playCard()
   }
 }
