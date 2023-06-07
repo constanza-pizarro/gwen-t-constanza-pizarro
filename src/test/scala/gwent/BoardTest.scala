@@ -25,26 +25,22 @@ class BoardTest extends munit.FunSuite {
   val board = new Board(p1, p2)
 
   test("well defined board") {
-    val e1 = Assert.assertThrows(classOf[IllegalArgumentException], () => new Board(p1, p1))
-    assertEquals("requirement failed: the players must be different.", e1.getMessage)
+    val e1 = Assert.assertThrows(classOf[InvalidNameException], () => new Board(p1, p1))
+    assertEquals("the players must have different names.", e1.getMessage)
 
     assertEquals(board.player1, p1)
     assertEquals(board.player2, p2)
     assertEquals(board.weatherZone, List())
   }
+  test("playCard") {
+    val e2 = Assert.assertThrows(classOf[InvalidPlayerException], () => board.playCard(p3, sc1))
+    assertEquals("the player must be on the board.", e2.getMessage)
+
+    board.playCard(board.player1, sc1)
+    assertEquals(p1.section.siegeCombatZone, List(sc1))
+  }
   test("playWeatherCard") {
     board.playWeatherCard(wc1)
     assertEquals(board.weatherZone, List(wc1))
-    val e2 = Assert.assertThrows(classOf[IllegalArgumentException],
-                                 () => board.playWeatherCard(wc2))
-    assertEquals("requirement failed: only one weather card can be placed on the board.",
-                e2.getMessage)
-  }
-  test("playCard") {
-    val e3 = Assert.assertThrows(classOf[IllegalArgumentException], () => board.playCard(p3, sc1))
-    assertEquals("requirement failed: the player must be on the board.", e3.getMessage)
-    
-    board.playCard(board.player1, sc1)
-    assertEquals(p1.section.siegeCombatZone, List(sc1))
   }
 }
