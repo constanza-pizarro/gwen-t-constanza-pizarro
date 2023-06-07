@@ -1,5 +1,11 @@
-package cl.uchile.dcc.gwent.controller.states
+package cl.uchile.dcc
+package gwent.controller.states
 
-class StartState {
+import gwent.controller.GameController
+
+class StartState(controller: GameController) extends GameState(controller) {
+  override def startGame(): Unit = {
+    controller.state = new TurnState(controller)
+  }
 
 }
