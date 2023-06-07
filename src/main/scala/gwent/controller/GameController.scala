@@ -80,12 +80,17 @@ class GameController {
   def playCard(): Unit = {
     val player: Player = currentPlayer.get
     val hand: List[Card] = player.hand
-    println(s"${player.name}: Choose a card")
-    for (i <- hand.indices) {
-      println(s"$i: ${hand(i)}")
+    if (hand.isEmpty) {
+      // new AloneState(controller)
+    } else {
+      println(s"${player.name}: Choose a card")
+      for (i <- hand.indices) {
+        println(s"$i: ${hand(i)}")
+      }
+      val c = scala.io.StdIn.readInt()
+      board.get.playCard(player, hand(c))
     }
-    val c = scala.io.StdIn.readInt()
-    board.get.playCard(player, hand(c))
+    
     state.playCard()
   }
 }
