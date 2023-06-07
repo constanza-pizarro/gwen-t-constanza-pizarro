@@ -12,7 +12,6 @@ import cards.Card
  * @constructor Create a new player with a name, section, gem counter, deck and hand.
  * @param name The name of the player.
  * @param _section The player's unit section.
- * @param _gemCounter The player's gem counter.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
  *
@@ -20,8 +19,11 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, private var _section: Section = new Section(),
-             private var _gemCounter: Int = 2,
              private var _deck: List[Card]=List(), private var _hand: List[Card]=List()) {
+  /** The current gems of the player.
+   * Initially set to 2.
+   */
+  private var _gemCounter: Int = 2
   /** Accessor method for the player's section */
   def section: Section = {
     val sCopy = _section
@@ -56,7 +58,7 @@ class Player(val name: String, private var _section: Section = new Section(),
    * a [[quantity]] of times.
    */
   def drawCard(quantity: Int = 1): Unit = 
-    for(i <- 0 until quantity) {
+    for(_ <- 0 until quantity) {
       val card: Card = deck.head
       _deck = deck.tail
       _hand = card :: hand
