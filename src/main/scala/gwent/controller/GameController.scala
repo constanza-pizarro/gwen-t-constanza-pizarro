@@ -9,7 +9,8 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
-
+  var currentPlayer: Option[Player] = None
+  var otherPlayer: Option[Player] = None
   private var board: Option[Board] = None
   private var players: List[Player] = List()
 
@@ -40,6 +41,12 @@ class GameController {
     new SiegeCombatCard("Fire Elemental", "", 6),
     new SiegeCombatCard("Kaedweni Siege Expert", "Morale boost", 1),
     new SiegeCombatCard("Siege Engineer", "", 6))
+  /** Sets the current player to the other player and the other player to the current player. */
+  def changePlayer(): Unit = {
+    val cPlayer: Option[Player] = currentPlayer
+    currentPlayer = otherPlayer
+    otherPlayer = cPlayer
+  }
   /** Sets a deck with 25 cards.
    *
    * Chooses 25 cards (4 weather cards and 21 unit cards) from a card list,
