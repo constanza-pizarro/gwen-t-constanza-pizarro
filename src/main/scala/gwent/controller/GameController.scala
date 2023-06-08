@@ -112,4 +112,7 @@ class GameController {
   def isInAlone(): Boolean = {
     state.isInAlone()
   }
+  def isInCount(): Boolean = {
+    state.isInCount()
+  }
 }
