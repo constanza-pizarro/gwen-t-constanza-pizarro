@@ -115,4 +115,7 @@ class GameController {
   def isInCount(): Boolean = {
     state.isInCount()
   }
+  def isInRound(): Boolean = {
+    state.isInRound()
+  }
 }
