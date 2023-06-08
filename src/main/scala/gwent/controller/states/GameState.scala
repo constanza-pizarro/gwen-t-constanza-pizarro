@@ -17,6 +17,9 @@ class GameState(var context: GameController) {
   def newRound(): Unit = {
     transitionError("RoundState")
   }
+  def startRound(): Unit = {
+    transitionError("TurnState")
+  }
   def declareWinner(): Unit = {
     transitionError("FinalState")
   }
