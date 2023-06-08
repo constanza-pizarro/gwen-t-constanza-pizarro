@@ -5,6 +5,6 @@ import gwent.controller.GameController
 
 import cl.uchile.dcc.gwent.Player
 
-class NewRoundState(controller: GameController) extends GameState(controller) {
+class RoundState(controller: GameController) extends GameState(controller) {
 
 }
