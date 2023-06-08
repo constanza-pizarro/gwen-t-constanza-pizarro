@@ -5,6 +5,6 @@ import gwent.controller.GameController
 
 import cl.uchile.dcc.gwent.Player
 
-class CountingState(controller: GameController) extends GameState(controller) {
+class CountState(controller: GameController) extends GameState(controller) {
 
 }
