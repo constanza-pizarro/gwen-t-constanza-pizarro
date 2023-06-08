@@ -12,7 +12,7 @@ class GameController {
   var currentPlayer: Option[Player] = None
   var otherPlayer: Option[Player] = None
   private var board: Option[Board] = None
-  private var players: List[Player] = List()
+  var players: List[Player] = List()
 
   private val weatherCards: List[Card] = List(
     new WeatherCard("Biting Frost",
@@ -41,6 +41,7 @@ class GameController {
     new SiegeCombatCard("Fire Elemental", "", 6),
     new SiegeCombatCard("Kaedweni Siege Expert", "Morale boost", 1),
     new SiegeCombatCard("Siege Engineer", "", 6))
+
   /** Sets the current player to the other player and the other player to the current player. */
   def changePlayer(): Unit = {
     val cPlayer: Option[Player] = currentPlayer
@@ -56,43 +57,59 @@ class GameController {
    * @param wCards a list of weather cards
    * @return a deck of 25 cards
    */
-  def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
-    val deck: List[Card] = List()
-    for (i <- wCards) {
-      deck :+ i
-    }
+  private def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
+    var deck: List[Card] = List()
+    wCards.foreach(i=> deck = i :: deck)
     for (i <- 0 until 21) {
-      deck :+ uCards(Random.nextInt(uCards.length))
+      deck = uCards(Random.nextInt(uCards.length)) :: deck
     }
     deck
   }
-  def startGame(): Unit = {
-    println("Player 1 name?")
-    val name1: String = scala.io.StdIn.readLine()
-    println("Player 2 name?")
-    val name2: String = scala.io.StdIn.readLine()
+  def startGame(name1: String, name2: String): Unit = {
+    //println("Player 1 name?")
+    //val name1: String = scala.io.StdIn.readLine()
+    //println("Player 2 name?")
+    //val name2: String = scala.io.StdIn.readLine()
     val player1: Player = new Player(name1, _deck = setDeck(unitCards, weatherCards))
     val player2: Player = new Player(name2, _deck = setDeck(unitCards, weatherCards))
     board = Some(new Board(player1, player2))
     players = List(player1, player2)
+    for (p <- players) {
+      p.shuffleDeck()
+      p.drawCard(10)
+    }
+    currentPlayer = Some(players(Random.nextInt(2)))
+    if (currentPlayer.get == player1) {
+      otherPlayer = Some(player2)
+    } else {
+      otherPlayer = Some(player1)
+    }
     state.startGame()
   }
-  def playCard(): Unit = {
+  def playCard(c: Int): Unit = {
     val player: Player = currentPlayer.get
     val hand: List[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
     } else {
-      println(s"${player.name}: Choose a card")
-      for (i <- hand.indices) {
-        println(s"$i: ${hand(i)}")
-      }
-      val c = scala.io.StdIn.readInt()
+      //println(s"${player.name}: Choose a card")
+      //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
+      //val c: Int = scala.io.StdIn.readInt()
       board.get.playCard(player, hand(c))
+      changePlayer()
     }
-    state.playCard()
   }
   def endTurn(): Unit = {
+    changePlayer()
     state.endTurn()
+  }
+  def isInStart(): Boolean = {
+    state.isInStart()
+  }
+  def isInTurn(): Boolean = {
+    state.isInTurn()
+  }
+  def isInAlone(): Boolean = {
+    state.isInAlone()
   }
 }
