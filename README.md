@@ -28,3 +28,5 @@ Up until now, this implementation allows instancing a board (with a Weather zone
 Unit cards zones) and a player, setting your card deck (shuffling the cards) which needs to be done before each 
 round, drawing a card from your deck and adding it to your hand and playing a card, which means you put it on the 
 board, the section the card is put on is determined by its type. More updates in the near future, stay tuned! 
+
+![Diagrama de estados](docs/diagrama-estados.png)
