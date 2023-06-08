@@ -11,7 +11,9 @@ class GameState(var context: GameController) {
     transitionError("TurnState")
   }
   /** Ends the turn for the current player. */
-  def endTurn(): Unit = {}
+  def endTurn(): Unit = {
+    transitionError("AloneState or CountState")
+  }
   def isInStart(): Boolean = false
   def isInTurn(): Boolean = false
   def isInAlone(): Boolean = false
