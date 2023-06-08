@@ -26,6 +26,7 @@ class GameState(var context: GameController) {
   def isInStart(): Boolean = false
   def isInTurn(): Boolean = false
   def isInAlone(): Boolean = false
+  def isInCount(): Boolean = false
   def isInRound(): Boolean = false
   def isInFinal(): Boolean = false
   private def transitionError(targetState: String): Unit = {
