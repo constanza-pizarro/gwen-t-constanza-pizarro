@@ -17,6 +17,9 @@ class GameState(var context: GameController) {
   def newRound(): Unit = {
     transitionError("RoundState")
   }
+  def declareWinner(): Unit = {
+    transitionError("FinalState")
+  }
   def isInStart(): Boolean = false
   def isInTurn(): Boolean = false
   def isInAlone(): Boolean = false
