@@ -5,7 +5,9 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
-import cl.uchile.dcc.gwent.{Board, Player, Section}
+import cl.uchile.dcc.gwent.*
+
+import scala.collection.mutable.ListBuffer
 
 class UnitEffectTest extends munit.FunSuite {
   val mBoost = "Adds +1 to all units in the row (excluding itself)."
@@ -23,14 +25,14 @@ class UnitEffectTest extends munit.FunSuite {
   val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
   val sc3 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
 
-  val d1: List[Card] = List(cc2, rc1, sc1)
-  val d2: List[Card] = List(cc2, sc2, sc3)
+  val d1: ListBuffer[Card] = ListBuffer(cc2, rc1, sc1)
+  val d2: ListBuffer[Card] = ListBuffer(cc2, sc2, sc3)
 
-  val h1: List[Card] = List(cc1, cc2, rc2, sc2, sc3)
-  val h2: List[Card] = List(rc1, rc2, rc3, sc1, rc4)
+  val h1: ListBuffer[Card] = ListBuffer(cc1, cc2, rc2, sc2, sc3)
+  val h2: ListBuffer[Card] = ListBuffer(rc1, rc2, rc3, sc1, rc4)
 
-  val p1 = new Player("player1", _deck = d1, _hand = h1)
-  val p2 = new Player("player2", _deck = d2, _hand = h2)
+  val p1 = new Player("player1", d1, h1)
+  val p2 = new Player("player2", d2, h2)
   val board = new Board(p1, p2)
 
   test("morale boost") {
