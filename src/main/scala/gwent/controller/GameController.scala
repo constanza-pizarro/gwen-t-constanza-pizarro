@@ -131,11 +131,15 @@ class GameController {
     if (hand.isEmpty) {
       endTurn()
     } else {
-      //println(s"${player.name}: Choose a card")
-      //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
-      //val c: Int = scala.io.StdIn.readInt()
-      board.get.playCard(player, hand(c))
-      changePlayer()
+      if (c > hand.length) {
+        throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
+      } else {
+        //println(s"${player.name}: Choose a card")
+        //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
+        //val c: Int = scala.io.StdIn.readInt()
+        board.get.playCard(player, hand(c))
+        changePlayer()
+      }
     }
   }
   def endTurn(): Unit = {
