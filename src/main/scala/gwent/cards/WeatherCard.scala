@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.cards.effects.Effect
+import gwent.cards.effects.WeatherEffect
 import gwent.{Board, Section}
 
 import java.util.Objects
@@ -19,14 +19,15 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class WeatherCard(val name: String, val description: String, val effect: Effect) extends Card with Equals {
+class WeatherCard(val name: String, val effect: WeatherEffect,
+                  val description: String) extends Card with Equals {
   override def playCard(board: Board, section: Section): Unit =
     playWeatherCard(board)
   /** Puts the weather card on the weather zone of the board.
    *
    * @param board the board the weather card will be added to
    */
-  def playWeatherCard(board: Board): Unit =
+  private def playWeatherCard(board: Board): Unit =
     board.playWeatherCard(this)
   override def canEqual(that: Any): Boolean =
     that.isInstanceOf[WeatherCard]
@@ -34,6 +35,7 @@ class WeatherCard(val name: String, val description: String, val effect: Effect)
     if (canEqual(that)) {
       val other = that.asInstanceOf[WeatherCard]
       (this eq other) || (name == other.name
+        && effect == other.effect
         && description == other.description)
     } else {
       false
