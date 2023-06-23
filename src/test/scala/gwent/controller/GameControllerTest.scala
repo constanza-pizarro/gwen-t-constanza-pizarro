@@ -45,6 +45,14 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(s"The number must be less than $i.", e.getMessage)
     gameC.playCard(0)
     assertEquals(player.hand.length, i-1)
+    gameC.endTurn()
+    assert(gameC.isInAlone)
+    val n: Int = gameC.currentPlayer.get.hand.length
+    for (i <- 0 until n) {
+      gameC.playCard(0)
+    }
+    gameC.playCard(0)
+    assert(gameC.isInCount)
   }
   test("alone state") {
     gameC.endTurn()
