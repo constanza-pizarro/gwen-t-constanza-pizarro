@@ -2,8 +2,7 @@ package cl.uchile.dcc
 package gwent.cards
 
 import gwent.Section
-
-import cl.uchile.dcc.gwent.cards.effects.Effect
+import gwent.cards.effects.UnitEffect
 
 import java.util.Objects
 
@@ -22,8 +21,8 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class SiegeCombatCard(name: String, description: String, power: Int, effect: Effect)
-  extends AbstractUnitCard(name, description, power, effect) {
+class SiegeCombatCard(name: String, effect: UnitEffect, description: String, power: Int)
+  extends AbstractUnitCard(name, effect, description, power) {
   override def playUnitCard(section: Section): Unit =
     section.playSiegeCombatCard(this)
   override def canEqual(that: Any): Boolean = 
