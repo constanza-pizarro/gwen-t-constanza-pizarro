@@ -7,14 +7,16 @@ import gwent.cards.effects.unit.*
 import gwent.controller.states.*
 import gwent.{Board, Player}
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable
+import scala.collection.mutable.{ListBuffer, Map}
+import scala.collection.mutable.Map
 import scala.util.Random
 
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
   private var _board: Option[Board] = None
-  private var _players: List[Player] = List()
+  private val _players: mutable.Map[Player, Boolean] = mutable.Map()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
 
@@ -67,7 +69,7 @@ class GameController {
   }
   /** Accessor method for the list of players */
   def players: List[Player] = {
-    val p = _players
+    val p = _players.keys.toList
     p
   }
   /** Accessor method for the current player */
@@ -81,7 +83,7 @@ class GameController {
     oPlayer
   }
   /** Sets the current player to the other player and the other player to the current player. */
-  def changePlayer(): Unit = {
+  def changeTurn(): Unit = {
     val cPlayer: Option[Player] = currentPlayer
     _currentPlayer = otherPlayer
     _otherPlayer = cPlayer
@@ -116,8 +118,8 @@ class GameController {
     player2.deck_=(setDeck(unitCards, weatherCards))
 
     _board = Some(new Board(player1, player2))
-    _players = board.get.players
-    for (p <- players) {
+    for (p <- board.get.players) {
+      _players += (p -> true)
       p.shuffleDeck()
       for (i <- 0.until(10))
         p.drawCard()
@@ -126,7 +128,6 @@ class GameController {
     scala.util.Random.shuffle(_players)
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
-
     state.startGame()
   }
   def playCard(c: Int): Unit = {
@@ -142,30 +143,32 @@ class GameController {
         //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
         //val c: Int = scala.io.StdIn.readInt()
         board.get.playCard(player, hand(c))
-        changePlayer()
+        if (_players(player)) {
+          changeTurn()
+        }
       }
     }
   }
   def endTurn(): Unit = {
-    changePlayer()
+    _players.update(currentPlayer.get, false)
     state.endTurn()
   }
   def isInStart: Boolean = {
-    state.isInStart()
+    state.isInStart
   }
   def isInTurn: Boolean = {
-    state.isInTurn()
+    state.isInTurn
   }
   def isInAlone: Boolean = {
-    state.isInAlone()
+    state.isInAlone
   }
   def isInCount: Boolean = {
-    state.isInCount()
+    state.isInCount
   }
   def isInRound: Boolean = {
-    state.isInRound()
+    state.isInRound
   }
   def isInFinal: Boolean = {
-    state.isInFinal()
+    state.isInFinal
   }
 }
