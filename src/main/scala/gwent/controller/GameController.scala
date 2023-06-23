@@ -11,10 +11,10 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
+  private var _board: Option[Board] = None
+  private var _players: List[Player] = List()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
-  private var board: Option[Board] = None
-  var players: List[Player] = List()
 
   private val weatherCards = List[Card](
     new WeatherCard("Biting Frost", BitingFrost(),
@@ -129,22 +129,22 @@ class GameController {
     changePlayer()
     state.endTurn()
   }
-  def isInStart(): Boolean = {
+  def isInStart: Boolean = {
     state.isInStart()
   }
-  def isInTurn(): Boolean = {
+  def isInTurn: Boolean = {
     state.isInTurn()
   }
-  def isInAlone(): Boolean = {
+  def isInAlone: Boolean = {
     state.isInAlone()
   }
-  def isInCount(): Boolean = {
+  def isInCount: Boolean = {
     state.isInCount()
   }
-  def isInRound(): Boolean = {
+  def isInRound: Boolean = {
     state.isInRound()
   }
-  def isInFinal(): Boolean = {
+  def isInFinal: Boolean = {
     state.isInFinal()
   }
 }
