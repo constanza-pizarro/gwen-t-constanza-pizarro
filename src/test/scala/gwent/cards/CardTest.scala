@@ -81,9 +81,9 @@ class CardTest extends munit.FunSuite {
   test("weather equals") {
     assertEquals(wc1, wc1)
 
-    assertEquals(wc2, new WeatherCard("Impenetrable Fog",
+    assertEquals(wc2, new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players."))
-    assertEquals(new WeatherCard("Impenetrable Fog",
+    assertEquals(new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players."), wc2)
 
     assert(!wc1.equals(wc2))
