@@ -119,7 +119,8 @@ class GameController {
     _players = board.get.players
     for (p <- players) {
       p.shuffleDeck()
-      p.drawCard(10)
+      for (i <- 0.until(10))
+        p.drawCard()
     }
 
     scala.util.Random.shuffle(_players)
