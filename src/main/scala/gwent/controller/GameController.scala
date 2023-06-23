@@ -6,6 +6,8 @@ import gwent.cards.effects.weather.*
 import gwent.cards.effects.unit.*
 import gwent.controller.states.*
 import gwent.{Board, Player}
+
+import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
 class GameController {
@@ -93,11 +95,12 @@ class GameController {
    * @param wCards a list of weather cards
    * @return a deck of 25 cards
    */
-  private def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
-    var deck: List[Card] = List()
-    wCards.foreach(i=> deck = i :: deck)
+  private def setDeck(uCards: List[Card], wCards: List[Card]): ListBuffer[Card] = {
+    var deck: ListBuffer[Card] = ListBuffer()
+    wCards.foreach(i=> deck += i)
     for (i <- 0 until 21) {
-      deck = uCards(Random.nextInt(uCards.length)) :: deck
+      val card: Card = uCards(Random.nextInt(uCards.length))
+      deck += card
     }
     deck
   }
@@ -127,7 +130,7 @@ class GameController {
   }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer.get
-    val hand: List[Card] = player.hand
+    val hand: ListBuffer[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
     } else {
