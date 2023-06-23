@@ -1,7 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards.effects
 
-trait Effect {
+import gwent.cards.UnitCard
 
+trait Effect {
+  def apply(self: UnitCard, target: List[UnitCard]): Unit
 }
-// def apply(self: Card, target: List[Card]): Unit
