@@ -16,7 +16,7 @@ class GameController {
   private var board: Option[Board] = None
   var players: List[Player] = List()
 
-  private val weatherCards: List[Card] = List(
+  private val weatherCards = List[Card](
     new WeatherCard("Biting Frost", BitingFrost(),
       "Sets the strength of all Close Combat cards to 1 for both players."),
     new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
@@ -25,7 +25,7 @@ class GameController {
       "Sets the strength of all Siege Combat cards to 1 for both players."),
     new WeatherCard("Clear Weather", ClearWeather(),
       "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects."))
-  private val unitCards: List[Card] = List(
+  private val unitCards = List[Card](
     new CloseCombatCard("Blue Stripes Commando", TightBond(),
       "When placed with the same card, doubles the strength of both (or more) cards", 4),
     new CloseCombatCard("Blueboy Lugos", NoEffect(),
