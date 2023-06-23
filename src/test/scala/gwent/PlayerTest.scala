@@ -73,7 +73,9 @@ class PlayerTest extends munit.FunSuite {
     p2.playCard(wc1, board)
     p2.playCard(rc1, board)
     p2.playCard(sc1, board)
-    assertEquals(p2.section, new Section(List(cc1), List(rc1), List(sc1)))
+    assertEquals(p2.section.closeCombatZone, List(cc1))
+    assertEquals(p2.section.rangedCombatZone, List(rc1))
+    assertEquals(p2.section.siegeCombatZone, List(sc1))
     assertEquals(board.weatherZone, List(wc1))
   }
 
