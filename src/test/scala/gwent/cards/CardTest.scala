@@ -98,18 +98,18 @@ class CardTest extends munit.FunSuite {
     assertEquals(rc1.hashCode(), rc1.hashCode())
     assertEquals(sc1.hashCode(), sc1.hashCode())
 
-    assertEquals(cc2.hashCode(), new CloseCombatCard("Imlerith",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode())
-    assertEquals(new CloseCombatCard("Imlerith",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode(), cc2.hashCode())
-    assertEquals(rc2.hashCode(), new RangedCombatCard("Eithné",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode())
-    assertEquals(new RangedCombatCard("Eithné",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode(), rc2.hashCode())
-    assertEquals(sc2.hashCode(), new SiegeCombatCard("Morvran Voorhis",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode())
-    assertEquals(new SiegeCombatCard("Morvran Voorhis",
-      "Hero: Not affected by any Special Cards or abilities.", 10).hashCode(), sc2.hashCode())
+    assertEquals(cc2.hashCode(), new CloseCombatCard("Blueboy Lugos", NoEffect(),
+      "Has no effect.", 6).hashCode())
+    assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
+      "Has no effect.", 6).hashCode(), cc2.hashCode())
+    assertEquals(rc2.hashCode(), new RangedCombatCard("Milva", MoraleBoost(),
+      "Morale boost", 10).hashCode())
+    assertEquals(new RangedCombatCard("Milva", MoraleBoost(),
+      "Morale boost", 10).hashCode(), rc2.hashCode())
+    assertEquals(sc2.hashCode(), new SiegeCombatCard("Catapult", TightBond(),
+      "Tight Bond", 8).hashCode())
+    assertEquals(new SiegeCombatCard("Catapult", TightBond(),
+      "Tight Bond", 8).hashCode(), sc2.hashCode())
 
     assert(cc1.hashCode()!=cc2.hashCode())
     assert(cc2.hashCode()!=cc1.hashCode())
