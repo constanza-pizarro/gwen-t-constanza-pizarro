@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.cards.effects.Effect
+import gwent.cards.effects.UnitEffect
 import gwent.{Board, Section}
 
 import java.util.Objects
@@ -23,14 +23,15 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-abstract class AbstractUnitCard protected(val name: String, val description: String,
-                                          val power: Int, val effect: Effect) extends UnitCard with Equals {
+abstract class AbstractUnitCard protected(val name: String, val effect: UnitEffect, val description: String,
+                                          val power: Int) extends UnitCard with Equals {
   override def playCard(board: Board, section: Section): Unit =
     this.playUnitCard(section)
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[AbstractUnitCard]
       (this eq other) || (name == other.name
+                      && effect == other.effect
                       && description == other.description
                       && power == other.power)
     } else {
