@@ -126,9 +126,9 @@ class CardTest extends munit.FunSuite {
   test("weather hash code") {
     assertEquals(wc1.hashCode(), wc1.hashCode())
 
-    assertEquals(wc2.hashCode(), new WeatherCard("Impenetrable Fog",
+    assertEquals(wc2.hashCode(), new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players.").hashCode())
-    assertEquals(new WeatherCard("Impenetrable Fog",
+    assertEquals(new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players.").hashCode(), wc2.hashCode())
 
     assert(wc1.hashCode() != wc2.hashCode())
