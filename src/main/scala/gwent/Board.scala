@@ -16,6 +16,7 @@ import gwent.cards.{Card, WeatherCard}
  * @author Constanza Pizarro
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[WeatherCard]=List()) {
+  val players: List[Player] = List(player1, player2)
   if (player1.name == player2.name) {
     throw new InvalidNameException("the players must have different names.")
   }
