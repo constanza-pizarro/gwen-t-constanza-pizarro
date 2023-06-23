@@ -61,6 +61,4 @@ class Section extends Equals {
       false
     }
   }
-  override def hashCode(): Int =
-    Objects.hash(classOf[Section], closeCombatZone, rangedCombatZone, siegeCombatZone)
 }
