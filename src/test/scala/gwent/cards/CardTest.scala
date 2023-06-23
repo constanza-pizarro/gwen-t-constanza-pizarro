@@ -53,18 +53,18 @@ class CardTest extends munit.FunSuite {
     assertEquals(rc1, rc1)
     assertEquals(sc1, sc1)
 
-    assertEquals(cc2, new CloseCombatCard("Imlerith",
-      "Hero: Not affected by any Special Cards or abilities.", 10))
-    assertEquals(new CloseCombatCard("Imlerith",
-      "Hero: Not affected by any Special Cards or abilities.", 10), cc2)
-    assertEquals(rc2, new RangedCombatCard("Eithné",
-      "Hero: Not affected by any Special Cards or abilities.", 10))
-    assertEquals(new RangedCombatCard("Eithné",
-      "Hero: Not affected by any Special Cards or abilities.", 10), rc2)
-    assertEquals(sc2, new SiegeCombatCard("Morvran Voorhis",
-      "Hero: Not affected by any Special Cards or abilities.", 10))
-    assertEquals(new SiegeCombatCard("Morvran Voorhis",
-      "Hero: Not affected by any Special Cards or abilities.", 10), sc2)
+    assertEquals(cc2, new CloseCombatCard("Blueboy Lugos", NoEffect(),
+      "Has no effect.", 6))
+    assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
+      "Has no effect.", 6), cc2)
+    assertEquals(rc2, new RangedCombatCard("Milva", MoraleBoost(),
+      "Morale boost", 10))
+    assertEquals(new RangedCombatCard("Milva", MoraleBoost(),
+      "Morale boost", 10), rc2)
+    assertEquals(sc2, new SiegeCombatCard("Catapult", TightBond(),
+      "Tight Bond", 8))
+    assertEquals(new SiegeCombatCard("Catapult", TightBond(),
+      "Tight Bond", 8), sc2)
 
     assert(!cc1.equals(cc2))
     assert(!cc2.equals(cc1))
@@ -77,7 +77,7 @@ class CardTest extends munit.FunSuite {
     assert(!rc1.equals(wc1))
     assert(!sc1.equals(wc1))
   }
-  
+
   test("weather equals") {
     assertEquals(wc1, wc1)
 
