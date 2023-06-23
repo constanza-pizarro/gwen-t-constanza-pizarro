@@ -106,20 +106,23 @@ class GameController {
     //val name1: String = scala.io.StdIn.readLine()
     //println("Player 2 name?")
     //val name2: String = scala.io.StdIn.readLine()
-    val player1: Player = new Player(name1, _deck = setDeck(unitCards, weatherCards))
-    val player2: Player = new Player(name2, _deck = setDeck(unitCards, weatherCards))
-    board = Some(new Board(player1, player2))
-    players = List(player1, player2)
+
+    val player1: Player = new Player(name1)
+    val player2: Player = new Player(name2)
+    player1.deck_=(setDeck(unitCards, weatherCards))
+    player2.deck_=(setDeck(unitCards, weatherCards))
+
+    _board = Some(new Board(player1, player2))
+    _players = board.get.players
     for (p <- players) {
       p.shuffleDeck()
       p.drawCard(10)
     }
-    _currentPlayer = Some(players(Random.nextInt(2)))
-    if (currentPlayer.get == player1) {
-      _otherPlayer = Some(player2)
-    } else {
-      _otherPlayer = Some(player1)
-    }
+
+    scala.util.Random.shuffle(_players)
+    _currentPlayer = Some(players.head)
+    _otherPlayer = Some(players(1))
+
     state.startGame()
   }
   def playCard(c: Int): Unit = {
