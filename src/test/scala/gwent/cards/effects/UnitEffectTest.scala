@@ -23,20 +23,14 @@ class UnitEffectTest extends munit.FunSuite {
   val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
   val sc3 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
 
-  val wc1: Card = new WeatherCard("Biting Frost", BitingFrost(),
-    "Sets the strength of all Close Combat cards to 1 for both players.")
-  val wc2: Card = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
-    "Sets the strength of all Ranged Combat cards to 1 for both players.")
+  val d1: List[Card] = List(cc2, rc1, sc1)
+  val d2: List[Card] = List(cc2, sc2, sc3)
 
-  val d1: List[Card] = List(cc1, cc2, rc1, sc1, wc1)
-  val d2: List[Card] = List(cc2, sc2, sc3, wc1, wc2)
-
-  val h1: List[Card] = List(rc2, sc2, sc3, wc2)
+  val h1: List[Card] = List(cc1, cc2, rc2, sc2, sc3)
   val h2: List[Card] = List(rc1, rc2, rc3, sc1, rc4)
 
   val p1 = new Player("player1", _deck = d1, _hand = h1)
   val p2 = new Player("player2", _deck = d2, _hand = h2)
-  val p3 = new Player("player3", _deck = d1, _hand = h1)
   val board = new Board(p1, p2)
 
   test("morale boost") {
@@ -50,6 +44,13 @@ class UnitEffectTest extends munit.FunSuite {
     assertEquals(rc1.currentPower, rc1.power+2)
     assertEquals(rc2.currentPower, rc2.power+1)
     assertEquals(rc3.currentPower, rc3.power+1)
+  }
+
+  test("no effect") {
+    board.playCard(p1, cc1)
+    board.playCard(p1, cc2)
+    assertEquals(cc1.currentPower, cc1.power)
+    assertEquals(cc2.currentPower, cc2.power)
   }
 
   test("tight bond") {
