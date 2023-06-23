@@ -34,8 +34,11 @@ class Section(private var _closeCombatZone: List[CloseCombatCard] = List(),
     scCopy
   }
   /** Adds a close combat card to the close combat zone. */
-  def playCloseCombatCard(ccCard: CloseCombatCard): Unit =
+  def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
     _closeCombatZone = ccCard :: closeCombatZone
+    ccCard.effect(ccCard, closeCombatZone)
+  }
+
   /** Adds a ranged combat card to the ranged combat zone. */
   def playRangedCombatCard(rcCard: RangedCombatCard): Unit =
     _rangedCombatZone = rcCard :: rangedCombatZone
