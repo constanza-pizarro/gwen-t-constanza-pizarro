@@ -58,6 +58,16 @@ class GameController {
       "Adds +1 to all units in the row (excluding itself).", 1),
     new SiegeCombatCard("Siege Engineer", NoEffect(),
       "Has no effect.", 6))
+  /** Accessor method for the board */
+  def board: Option[Board] = {
+    val b = _board
+    b
+  }
+  /** Accessor method for the list of players */
+  def players: List[Player] = {
+    val p = _players
+    p
+  }
   /** Accessor method for the current player */
   def currentPlayer: Option[Player] = {
     val cPlayer = _currentPlayer
