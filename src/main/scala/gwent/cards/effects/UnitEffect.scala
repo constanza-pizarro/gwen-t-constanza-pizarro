@@ -1,9 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards.effects
 
-import gwent.cards.{Card, UnitCard}
+import gwent.cards.UnitCard
 
-trait UnitEffect extends Effect{
-  //var targetSelf: Boolean
-  def apply(self: Card, target: List[UnitCard]): Unit
+trait UnitEffect extends Effect {
+  def apply(self: UnitCard, target: List[UnitCard]): Unit
 }
