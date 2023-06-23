@@ -19,7 +19,7 @@ import scala.collection.mutable.ListBuffer
  * @author Constanza Pizarro
  */
 class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
-             private var _hand: ListBuffer[Card]=ListBuffer()) {
+             private val _hand: ListBuffer[Card]=ListBuffer()) {
   /** The unit section of the player.
    * Initially empty.
    */
@@ -56,17 +56,18 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
     val hCopy: ListBuffer[Card] = _hand
     hCopy
   }
-  /** Draws a [[quantity]] of cards from the deck and adds them to the hand.
+  /** Draws a card from the deck and adds them to the hand.
    *
    * The top card from the deck is removed and added to the player's hand
-   * a [[quantity]] of times.
+   * @return the card drawn from the deck
    */
-  def drawCard(quantity: Int = 1): Unit = 
-    for(_ <- 0 until quantity) {
-      val card: Card = deck.head
-      _deck -= card
-      _hand += card
-    }
+  def drawCard(): Card = {
+    val card: Card = deck.head
+    _deck = deck.tail
+    _hand += card
+    card
+  }
+
   /** Shuffles the player's deck.
    *
    * The order of cards in the player's deck is randomized.
