@@ -5,6 +5,8 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
+import scala.collection.mutable.ListBuffer
+
 class SectionTest extends munit.FunSuite {
   val mBoost = "Adds +1 to all units in the row (excluding itself)."
   val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
@@ -23,18 +25,18 @@ class SectionTest extends munit.FunSuite {
   val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
-  val d1: List[Card] = List(cc1, cc2, rc1, rc2, sc1, wc1)
-  val d2: List[Card] = List(cc2, rc2, rc1, sc2, sc1, wc2)
+  val d1: ListBuffer[Card] = ListBuffer(cc1, cc2, rc1, rc2, sc1, wc1)
+  val d2: ListBuffer[Card] = ListBuffer(cc2, rc2, rc1, sc2, sc1, wc2)
 
-  val h1: List[Card] = List(sc2, wc2)
-  val h2: List[Card] = List(cc1, wc1, rc1)
+  val h1: ListBuffer[Card] = ListBuffer(sc2, wc2)
+  val h2: ListBuffer[Card] = ListBuffer(cc1, wc1, rc1)
 
   var board: Board = _
   val s1: Section = new Section()
   val s2: Section = new Section()
 
-  val p1 = new Player("player1", s1, d1, h1)
-  val p2 = new Player("player2", s2, d2, h2)
+  val p1 = new Player("player1", d1, h1)
+  val p2 = new Player("player2", d2, h2)
   board = new Board(p1, p2)
   board.playCard(p2, cc1)
 
@@ -51,7 +53,7 @@ class SectionTest extends munit.FunSuite {
   }
 
   test("equals") {
-    assertEquals(s1, new Section())
+    assertEquals(s1, new Section)
     assert(!s1.equals(p1))
   }
 }
