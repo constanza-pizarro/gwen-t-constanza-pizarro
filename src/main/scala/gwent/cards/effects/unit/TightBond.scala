@@ -1,6 +1,7 @@
 package cl.uchile.dcc
-package gwent.cards.effects
+package gwent.cards.effects.unit
 
+import gwent.cards.effects.UnitEffect
 import gwent.cards.UnitCard
 
 class TightBond extends UnitEffect {
