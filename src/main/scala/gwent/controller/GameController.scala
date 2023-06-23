@@ -11,8 +11,8 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
-  private var currentPlayer: Option[Player] = None
-  private var otherPlayer: Option[Player] = None
+  private var _currentPlayer: Option[Player] = None
+  private var _otherPlayer: Option[Player] = None
   private var board: Option[Board] = None
   var players: List[Player] = List()
 
@@ -58,12 +58,21 @@ class GameController {
       "Adds +1 to all units in the row (excluding itself).", 1),
     new SiegeCombatCard("Siege Engineer", NoEffect(),
       "Has no effect.", 6))
-
+  /** Accessor method for the current player */
+  def currentPlayer: Option[Player] = {
+    val cPlayer = _currentPlayer
+    cPlayer
+  }
+  /** Accessor method for the other player */
+  def otherPlayer: Option[Player] = {
+    val oPlayer = _otherPlayer
+    oPlayer
+  }
   /** Sets the current player to the other player and the other player to the current player. */
   def changePlayer(): Unit = {
     val cPlayer: Option[Player] = currentPlayer
-    currentPlayer = otherPlayer
-    otherPlayer = cPlayer
+    _currentPlayer = otherPlayer
+    _otherPlayer = cPlayer
   }
   /** Sets a deck with 25 cards.
    *
@@ -95,11 +104,11 @@ class GameController {
       p.shuffleDeck()
       p.drawCard(10)
     }
-    currentPlayer = Some(players(Random.nextInt(2)))
+    _currentPlayer = Some(players(Random.nextInt(2)))
     if (currentPlayer.get == player1) {
-      otherPlayer = Some(player2)
+      _otherPlayer = Some(player2)
     } else {
-      otherPlayer = Some(player1)
+      _otherPlayer = Some(player1)
     }
     state.startGame()
   }
