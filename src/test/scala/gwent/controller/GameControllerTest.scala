@@ -5,45 +5,51 @@ import gwent.Player
 import gwent.cards.Card
 import gwent.controller.states.StartState
 
+import org.junit.Assert
+
 class GameControllerTest extends munit.FunSuite {
   var gameC: GameController = _
-  var p1: Player = _
-  var p2: Player = _
+  var gameC2: GameController = new GameController
+  //var p1: Player = _
+  //var p2: Player = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    gameC = new GameController()
+    gameC = new GameController
+    gameC.startGame("p1", "p2")
   }
 
   test("start state") {
-    assert(gameC.isInStart())
+    assert(gameC2.isInStart)
   }
+
   test("setDeck") {
-    gameC.startGame("p1", "p2")
     assertEquals(gameC.players.head.deck.length, 15)
   }
+
   test("changePlayer") {
-    gameC.startGame("p1", "p2")
     val cPlayer: Player = gameC.currentPlayer.get
     val oPlayer: Player = gameC.otherPlayer.get
     gameC.changePlayer()
     assertEquals(gameC.otherPlayer.get, cPlayer)
     assertEquals(gameC.currentPlayer.get, oPlayer)
   }
+
   test("turn state") {
-    gameC.startGame("p1", "p2")
-    assert(gameC.isInTurn())
+    assert(gameC.isInTurn)
   }
+
   test("playCard") {
-    gameC.startGame("p1", "p2")
     val player: Player = gameC.currentPlayer.get
     val i: Int = player.hand.length
+    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
+    assertEquals(s"The number must be less than $i.", e.getMessage)
     gameC.playCard(0)
     assertEquals(player.hand.length, i-1)
   }
   test("alone state") {
     gameC.startGame("p1", "p2")
     gameC.endTurn()
-    assert(gameC.isInAlone())
+    assert(gameC.isInAlone)
   }
   test("endTurn") {
     gameC.startGame("p1", "p2")
