@@ -5,20 +5,17 @@ import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
 class CardTest extends munit.FunSuite {
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(),
-    "When placed with the same card, doubles the strength of both (or more) cards", 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(),
-                "Has no effect.", 6)
+  val mBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(),
-                "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(),
-    "Adds +1 to all units in the row (excluding itself).", 10)
+  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
+  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(),
-                "Does nothing c:", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(),
-    "When placed with the same card, doubles the strength of both (or more) cards", 8)
+  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+
+  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
 
   val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
                 "Sets the strength of all Close Combat cards to 1 for both players.")
@@ -28,7 +25,7 @@ class CardTest extends munit.FunSuite {
   test("well defined cards") {
     assertEquals(cc1.name,"Blue Stripes Commando")
     assertEquals(cc1.effect, TightBond())
-    assertEquals(cc1.description,"Adds +1 to all units in the row (excluding itself).")
+    assertEquals(cc1.description, tBond)
     assertEquals(cc1.power,4)
     assertEquals(cc1.currentPower,4)
 
@@ -57,14 +54,10 @@ class CardTest extends munit.FunSuite {
       "Has no effect.", 6))
     assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
       "Has no effect.", 6), cc2)
-    assertEquals(rc2, new RangedCombatCard("Milva", MoraleBoost(),
-      "Morale boost", 10))
-    assertEquals(new RangedCombatCard("Milva", MoraleBoost(),
-      "Morale boost", 10), rc2)
-    assertEquals(sc2, new SiegeCombatCard("Catapult", TightBond(),
-      "Tight Bond", 8))
-    assertEquals(new SiegeCombatCard("Catapult", TightBond(),
-      "Tight Bond", 8), sc2)
+    assertEquals(rc2, new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10))
+    assertEquals(new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10), rc2)
+    assertEquals(sc2, new SiegeCombatCard("Catapult", TightBond(), tBond, 8))
+    assertEquals(new SiegeCombatCard("Catapult", TightBond(), tBond, 8), sc2)
 
     assert(!cc1.equals(cc2))
     assert(!cc2.equals(cc1))
@@ -103,13 +96,13 @@ class CardTest extends munit.FunSuite {
     assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
       "Has no effect.", 6).hashCode(), cc2.hashCode())
     assertEquals(rc2.hashCode(), new RangedCombatCard("Milva", MoraleBoost(),
-      "Morale boost", 10).hashCode())
+      mBoost, 10).hashCode())
     assertEquals(new RangedCombatCard("Milva", MoraleBoost(),
-      "Morale boost", 10).hashCode(), rc2.hashCode())
+      mBoost, 10).hashCode(), rc2.hashCode())
     assertEquals(sc2.hashCode(), new SiegeCombatCard("Catapult", TightBond(),
-      "Tight Bond", 8).hashCode())
+      tBond, 8).hashCode())
     assertEquals(new SiegeCombatCard("Catapult", TightBond(),
-      "Tight Bond", 8).hashCode(), sc2.hashCode())
+      tBond, 8).hashCode(), sc2.hashCode())
 
     assert(cc1.hashCode()!=cc2.hashCode())
     assert(cc2.hashCode()!=cc1.hashCode())
