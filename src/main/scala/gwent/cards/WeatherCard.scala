@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import gwent.cards.effects.Effect
 import gwent.{Board, Section}
+
 import java.util.Objects
 
 /** Class representing a weather card in the Gwen't game.
@@ -17,7 +19,7 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class WeatherCard(val name: String, val description: String) extends Card with Equals {
+class WeatherCard(val name: String, val description: String, val effect: Effect) extends Card with Equals {
   override def playCard(board: Board, section: Section): Unit =
     playWeatherCard(board)
   /** Puts the weather card on the weather zone of the board.
