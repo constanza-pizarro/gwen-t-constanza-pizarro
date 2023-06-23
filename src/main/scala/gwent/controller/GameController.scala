@@ -2,6 +2,8 @@ package cl.uchile.dcc
 package gwent.controller
 
 import gwent.cards.*
+import gwent.cards.effects.weather.*
+import gwent.cards.effects.unit.*
 import gwent.controller.states.*
 import gwent.{Board, Player}
 import scala.util.Random
@@ -15,32 +17,47 @@ class GameController {
   var players: List[Player] = List()
 
   private val weatherCards: List[Card] = List(
-    new WeatherCard("Biting Frost",
+    new WeatherCard("Biting Frost", BitingFrost(),
       "Sets the strength of all Close Combat cards to 1 for both players."),
-    new WeatherCard("Impenetrable Fog",
+    new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players."),
-    new WeatherCard("Torrential Rain",
+    new WeatherCard("Torrential Rain", TorrentialRain(),
       "Sets the strength of all Siege Combat cards to 1 for both players."),
-    new WeatherCard("Clear Weather",
+    new WeatherCard("Clear Weather", ClearWeather(),
       "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects."))
   private val unitCards: List[Card] = List(
-    new CloseCombatCard("Blue Stripes Commando", "Tight Bond", 4),
-    new CloseCombatCard("Blueboy Lugos", "", 6),
-    new CloseCombatCard("Botchling", "", 4),
-    new CloseCombatCard("Bovine Defense Force", "", 8),
-    new CloseCombatCard("Clan Drummond Shield Maiden", "Tight Bond", 4),
+    new CloseCombatCard("Blue Stripes Commando", TightBond(),
+      "When placed with the same card, doubles the strength of both (or more) cards", 4),
+    new CloseCombatCard("Blueboy Lugos", NoEffect(),
+            "Has no effect.", 6),
+    new CloseCombatCard("Botchling", NoEffect(),
+            "Has no effect.", 4),
+    new CloseCombatCard("Bovine Defense Force", NoEffect(),
+            "Has no effect.", 8),
+    new CloseCombatCard("Clan Drummond Shield Maiden", TightBond(),
+      "When placed with the same card, doubles the strength of both (or more) cards", 4),
 
-    new RangedCombatCard("Albrich", "", 2),
-    new RangedCombatCard("Assire var Anahid", "", 6),
-    new RangedCombatCard("Crinfrid Reavers Dragon Hunter", "Tight Bond", 5),
-    new RangedCombatCard("Cynthia", "", 4),
-    new RangedCombatCard("Milva", "Morale boost", 10),
+    new RangedCombatCard("Albrich", NoEffect(),
+            "Has no effect.", 2),
+    new RangedCombatCard("Assire var Anahid", NoEffect(),
+            "Has no effect.", 6),
+    new RangedCombatCard("Crinfrid Reavers Dragon Hunter", TightBond(),
+      "When placed with the same card, doubles the strength of both (or more) cards", 5),
+    new RangedCombatCard("Cynthia", NoEffect(),
+            "Has no effect.", 4),
+    new RangedCombatCard("Milva", MoraleBoost(),
+      "Adds +1 to all units in the row (excluding itself).", 10),
 
-    new SiegeCombatCard("Ballista", "", 6),
-    new SiegeCombatCard("Catapult", "Tight Bond", 8),
-    new SiegeCombatCard("Fire Elemental", "", 6),
-    new SiegeCombatCard("Kaedweni Siege Expert", "Morale boost", 1),
-    new SiegeCombatCard("Siege Engineer", "", 6))
+    new SiegeCombatCard("Ballista", NoEffect(),
+            "Has no effect.",6),
+    new SiegeCombatCard("Catapult", TightBond(),
+      "When placed with the same card, doubles the strength of both (or more) cards", 8),
+    new SiegeCombatCard("Fire Elemental", NoEffect(),
+            "Has no effect.", 6),
+    new SiegeCombatCard("Kaedweni Siege Expert", MoraleBoost(),
+      "Adds +1 to all units in the row (excluding itself).", 1),
+    new SiegeCombatCard("Siege Engineer", NoEffect(),
+      "Has no effect.", 6))
 
   /** Sets the current player to the other player and the other player to the current player. */
   def changePlayer(): Unit = {
