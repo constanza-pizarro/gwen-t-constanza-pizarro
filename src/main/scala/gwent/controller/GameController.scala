@@ -11,8 +11,8 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
-  var currentPlayer: Option[Player] = None
-  var otherPlayer: Option[Player] = None
+  private var currentPlayer: Option[Player] = None
+  private var otherPlayer: Option[Player] = None
   private var board: Option[Board] = None
   var players: List[Player] = List()
 
