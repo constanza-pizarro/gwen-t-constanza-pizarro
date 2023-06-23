@@ -6,20 +6,17 @@ import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
 class SectionTest extends munit.FunSuite {
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(),
-    "When placed with the same card, doubles the strength of both (or more) cards", 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(),
-    "Has no effect.", 6)
+  val mBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(),
-    "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(),
-    "Adds +1 to all units in the row (excluding itself).", 10)
+  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
+  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(),
-    "Does nothing c:", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(),
-    "When placed with the same card, doubles the strength of both (or more) cards", 8)
+  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+
+  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
 
   val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
     "Sets the strength of all Close Combat cards to 1 for both players.")
