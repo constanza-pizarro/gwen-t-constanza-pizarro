@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import cards.Card
+import scala.collection.mutable.ListBuffer
 
 /** Class representing a player in the Gwen't game.
  *
@@ -19,7 +20,8 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, private var _section: Section = new Section(),
-             private var _deck: List[Card]=List(), private var _hand: List[Card]=List()) {
+             private var _deck: ListBuffer[Card]=ListBuffer(),
+             private var _hand: ListBuffer[Card]=ListBuffer()) {
   /** The current gems of the player.
    * Initially set to 2.
    */
@@ -40,16 +42,16 @@ class Player(val name: String, private var _section: Section = new Section(),
     _gemCounter -= 1
   }
   /** Accessor method for the player's deck */
-  def deck: List[Card] = {
-    val dCopy: List[Card] =_deck
+  def deck: ListBuffer[Card] = {
+    val dCopy: ListBuffer[Card] =_deck
     dCopy
   }
-  def deck_=(newDeck: List[Card]): Unit = {
+  def deck_=(newDeck: ListBuffer[Card]): Unit = {
     _deck = newDeck
   }
   /** Accessor method for the player's hand */
-  def hand: List[Card] = {
-    val hCopy: List[Card] = _hand
+  def hand: ListBuffer[Card] = {
+    val hCopy: ListBuffer[Card] = _hand
     hCopy
   }
   /** Draws a [[quantity]] of cards from the deck and adds them to the hand.
@@ -60,8 +62,8 @@ class Player(val name: String, private var _section: Section = new Section(),
   def drawCard(quantity: Int = 1): Unit = 
     for(_ <- 0 until quantity) {
       val card: Card = deck.head
-      _deck = deck.tail
-      _hand = card :: hand
+      _deck -= card
+      _hand += card
     }
   /** Shuffles the player's deck.
    *
@@ -80,7 +82,7 @@ class Player(val name: String, private var _section: Section = new Section(),
     if (!_hand.contains(card)) {
       throw new InvalidCardException("the card must be on the player's hand.")
     }
-    _hand = _hand.filterNot(_ eq card)
+    _hand -= hand(hand.indexOf(card))
     card.playCard(board, section)
   }
   override def equals(obj: Any): Boolean = obj match {
