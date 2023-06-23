@@ -9,15 +9,16 @@ import java.util.Objects
  * Each section has Close, Ranged and Siege combat zones.
  *
  * @constructor Create a new section with Close, Ranged and Siege combat zones
- * @param _closeCombatZone The list of cards in the close combat zone.
- * @param _rangedCombatZone The list of cards in the ranged combat zone.
- * @param _siegeCombatZone The list of cards in the siege combat zone.
  *
  * @author Constanza Pizarro
  */
-class Section(private var _closeCombatZone: List[CloseCombatCard] = List(),
-              private var _rangedCombatZone: List[RangedCombatCard] = List(),
-              private var _siegeCombatZone: List[SiegeCombatCard] = List()) extends Equals {
+class Section extends Equals {
+  /** The list of cards in the close combat zone */
+  private var _closeCombatZone = List[CloseCombatCard]()
+  /** The list of cards in the ranged combat zone */
+  private var _rangedCombatZone = List[RangedCombatCard]()
+  /** The list of cards in the siege combat zone */
+  private var _siegeCombatZone = List[SiegeCombatCard]()
   /** Accessor method for the section's close combat zone */
   def closeCombatZone: List[CloseCombatCard] = {
     val ccCopy = _closeCombatZone
