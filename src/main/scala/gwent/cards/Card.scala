@@ -7,18 +7,21 @@ import gwent.{Board, Section}
 /**
  * Represents the common structure of a card in the game.
  *
- * A card is characterized by its [[name]] and [[description]].
+ * A card is characterized by its [[name]], [[effect]] and [[description]].
  */
 trait Card {
   /** The name of the card.
    * This is an immutable property.
    */
   val name: String
+  /** The effect of the card.
+   * This is an immutable property.
+   */
+  val effect: Effect
   /** A description of the card's properties or effects.
    * This is an immutable property.
    */
   val description: String
-  val effect: Effect
   /** Puts the card on its respective section of the board.
    *
    * @param board the board a card can be added to
