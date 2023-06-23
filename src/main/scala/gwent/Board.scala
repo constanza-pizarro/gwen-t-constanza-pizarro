@@ -26,7 +26,7 @@ class Board(var player1: Player, var player2: Player, var weatherZone: List[Weat
    * @param card the card that will be added to the board
    */
   def playCard(player: Player, card: Card): Unit = {
-    if (player != player1 && player != player2) {
+    if (!players.contains(player)) {
       throw new InvalidPlayerException("the player must be on the board.")
     }
     player.playCard(card, this)
