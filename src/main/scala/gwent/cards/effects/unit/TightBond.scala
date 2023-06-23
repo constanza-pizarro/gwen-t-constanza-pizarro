@@ -7,9 +7,7 @@ import gwent.cards.UnitCard
 case class TightBond() extends UnitEffect {
   def apply(self: UnitCard, target: List[UnitCard]): Unit = {
     val nTarget = target.filter(_.equals(self))
-    if (nTarget.nonEmpty) {
-      nTarget.foreach(_.currentPower *= 2)
-      self.currentPower *= 2
-    }
+    if (nTarget.length>1)
+      nTarget.foreach(_.currentPower *=2)
   }
 }
