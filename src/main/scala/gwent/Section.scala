@@ -44,8 +44,10 @@ class Section(private var _closeCombatZone: List[CloseCombatCard] = List(),
     rcCard.effect(rcCard, rangedCombatZone)
   }
   /** Adds a siege combat card to the siege combat zone. */
-  def playSiegeCombatCard(scCard: SiegeCombatCard): Unit =
+  def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
     _siegeCombatZone = scCard :: siegeCombatZone
+    scCard.effect(scCard, siegeCombatZone)
+  }
   override def canEqual(that: Any): Boolean =
     that.isInstanceOf[Section]
   override def equals(that: Any): Boolean = {
