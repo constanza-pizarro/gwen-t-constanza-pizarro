@@ -2,14 +2,16 @@ package cl.uchile.dcc
 package gwent
 
 import gwent.cards.*
+import cl.uchile.dcc.gwent.cards.effects.unit.*
+import cl.uchile.dcc.gwent.cards.effects.weather.*
 import org.junit.Assert
 
 class BoardTest extends munit.FunSuite {
-  val sc1 = new SiegeCombatCard("Kaedweni Siege Expert",
-    "Morale boost: Adds +1 to all units in the row (excluding itself).", 1)
-  val wc1 = new WeatherCard("Skellige Storm",
-    "Reduces the Strength of all Range and Siege Units to 1.")
-  val wc2 = new WeatherCard("Impenetrable Fog",
+  val sc1 = new SiegeCombatCard("Ballista", NoEffect(),
+    "Does nothing c:", 6)
+  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+    "Sets the strength of all Close Combat cards to 1 for both players.")
+  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
   val d1: List[Card] = List(wc1)
