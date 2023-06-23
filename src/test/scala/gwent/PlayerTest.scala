@@ -4,6 +4,7 @@ package gwent
 import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
+
 import org.junit.Assert
 
 class PlayerTest extends munit.FunSuite {
@@ -24,6 +25,7 @@ class PlayerTest extends munit.FunSuite {
   val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
+  val d1: List[Card] = List(cc1, rc1, wc1)
   val d2: List[Card] = List(cc2, rc2, sc2, wc2)
   val h2: List[Card] = List(cc1, wc1, rc1, sc1)
 
@@ -52,6 +54,12 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(p1.hand, List())
     assertEquals(p2.hand, h2)
   }
+
+  test("deck setter") {
+    p1.deck_=(d1)
+    assertEquals(p1.deck, List[Card](cc1, rc1, wc1))
+  }
+
   test("well defined hand and deck") {
     p2.shuffleDeck()
     p2.deck == d2
@@ -63,6 +71,7 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(h2.length+1, p2.hand.length)
     println(d2)
   }
+
   test("playCard") {
     val e2 = Assert.assertThrows(classOf[InvalidCardException], () => p1.playCard(sc1, board))
     assertEquals("the card must be on the player's hand.", e2.getMessage)
