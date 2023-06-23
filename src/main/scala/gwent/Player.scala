@@ -7,21 +7,23 @@ import scala.collection.mutable.ListBuffer
 /** Class representing a player in the Gwen't game.
  *
  * Each player has a name, a section, a gem counter, a deck of cards and a hand of cards.
- * The gem counter, deck and hand are private variables, but can be accessed via their corresponding
- * getter methods.
+ * The gem counter, section, deck and hand are private variables, but can be accessed via 
+ * their corresponding getter methods.
  *
- * @constructor Create a new player with a name, section, gem counter, deck and hand.
+ * @constructor Create a new player with a deck and hand.
  * @param name The name of the player.
- * @param _section The player's unit section.
  * @param _deck The initial list of cards in the player's deck.
  * @param _hand The initial list of cards in the player's hand.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, private var _section: Section = new Section(),
-             private var _deck: ListBuffer[Card]=ListBuffer(),
+class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
              private var _hand: ListBuffer[Card]=ListBuffer()) {
+  /** The unit section of the player.
+   * Initially empty.
+   */
+  private var _section: Section = new Section
   /** The current gems of the player.
    * Initially set to 2.
    */
