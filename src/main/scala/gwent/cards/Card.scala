@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import gwent.cards.effects.Effect
 import gwent.{Board, Section}
 
 /**
@@ -17,6 +18,7 @@ trait Card {
    * This is an immutable property.
    */
   val description: String
+  val effect: Effect
   /** Puts the card on its respective section of the board.
    *
    * @param board the board a card can be added to
