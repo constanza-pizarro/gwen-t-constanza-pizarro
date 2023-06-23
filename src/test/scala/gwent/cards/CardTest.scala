@@ -26,23 +26,26 @@ class CardTest extends munit.FunSuite {
                 "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
   test("well defined cards") {
-    assertEquals(cc1.name,"Berserker")
-    assertEquals(cc1.description,"Transforms into a bear when a Mardroeme card is on its row.")
+    assertEquals(cc1.name,"Blue Stripes Commando")
+    assertEquals(cc1.effect, TightBond())
+    assertEquals(cc1.description,"Adds +1 to all units in the row (excluding itself).")
     assertEquals(cc1.power,4)
     assertEquals(cc1.currentPower,4)
 
-    assertEquals(rc1.name,"Clan Dimun Pirate")
-    assertEquals(rc1.description,"Scorch: Kills the strongest card(s) on the battlefield.")
-    assertEquals(rc1.power,6)
-    assertEquals(rc1.currentPower,6)
+    assertEquals(rc1.name,"Albrich")
+    assertEquals(rc1.effect, NoEffect())
+    assertEquals(rc1.description,"Has no effect.")
+    assertEquals(rc1.power,2)
+    assertEquals(rc1.currentPower,2)
 
-    assertEquals(sc1.name,"Kaedweni Siege Expert")
-    assertEquals(sc1.description,"Morale boost: Adds +1 to all units in the row (excluding itself).")
-    assertEquals(sc1.power,1)
-    assertEquals(sc1.currentPower,1)
+    assertEquals(sc1.name,"Ballista")
+    assertEquals(sc1.description,"Does nothing c:")
+    assertEquals(sc1.power,6)
+    assertEquals(sc1.currentPower,6)
 
-    assertEquals(wc1.name,"Skellige Storm")
-    assertEquals(wc1.description,"Reduces the Strength of all Range and Siege Units to 1.")
+    assertEquals(wc1.name,"Biting Frost")
+    assertEquals(wc1.effect, BitingFrost())
+    assertEquals(wc1.description,"Sets the strength of all Close Combat cards to 1 for both players.")
   }
 
   test("unit equals") {
@@ -74,7 +77,7 @@ class CardTest extends munit.FunSuite {
     assert(!rc1.equals(wc1))
     assert(!sc1.equals(wc1))
   }
-
+  
   test("weather equals") {
     assertEquals(wc1, wc1)
 
