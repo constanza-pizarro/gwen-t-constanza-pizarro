@@ -2,23 +2,28 @@ package cl.uchile.dcc
 package gwent
 
 import gwent.cards.*
+import gwent.cards.effects.unit.*
+import gwent.cards.effects.weather.*
 
 class SectionTest extends munit.FunSuite {
-  val cc1 = new CloseCombatCard("Berserker",
-    "Transforms into a bear when a Mardroeme card is on its row.", 4)
-  val cc2 = new CloseCombatCard("Imlerith",
-    "Hero: Not affected by any Special Cards or abilities.", 10)
-  val rc1 = new RangedCombatCard("Clan Dimun Pirate",
-    "Scorch: Kills the strongest card(s) on the battlefield.", 6)
-  val rc2 = new RangedCombatCard("Eithné",
-    "Hero: Not affected by any Special Cards or abilities.", 10)
-  val sc1 = new SiegeCombatCard("Kaedweni Siege Expert",
-    "Morale boost: Adds +1 to all units in the row (excluding itself).", 1)
-  val sc2 = new SiegeCombatCard("Morvran Voorhis",
-    "Hero: Not affected by any Special Cards or abilities.", 10)
-  val wc1 = new WeatherCard("Skellige Storm",
-    "Reduces the Strength of all Range and Siege Units to 1.")
-  val wc2 = new WeatherCard("Impenetrable Fog",
+  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(),
+    "Adds +1 to all units in the row (excluding itself).", 4)
+  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(),
+    "Has no effect.", 6)
+
+  val rc1 = new RangedCombatCard("Albrich", NoEffect(),
+    "Has no effect.", 2)
+  val rc2 = new RangedCombatCard("Milva", MoraleBoost(),
+    "Morale boost", 10)
+
+  val sc1 = new SiegeCombatCard("Ballista", NoEffect(),
+    "Does nothing c:", 6)
+  val sc2 = new SiegeCombatCard("Catapult", TightBond(),
+    "Tight Bond", 8)
+
+  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+    "Sets the strength of all Close Combat cards to 1 for both players.")
+  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
   val d1: List[Card] = List(cc1, cc2, rc1, rc2, sc1, wc1)
