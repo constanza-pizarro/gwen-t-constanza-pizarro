@@ -14,23 +14,23 @@ import java.util.Objects
  */
 class Section extends Equals {
   /** The list of cards in the close combat zone */
-  private var _closeCombatZone = List[CloseCombatCard]()
+  private var _closeCombatZone = List[UnitCard]()
   /** The list of cards in the ranged combat zone */
-  private var _rangedCombatZone = List[RangedCombatCard]()
+  private var _rangedCombatZone = List[UnitCard]()
   /** The list of cards in the siege combat zone */
-  private var _siegeCombatZone = List[SiegeCombatCard]()
+  private var _siegeCombatZone = List[UnitCard]()
   /** Accessor method for the section's close combat zone */
-  def closeCombatZone: List[CloseCombatCard] = {
+  def closeCombatZone: List[UnitCard] = {
     val ccCopy = _closeCombatZone
     ccCopy
   }
   /** Accessor method for the section's ranged combat zone */
-  def rangedCombatZone: List[RangedCombatCard] = {
+  def rangedCombatZone: List[UnitCard] = {
     val rcCopy = _rangedCombatZone
     rcCopy
   }
   /** Accessor method for the section's siege combat zone */
-  def siegeCombatZone: List[SiegeCombatCard] = {
+  def siegeCombatZone: List[UnitCard] = {
     val scCopy = _siegeCombatZone
     scCopy
   }
