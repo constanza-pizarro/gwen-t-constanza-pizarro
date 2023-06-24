@@ -73,5 +73,6 @@ class GameControllerTest extends munit.FunSuite {
     for (i <- 0 until n + 1)
       gameC.playCard(0)
     assert(gameC.isInCount)
+    assert(!gameC2.isInCount)
   }
 }
