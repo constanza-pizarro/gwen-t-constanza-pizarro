@@ -1,10 +1,12 @@
 package cl.uchile.dcc
 package gwent.cards.effects.weather
 
-import gwent.cards.effects.WeatherEffect
+import gwent.*
+import gwent.cards.Card
+import gwent.cards.effects.*
 
-case class ClearWeather() extends WeatherEffect {
-  override def apply(): Unit = {
-
+case class ClearWeather() extends AbstractWeatherEffect {
+  override def apply(self: Card, target: Board): Unit = {
+    target.applied.foreach(effect => effect.undo(target))
   }
 }
