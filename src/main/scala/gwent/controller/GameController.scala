@@ -15,6 +15,7 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
+  var round: Int = 1
   private var _board: Option[Board] = None
   private val _isPlaying: mutable.Map[Player, Boolean] = mutable.Map()
   private var _currentPlayer: Option[Player] = None
@@ -167,10 +168,11 @@ class GameController {
   def isInCount: Boolean = {
     state.isInCount
   }
+  /*
   def isInRound: Boolean = {
     state.isInRound
   }
   def isInFinal: Boolean = {
     state.isInFinal
-  }
+  }*/
 }
