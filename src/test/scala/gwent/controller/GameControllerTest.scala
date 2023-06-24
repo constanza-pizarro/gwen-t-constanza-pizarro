@@ -26,16 +26,21 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC.players.head.deck.length, 15)
   }
 
-  test("changePlayer") {
+  test("changeTurn") {
     val cPlayer: Player = gameC.currentPlayer.get
     val oPlayer: Player = gameC.otherPlayer.get
-    gameC.changePlayer()
+    gameC.changeTurn()
     assertEquals(gameC.otherPlayer.get, cPlayer)
     assertEquals(gameC.currentPlayer.get, oPlayer)
   }
 
   test("turn state") {
     assert(gameC.isInTurn)
+  }
+
+  test("alone state") {
+    gameC.endTurn()
+    assert(gameC.isInAlone)
   }
 
   test("playCard") {
@@ -52,15 +57,11 @@ class GameControllerTest extends munit.FunSuite {
       gameC.playCard(0)
     assert(gameC.isInCount)
   }
-  test("alone state") {
-    gameC.endTurn()
-    assert(gameC.isInAlone)
-  }
-  /*test("endTurn") {
-    gameC.startGame("p1", "p2")
+
+  test("endTurn") {
     val player1: Player = gameC.currentPlayer.get
     val player2: Player = gameC.otherPlayer.get
     gameC.endTurn()
     assertEquals(gameC.currentPlayer.get, player2)
-  }*/
+  }
 }
