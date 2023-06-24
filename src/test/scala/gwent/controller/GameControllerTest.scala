@@ -62,6 +62,7 @@ class GameControllerTest extends munit.FunSuite {
     val player1: Player = gameC.currentPlayer.get
     val player2: Player = gameC.otherPlayer.get
     gameC.endTurn()
+    assert(!gameC.isPlaying(player1))
     assertEquals(gameC.currentPlayer.get, player2)
   }
 }
