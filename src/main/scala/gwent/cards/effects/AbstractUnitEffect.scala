@@ -3,6 +3,6 @@ package gwent.cards.effects
 
 import gwent.cards.UnitCard
 
-trait UnitEffect {
-  def apply(self: UnitCard, target: List[UnitCard]): Unit
+abstract class AbstractUnitEffect extends Effect {
+
 }
