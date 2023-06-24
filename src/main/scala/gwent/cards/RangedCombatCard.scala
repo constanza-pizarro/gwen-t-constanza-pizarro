@@ -3,7 +3,7 @@ package gwent.cards
 
 import gwent.Section
 
-import cl.uchile.dcc.gwent.cards.effects.UnitEffect
+import cl.uchile.dcc.gwent.cards.effects.Effect
 
 import java.util.Objects
 
@@ -22,7 +22,7 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class RangedCombatCard(name: String, effect: UnitEffect, description: String, power: Int)
+class RangedCombatCard(name: String, effect:Effect, description: String, power: Int)
   extends AbstractUnitCard(name, effect, description, power) {
   override def playUnitCard(section: Section): Unit =
     section.playRangedCombatCard(this)
