@@ -16,7 +16,7 @@ class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
   private var _board: Option[Board] = None
-  private val _players: mutable.Map[Player, Boolean] = mutable.Map()
+  private val _isPlaying: mutable.Map[Player, Boolean] = mutable.Map()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
 
@@ -67,9 +67,14 @@ class GameController {
     val b = _board
     b
   }
+  /** Accessor method for the map of players and their status */
+  def isPlaying: mutable.Map[Player, Boolean] = {
+    val m = _isPlaying
+    m
+  }
   /** Accessor method for the list of players */
   def players: List[Player] = {
-    val p = _players.keys.toList
+    val p = isPlaying.keys.toList
     p
   }
   /** Accessor method for the current player */
@@ -119,13 +124,13 @@ class GameController {
 
     _board = Some(new Board(player1, player2))
     for (p <- board.get.players) {
-      _players += (p -> true)
+      _isPlaying += (p -> true)
       p.shuffleDeck()
       for (i <- 0.until(10))
         p.drawCard()
     }
 
-    scala.util.Random.shuffle(_players)
+    scala.util.Random.shuffle(_isPlaying)
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
     state.startGame()
@@ -138,19 +143,16 @@ class GameController {
     } else {
       if (c > hand.length) {
         throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
-      } else {
-        //println(s"${player.name}: Choose a card")
+      }
+      //println(s"${player.name}: Choose a card")
         //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
         //val c: Int = scala.io.StdIn.readInt()
-        board.get.playCard(player, hand(c))
-        if (_players(player)) {
-          changeTurn()
-        }
-      }
+      board.get.playCard(player, hand(c))
+      if (isPlaying(otherPlayer.get)) changeTurn()
     }
   }
   def endTurn(): Unit = {
-    _players.update(currentPlayer.get, false)
+    _isPlaying.update(currentPlayer.get, false)
     state.endTurn()
   }
   def isInStart: Boolean = {
