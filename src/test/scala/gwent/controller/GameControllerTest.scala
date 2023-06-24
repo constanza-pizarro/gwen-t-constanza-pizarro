@@ -22,6 +22,8 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC2.isInStart)
     val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.newRound())
     assertEquals(s"Cannot transition from StartState to RoundState", e1.getMessage)
+    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.endTurn())
+    assertEquals(s"Cannot transition from StartState to AloneState or CountState", e2.getMessage)
     assert(!gameC.isInStart)
   }
 
@@ -46,15 +48,15 @@ class GameControllerTest extends munit.FunSuite {
     gameC.endTurn()
     assert(gameC.isInAlone)
     assert(!gameC2.isInAlone)
-    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startGame())
-    assertEquals(s"Cannot transition from AloneState to TurnState", e2.getMessage)
+    val e3 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startGame())
+    assertEquals(s"Cannot transition from AloneState to TurnState", e3.getMessage)
   }
 
   test("playCard") {
     val player: Player = gameC.currentPlayer.get
     val i: Int = player.hand.length
-    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
-    assertEquals(s"The number must be less than $i.", e.getMessage)
+    val e4 = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
+    assertEquals(s"The number must be less than $i.", e4.getMessage)
     gameC.playCard(0)
     assertEquals(gameC.otherPlayer.get, player)
   }
