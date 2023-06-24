@@ -49,13 +49,7 @@ class GameControllerTest extends munit.FunSuite {
     val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
     assertEquals(s"The number must be less than $i.", e.getMessage)
     gameC.playCard(0)
-    assertEquals(player.hand.length, i-1)
-    gameC.endTurn()
-    assert(gameC.isInAlone)
-    val n: Int = gameC.currentPlayer.get.hand.length
-    for (i <- 0 until n+1)
-      gameC.playCard(0)
-    assert(gameC.isInCount)
+    assertEquals(gameC.otherPlayer.get, player)
   }
 
   test("endTurn") {
@@ -64,5 +58,15 @@ class GameControllerTest extends munit.FunSuite {
     gameC.endTurn()
     assert(!gameC.isPlaying(player1))
     assertEquals(gameC.currentPlayer.get, player2)
+  }
+
+  test("count state") {
+    val player: Player = gameC.currentPlayer.get
+    gameC.endTurn()
+    assert(gameC.isInAlone)
+    val n: Int = gameC.currentPlayer.get.hand.length
+    for (i <- 0 until n + 1)
+      gameC.playCard(0)
+    assert(gameC.isInCount)
   }
 }
