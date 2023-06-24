@@ -2,10 +2,10 @@ package cl.uchile.dcc
 package gwent.cards.effects
 
 import gwent.cards.Card
-import gwent.Section
+import gwent.Board
 
 abstract class AbstractUnitEffect extends Effect {
-  override def apply(self: Card, section1: Section, section2: Section): Unit = {
+  override def apply(self: Card, board: Board): Unit = {
     // do nothing c:
   }
 }
