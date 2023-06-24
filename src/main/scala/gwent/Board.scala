@@ -41,5 +41,6 @@ class Board(var player1: Player, var player2: Player, var weatherZone: List[Weat
    */
   def playWeatherCard(wCard: WeatherCard): Unit = {
     weatherZone = wCard :: weatherZone
+    wCard.effect(wCard, this)
   }
 }
