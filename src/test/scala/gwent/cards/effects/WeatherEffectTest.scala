@@ -36,8 +36,8 @@ class WeatherEffectTest extends munit.FunSuite {
   val wc4 = new WeatherCard("Clear Weather", ClearWeather(),
     "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects.")
 
-  val h1: ListBuffer[Card] = ListBuffer(cc1, cc2, sc3, rc1, rc2, sc1, sc2, wc1, wc2)
-  val h2: ListBuffer[Card] = ListBuffer(cc3, sc3, rc3, rc4, sc1, sc2, wc3, wc4)
+  val h1: ListBuffer[Card] = ListBuffer(cc1, cc2, rc1, rc2, sc1, sc2, wc1, wc2)
+  val h2: ListBuffer[Card] = ListBuffer(cc3, rc3, rc4, sc1, sc2, sc3, wc3, wc4)
 
   var p1: Player = _
   var p2: Player= _
@@ -102,5 +102,25 @@ class WeatherEffectTest extends munit.FunSuite {
     assertEquals(cc2.currentPower, c1)
     assertEquals(sc2.currentPower, s1)
     assertEquals(rc3.currentPower, r1)
+  }
+
+  test("undo") {
+    board.player1.playCard(cc1, board)
+    board.player2.playCard(cc3, board)
+    board.player1.playCard(wc1, board)
+
+    board.player2.playCard(rc4, board)
+    board.player1.playCard(rc1, board)
+    board.player1.playCard(wc2, board)
+
+    board.player2.playCard(sc2, board)
+    board.player1.playCard(sc1, board)
+    board.player2.playCard(wc3, board)
+
+    board.player2.playCard(wc4, board)
+
+    assertEquals(cc1.currentPower, cc1.lastPower)
+    assertEquals(rc4.currentPower, rc4.lastPower)
+    assertEquals(sc2.currentPower, sc2.lastPower)
   }
 }
