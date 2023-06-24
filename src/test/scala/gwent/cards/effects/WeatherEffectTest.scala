@@ -6,6 +6,7 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
+import scala.Array.copy
 import scala.collection.mutable.ListBuffer
 
 class WeatherEffectTest extends munit.FunSuite {
@@ -43,8 +44,8 @@ class WeatherEffectTest extends munit.FunSuite {
   var board: Board = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1", _hand = h1)
-    p2 = new Player("player2", _hand = h2)
+    p1 = new Player("player1", _hand = h1.clone())
+    p2 = new Player("player2", _hand = h2.clone())
     board = new Board(p1, p2)
   }
 
@@ -80,5 +81,26 @@ class WeatherEffectTest extends munit.FunSuite {
     assertEquals(sc1.currentPower, 1)
     assertEquals(sc1.lastPower, c1)
     assertEquals(sc2.lastPower, c2)
+  }
+
+  test("Clear Weather") {
+    val c1 = cc2.currentPower
+    val r1 = rc3.currentPower
+    val s1 = sc2.currentPower
+    board.player1.playCard(cc2, board)
+    board.player2.playCard(rc3, board)
+    board.player1.playCard(sc1, board)
+    board.player2.playCard(sc2, board)
+    board.player1.playCard(wc1, board)
+    assertEquals(cc2.lastPower, c1)
+    board.player2.playCard(wc3, board)
+    assertEquals(sc2.lastPower, s1)
+    board.player1.playCard(wc2, board)
+    assertEquals(rc3.lastPower, r1)
+
+    board.player2.playCard(wc4, board)
+    assertEquals(cc2.currentPower, c1)
+    assertEquals(sc2.currentPower, s1)
+    assertEquals(rc3.currentPower, r1)
   }
 }
