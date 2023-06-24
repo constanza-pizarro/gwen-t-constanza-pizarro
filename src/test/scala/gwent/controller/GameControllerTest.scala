@@ -82,4 +82,12 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC.isInCount)
     assert(!gameC2.isInCount)
   }
+  
+  test("declareWinner") {
+    gameC.endTurn()
+    gameC.endTurn()
+    assert(gameC.isInCount)
+    gameC.state.declareWinner()
+    assert(gameC.state.isInFinal)
+  }
 }
