@@ -46,6 +46,7 @@ class GameControllerTest extends munit.FunSuite {
     assert(!gameC2.isInTurn)
     val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.playAgain())
     assertEquals(s"Cannot transition from TurnState to StartState", e.getMessage)
+    assert(!gameC.state.isInRound)
   }
 
   test("alone state") {
@@ -94,5 +95,15 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC.isInCount)
     gameC.state.declareWinner()
     assert(gameC.state.isInFinal)
+    assert(!gameC2.state.isInFinal)
+  }
+
+  test("round state") {
+    gameC.endTurn()
+    gameC.endTurn()
+    assert(gameC.isInCount)
+    gameC.state.newRound()
+    assert(gameC.state.isInRound)
+    assert(!gameC2.state.isInRound)
   }
 }
