@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.cards.{Card, WeatherCard}
+import cards.{Card, WeatherCard}
+import cards.effects.Effect
+import scala.collection.mutable.ListBuffer
 
 /** Class representing a board in the Gwen't game.
  *
@@ -17,6 +19,8 @@ import gwent.cards.{Card, WeatherCard}
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[WeatherCard]=List()) {
   val players: List[Player] = List(player1, player2)
+  val applied: ListBuffer[Effect] = ListBuffer()
+  
   if (player1.name == player2.name) {
     throw new InvalidNameException("the players must have different names.")
   }
