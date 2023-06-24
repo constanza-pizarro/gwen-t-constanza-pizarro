@@ -11,6 +11,7 @@ trait UnitCard extends Card {
    * Initially set to the base [[power]] of the card.
    */
   var currentPower: Int = power
+  var lastPower: Int = 0
   /** Puts the unit card in its respective section of the board.
    *
    * @param section the section the unit card will be added to
