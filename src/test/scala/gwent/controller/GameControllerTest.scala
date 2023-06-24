@@ -45,6 +45,7 @@ class GameControllerTest extends munit.FunSuite {
   test("alone state") {
     gameC.endTurn()
     assert(gameC.isInAlone)
+    assert(!gameC2.isInAlone)
   }
 
   test("playCard") {
