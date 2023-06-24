@@ -50,34 +50,34 @@ class WeatherEffectTest extends munit.FunSuite {
   }
 
   test("Biting Frost") {
-    board.player1.playCard(cc1, board)
-    board.player2.playCard(cc3, board)
-    board.player1.playCard(cc2, board)
+    board.playCard(p1, cc1)
+    board.playCard(p2, cc3)
+    board.playCard(p1, cc2)
     val c1 = cc1.currentPower
     val c2 = cc3.currentPower
-    board.player1.playCard(wc1, board)
+    board.playCard(p1, wc1)
     assertEquals(cc1.currentPower, 1)
     assertEquals(cc1.lastPower, c1)
     assertEquals(cc3.lastPower, c2)
   }
 
   test("Impenetrable Fog") {
-    board.player1.playCard(rc1, board)
-    board.player2.playCard(rc3, board)
+    board.playCard(p1, rc1)
+    board.playCard(p2, rc3)
     val c1 = rc1.currentPower
     val c2 = rc3.currentPower
-    board.player1.playCard(wc2, board)
+    board.playCard(p1, wc2)
     assertEquals(rc1.currentPower, 1)
     assertEquals(rc1.lastPower, c1)
     assertEquals(rc3.lastPower, c2)
   }
 
   test("Torrential Rain") {
-    board.player1.playCard(sc1, board)
-    board.player2.playCard(sc2, board)
+    board.playCard(p1, sc1)
+    board.playCard(p2, sc2)
     val c1 = sc1.currentPower
     val c2 = sc2.currentPower
-    board.player2.playCard(wc3, board)
+    board.playCard(p2, wc3)
     assertEquals(sc1.currentPower, 1)
     assertEquals(sc1.lastPower, c1)
     assertEquals(sc2.lastPower, c2)
@@ -87,37 +87,37 @@ class WeatherEffectTest extends munit.FunSuite {
     val c1 = cc2.currentPower
     val r1 = rc3.currentPower
     val s1 = sc2.currentPower
-    board.player1.playCard(cc2, board)
-    board.player2.playCard(rc3, board)
-    board.player1.playCard(sc1, board)
-    board.player2.playCard(sc2, board)
-    board.player1.playCard(wc1, board)
+    board.playCard(p1, cc2)
+    board.playCard(p2, rc3)
+    board.playCard(p1, sc1)
+    board.playCard(p2, sc2)
+    board.playCard(p1, wc1)
     assertEquals(cc2.lastPower, c1)
-    board.player2.playCard(wc3, board)
+    board.playCard(p2, wc3)
     assertEquals(sc2.lastPower, s1)
-    board.player1.playCard(wc2, board)
+    board.playCard(p1, wc2)
     assertEquals(rc3.lastPower, r1)
 
-    board.player2.playCard(wc4, board)
+    board.playCard(p2, wc4)
     assertEquals(cc2.currentPower, c1)
     assertEquals(sc2.currentPower, s1)
     assertEquals(rc3.currentPower, r1)
   }
 
   test("undo") {
-    board.player1.playCard(cc1, board)
-    board.player2.playCard(cc3, board)
-    board.player1.playCard(wc1, board)
+    board.playCard(p1, cc1)
+    board.playCard(p2, cc3)
+    board.playCard(p1, wc1)
 
-    board.player2.playCard(rc4, board)
-    board.player1.playCard(rc1, board)
-    board.player1.playCard(wc2, board)
+    board.playCard(p2, rc4)
+    board.playCard(p1, rc1)
+    board.playCard(p1, wc2)
 
-    board.player2.playCard(sc2, board)
-    board.player1.playCard(sc1, board)
-    board.player2.playCard(wc3, board)
+    board.playCard(p2, sc2)
+    board.playCard(p1, sc1)
+    board.playCard(p2, wc3)
 
-    board.player2.playCard(wc4, board)
+    board.playCard(p2, wc4)
 
     assertEquals(cc1.currentPower, cc1.lastPower)
     assertEquals(rc4.currentPower, rc4.lastPower)
