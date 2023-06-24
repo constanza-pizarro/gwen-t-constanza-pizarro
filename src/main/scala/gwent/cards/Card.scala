@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent.cards
 
 import gwent.{Board, Section}
+import gwent.cards.effects.Effect
 
 /**
  * Represents the common structure of a card in the game.
@@ -17,6 +18,8 @@ trait Card {
    * This is an immutable property.
    */
   val description: String
+  /** The effect of the card. */
+  val effect: Effect
   /** Puts the card on its respective section of the board.
    *
    * @param board the board a card can be added to
