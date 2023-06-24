@@ -14,6 +14,7 @@ class WeatherEffectTest extends munit.FunSuite {
 
   val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
   val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val cc3 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
   val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
   val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
@@ -34,13 +35,28 @@ class WeatherEffectTest extends munit.FunSuite {
   val wc4 = new WeatherCard("Clear Weather", ClearWeather(),
     "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects.")
 
-  val d1: ListBuffer[Card] = ListBuffer(cc1, cc2, sc1, sc2, sc3, rc1, rc2, rc3, rc4, wc1, wc2)
-  val d2: ListBuffer[Card] = ListBuffer(cc1, cc2, sc1, sc2, sc3, rc1, rc2, rc3, rc4, wc3, wc4)
+  val h1: ListBuffer[Card] = ListBuffer(cc1, cc2, sc1, sc2, sc3, rc1, rc2, rc3, rc4, wc1, wc2)
+  val h2: ListBuffer[Card] = ListBuffer(cc1, cc3, sc1, sc2, sc3, rc1, rc2, rc3, rc4, wc3, wc4)
 
-  val h1: ListBuffer[Card] = ListBuffer()
-  val h2: ListBuffer[Card] = ListBuffer()
+  var p1: Player = _
+  var p2: Player= _
+  var board: Board = _
 
-  val p1 = new Player("player1", d1, h1)
-  val p2 = new Player("player2", d2, h2)
-  val board = new Board(p1, p2)
+  override def beforeEach(context: BeforeEach): Unit = {
+    p1 = new Player("player1", _hand = h1)
+    p2 = new Player("player2", _hand = h2)
+    board = new Board(p1, p2)
+  }
+
+  test("Biting Frost") {
+    board.player1.playCard(cc1, board)
+    board.player2.playCard(cc3, board)
+    board.player1.playCard(cc2, board)
+    val c1 = cc1.currentPower
+    val c2 = cc3.currentPower
+    board.player1.playCard(wc1, board)
+    assertEquals(cc1.currentPower, 1)
+    assertEquals(cc1.lastPower, c1)
+    assertEquals(cc3.lastPower, c2)
+  }
 }
