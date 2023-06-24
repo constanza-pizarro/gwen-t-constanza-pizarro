@@ -106,4 +106,13 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC.state.isInRound)
     assert(!gameC2.state.isInRound)
   }
+
+  test("startRound") {
+    gameC.endTurn()
+    gameC.endTurn()
+    gameC.state.newRound()
+    assert(gameC.state.isInRound)
+    gameC.state.startRound()
+    assert(gameC.isInTurn)
+  }
 }
