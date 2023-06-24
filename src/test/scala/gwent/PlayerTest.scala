@@ -50,12 +50,13 @@ class PlayerTest extends munit.FunSuite {
     p1.loseGem()
     assertEquals(p1.gemCounter,1)
     p1.loseGem()
-    val e1 = Assert.assertThrows(classOf[IllegalArgumentException], () => p1.loseGem())
-    assertEquals("requirement failed: the gemCounter must be non-negative.", e1.getMessage)
+    val e = Assert.assertThrows(classOf[IllegalArgumentException], () => p1.loseGem())
+    assertEquals("requirement failed: the gemCounter must be non-negative.", e.getMessage)
     assertEquals(p1.deck, ListBuffer())
     assertEquals(p2.deck, d2)
     assertEquals(p1.hand, ListBuffer())
     assertEquals(p2.hand, h2)
+    println(d2)
   }
 
   test("deck setter") {
@@ -75,8 +76,8 @@ class PlayerTest extends munit.FunSuite {
   }
 
   test("playCard") {
-    val e2 = Assert.assertThrows(classOf[InvalidCardException], () => p1.playCard(sc1, board))
-    assertEquals("the card must be on the player's hand.", e2.getMessage)
+    val e = Assert.assertThrows(classOf[InvalidCardException], () => p1.playCard(sc1, board))
+    assertEquals("the card must be on the player's hand.", e.getMessage)
     p2.playCard(cc1, board)
     p2.playCard(wc1, board)
     p2.playCard(rc1, board)
