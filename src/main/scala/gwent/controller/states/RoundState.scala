@@ -9,5 +9,5 @@ class RoundState(controller: GameController) extends GameState(controller) {
   override def startRound(): Unit = {
     controller.state = new TurnState(controller)
   }
-  override def isInRound(): Boolean = true
+  override def isInRound: Boolean = true
 }

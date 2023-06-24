@@ -26,12 +26,12 @@ class GameState(var context: GameController) {
   def playAgain(): Unit = {
     transitionError("StartState")
   }
-  def isInStart(): Boolean = false
-  def isInTurn(): Boolean = false
-  def isInAlone(): Boolean = false
-  def isInCount(): Boolean = false
-  def isInRound(): Boolean = false
-  def isInFinal(): Boolean = false
+  def isInStart: Boolean = false
+  def isInTurn: Boolean = false
+  def isInAlone: Boolean = false
+  def isInCount: Boolean = false
+  def isInRound: Boolean = false
+  def isInFinal: Boolean = false
   private def transitionError(targetState: String): Unit = {
     throw new InvalidTransitionException(
       s"Cannot transition from ${getClass.getSimpleName} to $targetState"

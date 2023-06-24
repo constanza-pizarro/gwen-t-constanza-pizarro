@@ -9,5 +9,5 @@ class CountState(controller: GameController) extends GameState(controller) {
   override def newRound(): Unit = {
     controller.state = new RoundState(controller)
   }
-  override def isInCount(): Boolean = true
+  override def isInCount: Boolean = true
 }

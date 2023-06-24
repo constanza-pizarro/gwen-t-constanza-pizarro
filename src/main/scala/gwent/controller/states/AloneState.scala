@@ -7,5 +7,5 @@ class AloneState(controller: GameController) extends GameState(controller) {
   override def endTurn(): Unit = {
     controller.state = new CountState(controller)
   }
-  override def isInAlone(): Boolean = true
+  override def isInAlone: Boolean = true
 }

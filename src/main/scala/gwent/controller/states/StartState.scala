@@ -7,5 +7,5 @@ class StartState(controller: GameController) extends GameState(controller) {
   override def startGame(): Unit = {
     controller.state = new TurnState(controller)
   }
-  override def isInStart(): Boolean = true
+  override def isInStart: Boolean = true
 }
