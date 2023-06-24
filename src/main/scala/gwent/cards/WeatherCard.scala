@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import gwent.cards.effects.WeatherEffect
+import gwent.cards.effects.Effect
 import gwent.{Board, Section}
 
 import java.util.Objects
@@ -19,7 +19,7 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class WeatherCard(val name: String, val effect: WeatherEffect,
+class WeatherCard(val name: String, val effect: Effect,
                   val description: String) extends Card with Equals {
   override def playCard(board: Board, section: Section): Unit =
     playWeatherCard(board)
