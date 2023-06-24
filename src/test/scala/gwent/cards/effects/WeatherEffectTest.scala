@@ -21,7 +21,7 @@ class WeatherEffectTest extends munit.FunSuite {
   val rc3 = new RangedCombatCard("Cynthia", NoEffect(), "Has no effect.", 4)
   val rc4 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Has no effect.", 6)
   val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
   val sc3 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
 
@@ -69,5 +69,16 @@ class WeatherEffectTest extends munit.FunSuite {
     assertEquals(rc1.currentPower, 1)
     assertEquals(rc1.lastPower, c1)
     assertEquals(rc3.lastPower, c2)
+  }
+
+  test("Torrential Rain") {
+    board.player1.playCard(sc1, board)
+    board.player2.playCard(sc2, board)
+    val c1 = sc1.currentPower
+    val c2 = sc2.currentPower
+    board.player2.playCard(wc3, board)
+    assertEquals(sc1.currentPower, 1)
+    assertEquals(sc1.lastPower, c1)
+    assertEquals(sc2.lastPower, c2)
   }
 }
