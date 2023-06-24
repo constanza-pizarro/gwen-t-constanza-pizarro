@@ -46,6 +46,8 @@ class GameControllerTest extends munit.FunSuite {
     gameC.endTurn()
     assert(gameC.isInAlone)
     assert(!gameC2.isInAlone)
+    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startGame())
+    assertEquals(s"Cannot transition from AloneState to TurnState", e2.getMessage)
   }
 
   test("playCard") {
