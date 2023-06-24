@@ -37,8 +37,8 @@ class GameControllerTest extends munit.FunSuite {
     gameC.changeTurn()
     assertEquals(gameC.otherPlayer.get, cPlayer)
     assertEquals(gameC.currentPlayer.get, oPlayer)
-    val e3 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.newRound())
-    assertEquals(s"Cannot transition from TurnState to RoundState", e3.getMessage)
+    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.newRound())
+    assertEquals(s"Cannot transition from TurnState to RoundState", e.getMessage)
   }
 
   test("turn state") {
@@ -50,16 +50,17 @@ class GameControllerTest extends munit.FunSuite {
     gameC.endTurn()
     assert(gameC.isInAlone)
     assert(!gameC2.isInAlone)
-    val e4 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startGame())
-    assertEquals(s"Cannot transition from AloneState to TurnState", e4.getMessage)
-
+    val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startGame())
+    assertEquals(s"Cannot transition from AloneState to TurnState", e1.getMessage)
+    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC.state.startRound())
+    assertEquals(s"Cannot transition from AloneState to TurnState", e2.getMessage)
   }
 
   test("playCard") {
     val player: Player = gameC.currentPlayer.get
     val i: Int = player.hand.length
-    val e5 = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
-    assertEquals(s"The number must be less than $i.", e5.getMessage)
+    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC.playCard(i+1))
+    assertEquals(s"The number must be less than $i.", e.getMessage)
     gameC.playCard(0)
     assertEquals(gameC.otherPlayer.get, player)
   }
@@ -81,8 +82,10 @@ class GameControllerTest extends munit.FunSuite {
       gameC.playCard(0)
     assert(gameC.isInCount)
     assert(!gameC2.isInCount)
+    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.declareWinner())
+    assertEquals(s"Cannot transition from StartState to FinalState", e.getMessage)
   }
-  
+
   test("declareWinner") {
     gameC.endTurn()
     gameC.endTurn()
