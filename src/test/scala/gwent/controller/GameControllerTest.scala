@@ -3,7 +3,7 @@ package gwent.controller
 
 import gwent.Player
 import gwent.cards.Card
-import gwent.controller.states.StartState
+import gwent.controller.states.*
 
 import org.junit.Assert
 
@@ -20,6 +20,9 @@ class GameControllerTest extends munit.FunSuite {
 
   test("start state") {
     assert(gameC2.isInStart)
+    val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.newRound())
+    assertEquals(s"Cannot transition from StartState to RoundState", e1.getMessage)
+    assert(!gameC.isInStart)
   }
 
   test("setDeck") {
