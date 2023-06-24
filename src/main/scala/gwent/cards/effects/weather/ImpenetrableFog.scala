@@ -19,4 +19,16 @@ case class ImpenetrableFog() extends AbstractWeatherEffect {
         card.currentPower = 1
       })
   }
+  override def undo(target: Board): Unit = {
+    target.player1.section.rangedCombatZone
+      .foreach(card => {
+        val lp = card.lastPower
+        if (lp > 0) card.currentPower = lp
+      })
+    target.player2.section.rangedCombatZone
+      .foreach(card => {
+        val lp = card.lastPower
+        if (lp > 0) card.currentPower = lp
+      })
+  }
 }
