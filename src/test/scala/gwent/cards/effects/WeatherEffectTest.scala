@@ -6,7 +6,6 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
-import scala.Array.copy
 import scala.collection.mutable.ListBuffer
 
 class WeatherEffectTest extends munit.FunSuite {
