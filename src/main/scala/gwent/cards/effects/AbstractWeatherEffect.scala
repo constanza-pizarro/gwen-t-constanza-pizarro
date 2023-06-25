@@ -11,7 +11,7 @@ abstract class AbstractWeatherEffect extends Effect {
   override def apply(self: Card, target: Board): Unit = {
     target.applied += this
   }
-  def applyEffect(list1: List[Card], list2: List[Card]): Unit = {
+  def applyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
     list1
       .foreach(card => {
         card.lastPower = card.currentPower
@@ -23,7 +23,7 @@ abstract class AbstractWeatherEffect extends Effect {
         card.currentPower = 1
       })
   }
-  def unapplyEffect(list1: List[Card], list2: List[Card]): Unit = {
+  def unapplyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
     list1
       .foreach(card => {
         val lp = card.lastPower
