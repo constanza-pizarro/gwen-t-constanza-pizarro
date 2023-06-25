@@ -42,6 +42,7 @@ class UnitEffectTest extends munit.FunSuite {
     assertEquals(rc1.currentPower, rc1.power+1)
     board.playCard(p2, rc3)
     assertEquals(rc3.currentPower, rc3.power)
+    MoraleBoost()(cc1, board)
     board.playCard(p2, rc4) // le sube 1 a rc1, rc2 y rc3
     assertEquals(rc1.currentPower, rc1.power+2)
     assertEquals(rc2.currentPower, rc2.power+1)
