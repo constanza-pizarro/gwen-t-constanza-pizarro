@@ -18,7 +18,9 @@ import scala.collection.mutable.ListBuffer
  * @author Constanza Pizarro
  */
 class Board(var player1: Player, var player2: Player, var weatherZone: List[WeatherCard]=List()) {
+  /** The list of players. */
   val players: List[Player] = List(player1, player2)
+  /** List of weather cards placed on the board*/
   val applied: ListBuffer[Effect] = ListBuffer()
   
   if (player1.name == player2.name) {
@@ -35,7 +37,7 @@ class Board(var player1: Player, var player2: Player, var weatherZone: List[Weat
     }
     player.playCard(card, this)
   }
-  /** Places a weather card on the weather zone of the board.
+  /** Places a weather card on the weather zone of the board and applies the card's effect.
    *
    * @param wCard the weather card that will be added to the weather zone of the board
    */
