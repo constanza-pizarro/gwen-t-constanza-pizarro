@@ -8,7 +8,7 @@ import java.util.Objects
  *
  * Each section has Close, Ranged and Siege combat zones.
  *
- * @constructor Create a new section with Close, Ranged and Siege combat zones
+ * @constructor Create a new section with empty Close, Ranged and Siege combat zones
  *
  * @author Constanza Pizarro
  */
@@ -34,17 +34,17 @@ class Section extends Equals {
     val scCopy = _siegeCombatZone
     scCopy
   }
-  /** Adds a close combat card to the close combat zone. */
+  /** Adds a close combat card to the close combat zone and applies the card's effect (if it has). */
   def playCloseCombatCard(ccCard: CloseCombatCard): Unit = {
     _closeCombatZone = ccCard :: closeCombatZone
     ccCard.effect(ccCard, closeCombatZone)
   }
-  /** Adds a ranged combat card to the ranged combat zone. */
+  /** Adds a ranged combat card to the ranged combat zone and applies the card's effect (if it has). */
   def playRangedCombatCard(rcCard: RangedCombatCard): Unit = {
     _rangedCombatZone = rcCard :: rangedCombatZone
     rcCard.effect(rcCard, rangedCombatZone)
   }
-  /** Adds a siege combat card to the siege combat zone. */
+  /** Adds a siege combat card to the siege combat zone and applies the card's effect (if it has). */
   def playSiegeCombatCard(scCard: SiegeCombatCard): Unit = {
     _siegeCombatZone = scCard :: siegeCombatZone
     scCard.effect(scCard, siegeCombatZone)
