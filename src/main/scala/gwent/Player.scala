@@ -67,7 +67,6 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
     _hand += card
     card
   }
-
   /** Shuffles the player's deck.
    *
    * The order of cards in the player's deck is randomized.
