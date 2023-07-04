@@ -8,52 +8,51 @@ import gwent.cards.effects.weather.*
 import scala.collection.mutable.ListBuffer
 
 class SectionTest extends munit.FunSuite {
-  val mBoost = "Adds +1 to all units in the row (excluding itself)."
-  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
+  val moraleBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tightBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val ccCard1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tightBond, 4)
+  val ccCard2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+  val rcCard1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rcCard2 = new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
+  val scCard1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val scCard2 = new SiegeCombatCard("Catapult", TightBond(), tightBond, 8)
 
-  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+  val wCard1 = new WeatherCard("Biting Frost", BitingFrost(),
     "Sets the strength of all Close Combat cards to 1 for both players.")
-  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+  val wCard2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
-  val d1: ListBuffer[Card] = ListBuffer(cc1, cc2, rc1, rc2, sc1, wc1)
-  val d2: ListBuffer[Card] = ListBuffer(cc2, rc2, rc1, sc2, sc1, wc2)
+  val deck1: ListBuffer[Card] = ListBuffer(ccCard1, ccCard2, rcCard1, rcCard2, scCard1, wCard1)
+  val deck2: ListBuffer[Card] = ListBuffer(ccCard2, rcCard2, rcCard1, scCard2, scCard1, wCard2)
 
-  val h1: ListBuffer[Card] = ListBuffer(sc2, wc2)
-  val h2: ListBuffer[Card] = ListBuffer(cc1, wc1, rc1)
+  val hand1: ListBuffer[Card] = ListBuffer(scCard2, wCard2)
+  val hand2: ListBuffer[Card] = ListBuffer(ccCard1, wCard1, rcCard1)
 
   var board: Board = _
-  val s1: Section = new Section()
-  val s2: Section = new Section()
+  val section1: Section = new Section
+  val section2: Section = new Section
+  val section3: Section = new Section
 
-  val p1 = new Player("player1", d1, h1)
-  val p2 = new Player("player2", d2, h2)
-  board = new Board(p1, p2)
-  board.playCard(p2, cc1)
+  val player1 = new Player("player1", deck1, hand1)
+  val player2 = new Player("player2", deck2, hand2)
+  board = new Board(player1, player2)
 
-  test("well defined section and board") {
-    assertEquals(s1.closeCombatZone, List())
-    assertEquals(s1.rangedCombatZone, List())
-    assertEquals(s1.siegeCombatZone, List())
+  test("well defined section") {
+    assertEquals(section1.closeCombatZone, List())
+    assertEquals(section1.rangedCombatZone, List())
+    assertEquals(section1.siegeCombatZone, List())
+  }
 
-    assertEquals(p2.section.closeCombatZone, List(cc1))
-
-    assertEquals(board.player1, p1)
-    assertEquals(board.player2, p2)
-    assertEquals(board.weatherZone, List())
+  test("playCloseCombatCard") {
+    section1.playCloseCombatCard(ccCard1)
+    assertEquals(section1.closeCombatZone, List[UnitCard](ccCard1))
   }
 
   test("equals") {
-    assertEquals(s1, new Section)
-    assert(!s1.equals(p1))
+    assertEquals(section3, new Section)
+    assert(!section2.equals(player1))
   }
 }
