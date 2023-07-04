@@ -12,7 +12,7 @@ import java.util.Objects
  *
  * @author Constanza Pizarro
  */
-class Section extends Equals {
+class Section {
   /** The list of cards in the close combat zone */
   private var _closeCombatZone = List[UnitCard]()
   /** The list of cards in the ranged combat zone */
@@ -49,16 +49,11 @@ class Section extends Equals {
     _siegeCombatZone = scCard :: siegeCombatZone
     scCard.effect(scCard, siegeCombatZone)
   }
-  override def canEqual(that: Any): Boolean =
-    that.isInstanceOf[Section]
-  override def equals(that: Any): Boolean = {
-    if (canEqual(that)) {
-      val other = that.asInstanceOf[Section]
+  override def equals(obj: Any): Boolean = obj match {
+    case other: Section =>
       (this eq other) || (closeCombatZone == other.closeCombatZone
         && rangedCombatZone == other.rangedCombatZone
         && siegeCombatZone == other.siegeCombatZone)
-    } else {
-      false
-    }
+    case _ => false
   }
 }
