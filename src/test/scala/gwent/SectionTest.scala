@@ -51,6 +51,11 @@ class SectionTest extends munit.FunSuite {
     assertEquals(section1.closeCombatZone, List[UnitCard](ccCard1))
   }
 
+  test("playRangedCombatCard") {
+    section2.playRangedCombatCard(rcCard2)
+    assertEquals(section2.rangedCombatZone, List(rcCard2))
+  }
+
   test("equals") {
     assertEquals(section3, new Section)
     assert(!section2.equals(player1))
