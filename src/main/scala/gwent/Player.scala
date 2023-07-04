@@ -2,12 +2,11 @@ package cl.uchile.dcc
 package gwent
 
 import cards.Card
-import scala.collection.mutable.ListBuffer
 
 /** Class representing a player in the Gwen't game.
  *
  * Each player has a name, a section, a gem counter, a deck of cards and a hand of cards.
- * The gem counter, section, deck and hand are private variables, but can be accessed via 
+ * The gem counter, section, deck and hand are private variables, but can be accessed via
  * their corresponding getter methods.
  *
  * @constructor Create a new player with a deck and hand.
@@ -18,8 +17,8 @@ import scala.collection.mutable.ListBuffer
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author Constanza Pizarro
  */
-class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
-             private val _hand: ListBuffer[Card]=ListBuffer()) {
+class Player(val name: String, private var _deck: List[Card]=List(),
+             private var _hand: List[Card]=List()) {
   /** The unit section of the player.
    * Initially empty.
    */
@@ -44,16 +43,17 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
     _gemCounter -= 1
   }
   /** Accessor method for the player's deck */
-  def deck: ListBuffer[Card] = {
-    val dCopy: ListBuffer[Card] =_deck
+  def deck: List[Card] = {
+    val dCopy =_deck
     dCopy
   }
-  def deck_=(newDeck: ListBuffer[Card]): Unit = {
+  /** Mutator method for the player's deck */
+  def deck_=(newDeck: List[Card]): Unit = {
     _deck = newDeck
   }
   /** Accessor method for the player's hand */
-  def hand: ListBuffer[Card] = {
-    val hCopy: ListBuffer[Card] = _hand
+  def hand: List[Card] = {
+    val hCopy = _hand
     hCopy
   }
   /** Draws a card from the deck and adds them to the hand.
@@ -64,7 +64,7 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
   def drawCard(): Card = {
     val card: Card = deck.head
     _deck = deck.tail
-    _hand += card
+    _hand = card :: hand
     card
   }
   /** Shuffles the player's deck.
@@ -72,7 +72,7 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
    * The order of cards in the player's deck is randomized.
    */
   def shuffleDeck(): Unit =
-    _deck = scala.util.Random.shuffle(_deck)
+    _deck = scala.util.Random.shuffle(deck)
   /** Plays the given card.
    *
    * Draws the card from the hand and puts it on its respective zone of the board.
@@ -84,7 +84,7 @@ class Player(val name: String, private var _deck: ListBuffer[Card]=ListBuffer(),
     if (!_hand.contains(card)) {
       throw new InvalidCardException("the card must be on the player's hand.")
     }
-    _hand -= hand(hand.indexOf(card))
+    _hand = hand.filterNot(_ eq card)
     card.playCard(board, section)
   }
   override def equals(obj: Any): Boolean = obj match {
