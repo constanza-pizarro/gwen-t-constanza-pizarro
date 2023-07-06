@@ -18,7 +18,9 @@ trait Card {
    * This is an immutable property.
    */
   val description: String
-  /** The effect of the card. */
+  /** The effect of the card. 
+   * This is an immutable property.
+   */
   val effect: Effect
   /** Puts the card on its respective section of the board.
    *
