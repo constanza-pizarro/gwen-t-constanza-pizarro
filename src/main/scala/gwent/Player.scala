@@ -47,10 +47,6 @@ class Player(val name: String, private var _deck: List[Card]=List(),
     val dCopy =_deck
     dCopy
   }
-  /** Mutator method for the player's deck */
-  def deck_=(newDeck: List[Card]): Unit = {
-    _deck = newDeck
-  }
   /** Accessor method for the player's hand */
   def hand: List[Card] = {
     val hCopy = _hand
