@@ -14,24 +14,24 @@ abstract class AbstractWeatherEffect extends Effect {
   def applyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
     list1
       .foreach(card => {
-        card.lastPower = card.currentPower
+        card.previousPower = card.currentPower
         card.currentPower = 1
       })
     list2
       .foreach(card => {
-        card.lastPower = card.currentPower
+        card.previousPower = card.currentPower
         card.currentPower = 1
       })
   }
   def unapplyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
     list1
       .foreach(card => {
-        val lp = card.lastPower
+        val lp = card.previousPower
         if (lp > 0) card.currentPower = lp
       })
     list2
       .foreach(card => {
-        val lp = card.lastPower
+        val lp = card.previousPower
         if (lp > 0) card.currentPower = lp
       })
   }
