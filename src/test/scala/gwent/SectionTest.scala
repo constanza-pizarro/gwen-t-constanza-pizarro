@@ -25,20 +25,19 @@ class SectionTest extends munit.FunSuite {
   val wCard2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
-  val deck1: ListBuffer[Card] = ListBuffer(ccCard1, ccCard2, rcCard1, rcCard2, scCard1, wCard1)
-  val deck2: ListBuffer[Card] = ListBuffer(ccCard2, rcCard2, rcCard1, scCard2, scCard1, wCard2)
+  val deck1: List[Card] = List(ccCard1, ccCard2, rcCard1, rcCard2, scCard1, wCard1)
+  val deck2: List[Card] = List(ccCard2, rcCard2, rcCard1, scCard2, scCard1, wCard2)
 
-  val hand1: ListBuffer[Card] = ListBuffer(scCard2, wCard2)
-  val hand2: ListBuffer[Card] = ListBuffer(ccCard1, wCard1, rcCard1)
+  val hand1: List[Card] = List(scCard2, wCard2)
+  val hand2: List[Card] = List(ccCard1, wCard1, rcCard1)
 
-  var board: Board = _
   val section1: Section = new Section
   val section2: Section = new Section
   val section3: Section = new Section
 
   val player1 = new Player("player1", deck1, hand1)
   val player2 = new Player("player2", deck2, hand2)
-  board = new Board(player1, player2)
+  val board = new Board(player1, player2)
 
   test("well defined section") {
     assertEquals(section1.closeCombatZone, List())
