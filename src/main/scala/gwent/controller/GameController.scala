@@ -48,9 +48,9 @@ class GameController {
   }
   /** Sets the current player to the other player and the other player to the current player. */
   def changeTurn(): Unit = {
-    val cPlayer: Option[Player] = currentPlayer
-    _currentPlayer = otherPlayer
-    _otherPlayer = cPlayer
+    val cPlayer: Player = currentPlayer
+    _currentPlayer = _otherPlayer
+    _otherPlayer = Some(cPlayer)
   }
   /** Sets a deck with 25 cards.
    *
@@ -89,7 +89,7 @@ class GameController {
     state.startGame()
   }
   def playCard(c: Int): Unit = {
-    val player: Player = currentPlayer.get
+    val player: Player = currentPlayer
     val hand: ListBuffer[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
@@ -101,11 +101,11 @@ class GameController {
         //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
         //val c: Int = scala.io.StdIn.readInt()
       board.playCard(player, hand(c))
-      if (isPlaying(otherPlayer.get)) changeTurn()
+      if (isPlaying(otherPlayer)) changeTurn()
     }
   }
   def endTurn(): Unit = {
-    _isPlaying.update(currentPlayer.get, false)
+    _isPlaying.update(currentPlayer, false)
     state.endTurn()
   }
   def isInStart: Boolean = {
