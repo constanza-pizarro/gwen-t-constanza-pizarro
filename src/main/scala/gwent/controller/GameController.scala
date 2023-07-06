@@ -7,9 +7,6 @@ import gwent.cards.effects.unit.*
 import gwent.controller.states.*
 import gwent.{Board, Player}
 
-import scala.collection.mutable
-import scala.collection.mutable.{ListBuffer, Map}
-import scala.collection.mutable.Map
 import scala.util.Random
 
 class GameController {
@@ -17,7 +14,7 @@ class GameController {
   var state: GameState = new StartState(this)
   //var round: Int = 1
   private var _board: Option[Board] = None
-  private val _isPlaying: mutable.Map[Player, Boolean] = mutable.Map()
+  private var _isPlaying: Map[Player, Boolean] = Map()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
 
@@ -27,7 +24,7 @@ class GameController {
     b
   }
   /** Accessor method for the map of players and their status */
-  def isPlaying: mutable.Map[Player, Boolean] = {
+  def isPlaying: Map[Player, Boolean] = {
     val m = _isPlaying
     m
   }
@@ -83,7 +80,7 @@ class GameController {
         p.drawCard()
     }
 
-    scala.util.Random.shuffle(_isPlaying)
+    _isPlaying = scala.util.Random.shuffle(isPlaying)
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
     state.startGame()
@@ -102,7 +99,7 @@ class GameController {
     }
   }
   def endTurn(): Unit = {
-    _isPlaying.update(currentPlayer, false)
+    _isPlaying += (currentPlayer -> false)
     state.endTurn()
   }
   def isInStart: Boolean = {
