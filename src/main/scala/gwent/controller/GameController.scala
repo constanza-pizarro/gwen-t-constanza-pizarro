@@ -15,15 +15,15 @@ import scala.util.Random
 class GameController {
   // Estado actual del juego
   var state: GameState = new StartState(this)
-  var round: Int = 1
+  //var round: Int = 1
   private var _board: Option[Board] = None
   private val _isPlaying: mutable.Map[Player, Boolean] = mutable.Map()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
 
   /** Accessor method for the board */
-  def board: Option[Board] = {
-    val b = _board
+  def board: Board = {
+    val b = _board.get
     b
   }
   /** Accessor method for the map of players and their status */
@@ -72,16 +72,11 @@ class GameController {
   }
   def startGame(name1: String, name2: String,
                 unitCards: List[Card], weatherCards: List[Card]): Unit = {
-    //println("Player 1 name?")
-    //val name1: String = scala.io.StdIn.readLine()
-    //println("Player 2 name?")
-    //val name2: String = scala.io.StdIn.readLine()
-
     val player1: Player = new Player(name1, setDeck(unitCards, weatherCards))
     val player2: Player = new Player(name2, setDeck(unitCards, weatherCards))
 
     _board = Some(new Board(player1, player2))
-    for (p <- board.get.players) {
+    for (p <- board.players) {
       _isPlaying += (p -> true)
       p.shuffleDeck()
       for (i <- 0.until(10))
@@ -105,7 +100,7 @@ class GameController {
       //println(s"${player.name}: Choose a card")
         //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
         //val c: Int = scala.io.StdIn.readInt()
-      board.get.playCard(player, hand(c))
+      board.playCard(player, hand(c))
       if (isPlaying(otherPlayer.get)) changeTurn()
     }
   }
