@@ -21,48 +21,6 @@ class GameController {
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
 
-  private val weatherCards = List[Card](
-    new WeatherCard("Biting Frost", BitingFrost(),
-      "Sets the strength of all Close Combat cards to 1 for both players."),
-    new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
-      "Sets the strength of all Ranged Combat cards to 1 for both players."),
-    new WeatherCard("Torrential Rain", TorrentialRain(),
-      "Sets the strength of all Siege Combat cards to 1 for both players."),
-    new WeatherCard("Clear Weather", ClearWeather(),
-      "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects."))
-  private val unitCards = List[Card](
-    new CloseCombatCard("Blue Stripes Commando", TightBond(),
-      "When placed with the same card, doubles the strength of both (or more) cards", 4),
-    new CloseCombatCard("Blueboy Lugos", NoEffect(),
-            "Has no effect.", 6),
-    new CloseCombatCard("Botchling", NoEffect(),
-            "Has no effect.", 4),
-    new CloseCombatCard("Bovine Defense Force", NoEffect(),
-            "Has no effect.", 8),
-    new CloseCombatCard("Clan Drummond Shield Maiden", TightBond(),
-      "When placed with the same card, doubles the strength of both (or more) cards", 4),
-
-    new RangedCombatCard("Albrich", NoEffect(),
-            "Has no effect.", 2),
-    new RangedCombatCard("Assire var Anahid", NoEffect(),
-            "Has no effect.", 6),
-    new RangedCombatCard("Crinfrid Reavers Dragon Hunter", TightBond(),
-      "When placed with the same card, doubles the strength of both (or more) cards", 5),
-    new RangedCombatCard("Cynthia", NoEffect(),
-            "Has no effect.", 4),
-    new RangedCombatCard("Milva", MoraleBoost(),
-      "Adds +1 to all units in the row (excluding itself).", 10),
-
-    new SiegeCombatCard("Ballista", NoEffect(),
-            "Has no effect.",6),
-    new SiegeCombatCard("Catapult", TightBond(),
-      "When placed with the same card, doubles the strength of both (or more) cards", 8),
-    new SiegeCombatCard("Fire Elemental", NoEffect(),
-            "Has no effect.", 6),
-    new SiegeCombatCard("Kaedweni Siege Expert", MoraleBoost(),
-      "Adds +1 to all units in the row (excluding itself).", 1),
-    new SiegeCombatCard("Siege Engineer", NoEffect(),
-      "Has no effect.", 6))
   /** Accessor method for the board */
   def board: Option[Board] = {
     val b = _board
@@ -112,16 +70,15 @@ class GameController {
     }
     deck
   }
-  def startGame(name1: String, name2: String): Unit = {
+  def startGame(name1: String, name2: String,
+                unitCards: List[Card], weatherCards: List[Card]): Unit = {
     //println("Player 1 name?")
     //val name1: String = scala.io.StdIn.readLine()
     //println("Player 2 name?")
     //val name2: String = scala.io.StdIn.readLine()
 
-    val player1: Player = new Player(name1)
-    val player2: Player = new Player(name2)
-    player1.deck_=(setDeck(unitCards, weatherCards))
-    player2.deck_=(setDeck(unitCards, weatherCards))
+    val player1: Player = new Player(name1, setDeck(unitCards, weatherCards))
+    val player2: Player = new Player(name2, setDeck(unitCards, weatherCards))
 
     _board = Some(new Board(player1, player2))
     for (p <- board.get.players) {
