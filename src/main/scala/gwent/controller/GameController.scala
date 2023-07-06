@@ -63,7 +63,7 @@ class GameController {
    */
   private def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
     var deck: List[Card] = List()
-    wCards.foreach(i => deck = i::deck)
+    wCards.foreach(i => deck = i :: deck)
     for (i <- 0 until 21) {
       val card: Card = uCards(Random.nextInt(uCards.length))
       deck = card :: deck
@@ -90,16 +90,13 @@ class GameController {
   }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer
-    val hand: ListBuffer[Card] = player.hand
+    val hand: List[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
     } else {
       if (c > hand.length) {
         throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
       }
-      //println(s"${player.name}: Choose a card")
-        //hand.indices.foreach(i => println(s"$i: ${hand(i)}"))
-        //val c: Int = scala.io.StdIn.readInt()
       board.playCard(player, hand(c))
       if (isPlaying(otherPlayer)) changeTurn()
     }
