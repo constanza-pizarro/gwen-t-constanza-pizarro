@@ -103,12 +103,12 @@ class GameController {
    * @param wCards a list of weather cards
    * @return a deck of 25 cards
    */
-  private def setDeck(uCards: List[Card], wCards: List[Card]): ListBuffer[Card] = {
-    var deck: ListBuffer[Card] = ListBuffer()
-    wCards.foreach(i=> deck += i)
+  private def setDeck(uCards: List[Card], wCards: List[Card]): List[Card] = {
+    var deck: List[Card] = List()
+    wCards.foreach(i => deck = i::deck)
     for (i <- 0 until 21) {
       val card: Card = uCards(Random.nextInt(uCards.length))
-      deck += card
+      deck = card :: deck
     }
     deck
   }
