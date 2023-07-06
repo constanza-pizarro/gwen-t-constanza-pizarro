@@ -37,13 +37,13 @@ class GameController {
     p
   }
   /** Accessor method for the current player */
-  def currentPlayer: Option[Player] = {
-    val cPlayer = _currentPlayer
+  def currentPlayer: Player = {
+    val cPlayer = _currentPlayer.get
     cPlayer
   }
   /** Accessor method for the other player */
-  def otherPlayer: Option[Player] = {
-    val oPlayer = _otherPlayer
+  def otherPlayer: Player = {
+    val oPlayer = _otherPlayer.get
     oPlayer
   }
   /** Sets the current player to the other player and the other player to the current player. */
