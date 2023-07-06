@@ -14,9 +14,9 @@ class GameController {
   var state: GameState = new StartState(this)
   //var round: Int = 1
   private var _board: Option[Board] = None
-  private var _isPlaying: Map[Player, Boolean] = Map()
   private var _currentPlayer: Option[Player] = None
   private var _otherPlayer: Option[Player] = None
+  private var _isPlaying: Map[Player, Boolean] = Map()
 
   /** Accessor method for the board */
   def board: Board = {
@@ -69,6 +69,8 @@ class GameController {
   }
   def startGame(name1: String, name2: String,
                 unitCards: List[Card], weatherCards: List[Card]): Unit = {
+    state.startGame() // automáticamente tira exception si no esta en el estado correcto
+
     val player1: Player = new Player(name1, setDeck(unitCards, weatherCards))
     val player2: Player = new Player(name2, setDeck(unitCards, weatherCards))
 
@@ -76,14 +78,13 @@ class GameController {
     for (p <- board.players) {
       _isPlaying += (p -> true)
       p.shuffleDeck()
-      for (i <- 0.until(10))
+      for (i <- 0 until 10)
         p.drawCard()
     }
 
     _isPlaying = scala.util.Random.shuffle(isPlaying)
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
-    state.startGame()
   }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer
