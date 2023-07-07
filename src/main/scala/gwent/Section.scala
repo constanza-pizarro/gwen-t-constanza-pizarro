@@ -49,6 +49,10 @@ class Section {
     _siegeCombatZone = scCard :: siegeCombatZone
     scCard.effect(scCard, siegeCombatZone)
   }
+  def sumPoints(): Int =
+    (closeCombatZone.foldLeft(0)((acc, c) => acc + c.currentPower)
+      + rangedCombatZone.foldLeft(0)((acc, c) => acc + c.currentPower)
+      + siegeCombatZone.foldLeft(0)((acc, c) => acc + c.currentPower))
   override def equals(obj: Any): Boolean = obj match {
     case other: Section =>
       (this eq other) || (closeCombatZone == other.closeCombatZone
