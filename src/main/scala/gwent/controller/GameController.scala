@@ -88,15 +88,17 @@ class GameController {
   }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer
-    val hand: List[Card] = player.hand
-    if (hand.isEmpty) {
-      endTurn()
-    } else {
-      if (c > hand.length) {
-        throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
+    if (isPlaying(player)) {
+      val hand: List[Card] = player.hand
+      if (hand.isEmpty) {
+        endTurn()
+      } else {
+        if (c > hand.length) {
+          throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
+        }
+        board.playCard(player, hand(c))
+        if (isPlaying(otherPlayer)) changeTurn()
       }
-      board.playCard(player, hand(c))
-      if (isPlaying(otherPlayer)) changeTurn()
     }
   }
   def endTurn(): Unit = {
