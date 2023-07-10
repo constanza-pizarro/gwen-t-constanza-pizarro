@@ -131,6 +131,10 @@ class GameController extends Observer[String] {
     _currentPlayer = Some(otherPlayer) // ambos son el mismo jugador ahora
     state.endTurn()
   }
+  override def update(observable: Subject[String], value: String): Unit = {
+    /////////
+    state.declareWinner()
+  }
   def isInStart: Boolean = {
     state.isInStart
   }
