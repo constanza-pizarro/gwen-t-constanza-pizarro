@@ -25,11 +25,6 @@ class GameController {
     val b = _board.get
     b
   }
-  /** Accessor method for the map of players and their status */
-  def isPlaying: Map[Player, Boolean] = {
-    val m = _isPlaying
-    m
-  }
   /** Accessor method for the list of players */
   def players: List[Player] = {
     val p = _players
