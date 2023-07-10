@@ -18,7 +18,7 @@ import cards.Card
  * @author Constanza Pizarro
  */
 class Player(val name: String, private var _deck: List[Card]=List(),
-             private var _hand: List[Card]=List()) {
+             private var _hand: List[Card]=List()) extends AbstractSubject[String] {
   /** The unit section of the player.
    * Initially empty.
    */
