@@ -5,11 +5,11 @@ import gwent.cards.*
 import gwent.cards.effects.weather.*
 import gwent.cards.effects.unit.*
 import gwent.controller.states.*
-import gwent.{Board, Player}
+import gwent.{Board, Observer, Player, Section, Subject}
 
 import scala.util.Random
 
-class GameController {
+class GameController extends Observer[String] {
   // Estado actual del juego
   var state: GameState = new StartState(this)
   //var round: Int = 1
