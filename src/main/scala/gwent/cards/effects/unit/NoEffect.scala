@@ -6,7 +6,7 @@ import gwent.cards.*
 
 /** Class representing a "null" effect of an unit card in the Gwen't game.
  *
- * A `MoraleBoost` is a type of [[AbstractUnitEffect]].
+ * A `NoEffect` is a type of [[AbstractUnitEffect]].
  * When a card has this effect it means the card has no effect.
  *
  * @constructor Creates a new `NoEffect` effect.
