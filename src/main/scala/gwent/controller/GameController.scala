@@ -10,14 +10,24 @@ import gwent.{Board, Observer, Player, Section, Subject}
 import scala.util.Random
 
 class GameController extends Observer[String] {
-  // Estado actual del juego
+  /** The current state of the game. */
   var state: GameState = new StartState(this)
   //var round: Int = 1
+  /** The game's board. */
   private var _board: Option[Board] = None
+  /** Player 1 of the game. */
   private var _player1: Option[Player] = None
+  /** Player 2 of the game. */
   private var _player2: Option[Player] = None
+  /** The current player of the game.
+   * Represents the player in turn.
+   */
   private var _currentPlayer: Option[Player] = _player1
+  /** The other player of the game.
+   * Represents the player waiting for their turn.
+   */
   private var _otherPlayer: Option[Player] = _player2
+  /** The list of players. */
   private var _players: List[Player] = List()
 
   /** Accessor method for the board */
