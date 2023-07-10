@@ -128,7 +128,7 @@ class GameController extends Observer[String] {
     }
   }
   def endTurn(): Unit = {
-    _isPlaying += (currentPlayer -> false)
+    _currentPlayer = Some(otherPlayer) // ambos son el mismo jugador ahora
     state.endTurn()
   }
   def isInStart: Boolean = {
