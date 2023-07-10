@@ -131,6 +131,20 @@ class GameController extends Observer[String] {
     _currentPlayer = Some(otherPlayer) // ambos son el mismo jugador ahora
     state.endTurn()
   }
+  def countPoints(): Unit = {
+    val player1Points: Int = player1.sumPoints()
+    val player2Points: Int = player2.sumPoints()
+
+    if (player1Points > player2Points) {
+      player2.loseGem()
+    } else if (player1Points < player2Points) {
+      player1.loseGem()
+    } else {
+      player1.loseGem()
+      player2.loseGem()
+    }
+    state.newRound()
+  }
   override def update(observable: Subject[String], value: String): Unit = {
     /////////
     state.declareWinner()
