@@ -25,6 +25,15 @@ class GameController {
     val b = _board.get
     b
   }
+  /** Accessor method for player 1 */
+  def player1: Player = {
+    val p1 = _player1.get
+    p1
+  }
+  def player2: Player = {
+    val p2 = _player2.get
+    p2
+  }
   /** Accessor method for the list of players */
   def players: List[Player] = {
     val p = _players
