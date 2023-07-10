@@ -42,8 +42,10 @@ class Player(val name: String, private var _deck: List[Card]=List(),
   }
   /** Subtract a gem from the player */
   def loseGem(): Unit = {
-    require(gemCounter > 0, "the gemCounter must be non-negative.")
     _gemCounter -= 1
+    if (gemCounter == 0) {
+      notifyObservers(s"$name has no gems left")
+    }
   }
   /** Accessor method for the player's deck */
   def deck: List[Card] = {
