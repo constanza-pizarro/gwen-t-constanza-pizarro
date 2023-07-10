@@ -11,89 +11,83 @@ import scala.+:
 import scala.collection.mutable.ListBuffer
 
 class PlayerTest extends munit.FunSuite {
-  val mBoost = "Adds +1 to all units in the row (excluding itself)."
-  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
+  val moraleBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tightBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val ccCard1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tightBond, 4)
+  val ccCard2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+  val rcCard1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rcCard2 = new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
+  val scCard1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val scCard2 = new SiegeCombatCard("Catapult", TightBond(), tightBond, 8)
 
-  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+  val wCard1 = new WeatherCard("Biting Frost", BitingFrost(),
     "Sets the strength of all Close Combat cards to 1 for both players.")
-  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+  val wCard2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
-  val d1: ListBuffer[Card] = ListBuffer(cc1, rc1, wc1)
-  val d2: ListBuffer[Card] = ListBuffer(cc2, rc2, sc2, wc2)
-  val h2: ListBuffer[Card] = ListBuffer(cc1, wc1, rc1, sc1)
+  val deck2: List[Card] = List(ccCard2, rcCard2, scCard2, wCard2)
+  val hand2: List[Card] = List(ccCard1, wCard1, rcCard1, scCard1)
 
-  var p1: Player = _
-  var p2: Player = _
+  var player1: Player = _
+  var player2: Player = _
   var board: Board = _
-  var s1: Section = new Section
+  var section1: Section = new Section
 
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1")
-    p2 = new Player("player2", d2, ListBuffer(cc1, wc1, rc1, sc1))
-    board = new Board(p1, p2)
+    player1 = new Player("player1")
+    player2 = new Player("player2", deck2, List(ccCard1, wCard1, rcCard1, scCard1))
+    board = new Board(player1, player2)
   }
 
   test("well defined player") {
-    assertEquals(p1.name, "player1")
-    assertEquals(p1.section, s1)
-    assertEquals(p1.gemCounter, 2)
-    p1.loseGem()
-    assertEquals(p1.gemCounter,1)
-    p1.loseGem()
-    val e = Assert.assertThrows(classOf[IllegalArgumentException], () => p1.loseGem())
+    assertEquals(player1.name, "player1")
+    assertEquals(player1.section, section1)
+    assertEquals(player1.gemCounter, 2)
+    player1.loseGem()
+    assertEquals(player1.gemCounter,1)
+    player1.loseGem()
+    val e = Assert.assertThrows(classOf[IllegalArgumentException], () => player1.loseGem())
     assertEquals("requirement failed: the gemCounter must be non-negative.", e.getMessage)
-    assertEquals(p1.deck, ListBuffer())
-    assertEquals(p2.deck, d2)
-    assertEquals(p1.hand, ListBuffer())
-    assertEquals(p2.hand, h2)
-    println(d2)
-  }
-
-  test("deck setter") {
-    p1.deck_=(d1)
-    assertEquals(p1.deck, ListBuffer[Card](cc1, rc1, wc1))
+    assertEquals(player1.deck, List())
+    assertEquals(player2.deck, deck2)
+    assertEquals(player1.hand, List())
+    assertEquals(player2.hand, hand2)
+    println(deck2)
   }
 
   test("well defined hand and deck") {
-    p2.shuffleDeck()
-    assertEquals(p2.deck.length, d2.length)
-    assertEquals(p2.hand, h2)
+    player2.shuffleDeck()
+    assertEquals(player2.deck.length, deck2.length)
+    assertEquals(player2.hand, hand2)
 
-    val d = p2.deck.tail
-    p2.drawCard()
-    assertEquals(p2.deck, d)
-    assertEquals(p2.hand.length, h2.length+1)
+    val d = player2.deck.tail
+    player2.drawCard()
+    assertEquals(player2.deck, d)
+    assertEquals(player2.hand.length, hand2.length+1)
   }
 
   test("playCard") {
-    val e = Assert.assertThrows(classOf[InvalidCardException], () => p1.playCard(sc1, board))
+    val e = Assert.assertThrows(classOf[InvalidCardException], () => player1.playCard(scCard1, board))
     assertEquals("the card must be on the player's hand.", e.getMessage)
-    p2.playCard(cc1, board)
-    p2.playCard(wc1, board)
-    p2.playCard(rc1, board)
-    p2.playCard(sc1, board)
-    assertEquals(p2.section.closeCombatZone, List(cc1))
-    assertEquals(p2.section.rangedCombatZone, List(rc1))
-    assertEquals(p2.section.siegeCombatZone, List(sc1))
-    assertEquals(board.weatherZone, List(wc1))
+    player2.playCard(ccCard1, board)
+    player2.playCard(wCard1, board)
+    player2.playCard(rcCard1, board)
+    player2.playCard(scCard1, board)
+    assertEquals(player2.section.closeCombatZone, List(ccCard1))
+    assertEquals(player2.section.rangedCombatZone, List(rcCard1))
+    assertEquals(player2.section.siegeCombatZone, List(scCard1))
+    assertEquals(board.weatherZone, List(wCard1))
   }
 
   test("equals") {
-    assertEquals(p1, p1)
-    assertEquals(p2, p2)
-    assertEquals(p1, new Player("player1"))
-    assertEquals(p2, new Player("player2", d2, h2))
+    assertEquals(player1, player1)
+    assertEquals(player2, player2)
+    assertEquals(player1, new Player("player1"))
+    assertEquals(player2, new Player("player2", deck2, hand2))
 
-    assert(!p1.equals(cc1))
+    assert(!player1.equals(ccCard1))
   }
 }

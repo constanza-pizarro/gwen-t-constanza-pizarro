@@ -5,129 +5,129 @@ import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
 class CardTest extends munit.FunSuite {
-  val mBoost = "Adds +1 to all units in the row (excluding itself)."
-  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
+  val moraleBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tightBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val ccCard1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tightBond, 4)
+  val ccCard2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+  val rcCard1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rcCard2 = new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
+  val scCard1 = new SiegeCombatCard("Ballista", NoEffect(), "Does nothing c:", 6)
+  val scCard2 = new SiegeCombatCard("Catapult", TightBond(), tightBond, 8)
 
-  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+  val wCard1 = new WeatherCard("Biting Frost", BitingFrost(),
                 "Sets the strength of all Close Combat cards to 1 for both players.")
-  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+  val wCard2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
                 "Sets the strength of all Ranged Combat cards to 1 for both players.")
 
   test("well defined cards") {
-    assertEquals(cc1.name,"Blue Stripes Commando")
-    assertEquals(cc1.effect, TightBond())
-    assertEquals(cc1.description, tBond)
-    assertEquals(cc1.power,4)
-    assertEquals(cc1.currentPower,4)
+    assertEquals(ccCard1.name,"Blue Stripes Commando")
+    assertEquals(ccCard1.effect, TightBond())
+    assertEquals(ccCard1.description, tightBond)
+    assertEquals(ccCard1.power,4)
+    assertEquals(ccCard1.currentPower,4)
 
-    assertEquals(rc1.name,"Albrich")
-    assertEquals(rc1.effect, NoEffect())
-    assertEquals(rc1.description,"Has no effect.")
-    assertEquals(rc1.power,2)
-    assertEquals(rc1.currentPower,2)
+    assertEquals(rcCard1.name,"Albrich")
+    assertEquals(rcCard1.effect, NoEffect())
+    assertEquals(rcCard1.description,"Has no effect.")
+    assertEquals(rcCard1.power,2)
+    assertEquals(rcCard1.currentPower,2)
 
-    assertEquals(sc1.name,"Ballista")
-    assertEquals(sc1.description,"Does nothing c:")
-    assertEquals(sc1.power,6)
-    assertEquals(sc1.currentPower,6)
+    assertEquals(scCard1.name,"Ballista")
+    assertEquals(scCard1.description,"Does nothing c:")
+    assertEquals(scCard1.power,6)
+    assertEquals(scCard1.currentPower,6)
 
-    assertEquals(wc1.name,"Biting Frost")
-    assertEquals(wc1.effect, BitingFrost())
-    assertEquals(wc1.description,"Sets the strength of all Close Combat cards to 1 for both players.")
+    assertEquals(wCard1.name,"Biting Frost")
+    assertEquals(wCard1.effect, BitingFrost())
+    assertEquals(wCard1.description,"Sets the strength of all Close Combat cards to 1 for both players.")
   }
 
   test("unit equals") {
-    assertEquals(cc1, cc1)
-    assertEquals(rc1, rc1)
-    assertEquals(sc1, sc1)
+    assertEquals(ccCard1, ccCard1)
+    assertEquals(rcCard1, rcCard1)
+    assertEquals(scCard1, scCard1)
 
-    assertEquals(cc2, new CloseCombatCard("Blueboy Lugos", NoEffect(),
+    assertEquals(ccCard2, new CloseCombatCard("Blueboy Lugos", NoEffect(),
       "Has no effect.", 6))
     assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
-      "Has no effect.", 6), cc2)
-    assertEquals(rc2, new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10))
-    assertEquals(new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10), rc2)
-    assertEquals(sc2, new SiegeCombatCard("Catapult", TightBond(), tBond, 8))
-    assertEquals(new SiegeCombatCard("Catapult", TightBond(), tBond, 8), sc2)
+      "Has no effect.", 6), ccCard2)
+    assertEquals(rcCard2, new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10))
+    assertEquals(new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10), rcCard2)
+    assertEquals(scCard2, new SiegeCombatCard("Catapult", TightBond(), tightBond, 8))
+    assertEquals(new SiegeCombatCard("Catapult", TightBond(), tightBond, 8), scCard2)
 
-    assert(!cc1.equals(cc2))
-    assert(!cc2.equals(cc1))
-    assert(!rc1.equals(rc2))
-    assert(!rc2.equals(rc1))
-    assert(!sc1.equals(sc2))
-    assert(!sc2.equals(sc1))
+    assert(!ccCard1.equals(ccCard2))
+    assert(!ccCard2.equals(ccCard1))
+    assert(!rcCard1.equals(rcCard2))
+    assert(!rcCard2.equals(rcCard1))
+    assert(!scCard1.equals(scCard2))
+    assert(!scCard2.equals(scCard1))
 
-    assert(!cc1.equals(wc1))
-    assert(!rc1.equals(wc1))
-    assert(!sc1.equals(wc1))
+    assert(!ccCard1.equals(wCard1))
+    assert(!rcCard1.equals(wCard1))
+    assert(!scCard1.equals(wCard1))
   }
 
   test("weather equals") {
-    assertEquals(wc1, wc1)
+    assertEquals(wCard1, wCard1)
 
-    assertEquals(wc2, new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+    assertEquals(wCard2, new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players."))
     assertEquals(new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
-      "Sets the strength of all Ranged Combat cards to 1 for both players."), wc2)
+      "Sets the strength of all Ranged Combat cards to 1 for both players."), wCard2)
 
-    assert(!wc1.equals(wc2))
-    assert(!wc2.equals(wc1))
+    assert(!wCard1.equals(wCard2))
+    assert(!wCard2.equals(wCard1))
 
-    assert(!wc1.equals(cc1))
-    assert(!wc2.equals(rc1))
+    assert(!wCard1.equals(ccCard1))
+    assert(!wCard2.equals(rcCard1))
   }
 
   test("unit hash code") {
-    assertEquals(cc1.hashCode(), cc1.hashCode())
-    assertEquals(rc1.hashCode(), rc1.hashCode())
-    assertEquals(sc1.hashCode(), sc1.hashCode())
+    assertEquals(ccCard1.hashCode(), ccCard1.hashCode())
+    assertEquals(rcCard1.hashCode(), rcCard1.hashCode())
+    assertEquals(scCard1.hashCode(), scCard1.hashCode())
 
-    assertEquals(cc2.hashCode(), new CloseCombatCard("Blueboy Lugos", NoEffect(),
+    assertEquals(ccCard2.hashCode(), new CloseCombatCard("Blueboy Lugos", NoEffect(),
       "Has no effect.", 6).hashCode())
     assertEquals(new CloseCombatCard("Blueboy Lugos", NoEffect(),
-      "Has no effect.", 6).hashCode(), cc2.hashCode())
-    assertEquals(rc2.hashCode(), new RangedCombatCard("Milva", MoraleBoost(),
-      mBoost, 10).hashCode())
+      "Has no effect.", 6).hashCode(), ccCard2.hashCode())
+    assertEquals(rcCard2.hashCode(), new RangedCombatCard("Milva", MoraleBoost(),
+      moraleBoost, 10).hashCode())
     assertEquals(new RangedCombatCard("Milva", MoraleBoost(),
-      mBoost, 10).hashCode(), rc2.hashCode())
-    assertEquals(sc2.hashCode(), new SiegeCombatCard("Catapult", TightBond(),
-      tBond, 8).hashCode())
+      moraleBoost, 10).hashCode(), rcCard2.hashCode())
+    assertEquals(scCard2.hashCode(), new SiegeCombatCard("Catapult", TightBond(),
+      tightBond, 8).hashCode())
     assertEquals(new SiegeCombatCard("Catapult", TightBond(),
-      tBond, 8).hashCode(), sc2.hashCode())
+      tightBond, 8).hashCode(), scCard2.hashCode())
 
-    assert(cc1.hashCode()!=cc2.hashCode())
-    assert(cc2.hashCode()!=cc1.hashCode())
-    assert(rc1.hashCode()!=rc2.hashCode())
-    assert(rc2.hashCode()!=rc1.hashCode())
-    assert(sc1.hashCode()!=sc2.hashCode())
-    assert(sc2.hashCode()!=sc1.hashCode())
+    assert(ccCard1.hashCode()!=ccCard2.hashCode())
+    assert(ccCard2.hashCode()!=ccCard1.hashCode())
+    assert(rcCard1.hashCode()!=rcCard2.hashCode())
+    assert(rcCard2.hashCode()!=rcCard1.hashCode())
+    assert(scCard1.hashCode()!=scCard2.hashCode())
+    assert(scCard2.hashCode()!=scCard1.hashCode())
 
-    assert(cc1.hashCode()!=wc1.hashCode())
-    assert(rc1.hashCode()!=wc1.hashCode())
-    assert(sc1.hashCode()!=wc1.hashCode())
+    assert(ccCard1.hashCode()!=wCard1.hashCode())
+    assert(rcCard1.hashCode()!=wCard1.hashCode())
+    assert(scCard1.hashCode()!=wCard1.hashCode())
   }
 
   test("weather hash code") {
-    assertEquals(wc1.hashCode(), wc1.hashCode())
+    assertEquals(wCard1.hashCode(), wCard1.hashCode())
 
-    assertEquals(wc2.hashCode(), new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+    assertEquals(wCard2.hashCode(), new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
       "Sets the strength of all Ranged Combat cards to 1 for both players.").hashCode())
     assertEquals(new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
-      "Sets the strength of all Ranged Combat cards to 1 for both players.").hashCode(), wc2.hashCode())
+      "Sets the strength of all Ranged Combat cards to 1 for both players.").hashCode(), wCard2.hashCode())
 
-    assert(wc1.hashCode() != wc2.hashCode())
-    assert(wc2.hashCode() != wc1.hashCode())
+    assert(wCard1.hashCode() != wCard2.hashCode())
+    assert(wCard2.hashCode() != wCard1.hashCode())
 
-    assert(wc1.hashCode() != cc1.hashCode())
-    assert(wc2.hashCode() != rc1.hashCode())
+    assert(wCard1.hashCode() != ccCard1.hashCode())
+    assert(wCard2.hashCode() != rcCard1.hashCode())
   }
 }

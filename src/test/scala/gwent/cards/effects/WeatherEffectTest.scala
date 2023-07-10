@@ -9,117 +9,116 @@ import gwent.cards.effects.weather.*
 import scala.collection.mutable.ListBuffer
 
 class WeatherEffectTest extends munit.FunSuite {
-  val mBoost = "Adds +1 to all units in the row (excluding itself)."
-  val tBond = "When placed with the same card, doubles the strength of both (or more) cards"
+  val moraleBoost = "Adds +1 to all units in the row (excluding itself)."
+  val tightBond = "When placed with the same card, doubles the strength of both (or more) cards"
 
-  val cc1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tBond, 4)
-  val cc2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
-  val cc3 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val ccCard1 = new CloseCombatCard("Blue Stripes Commando", TightBond(), tightBond, 4)
+  val ccCard2 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
+  val ccCard3 = new CloseCombatCard("Blueboy Lugos", NoEffect(), "Has no effect.", 6)
 
-  val rc1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
-  val rc2 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
-  val rc3 = new RangedCombatCard("Cynthia", NoEffect(), "Has no effect.", 4)
-  val rc4 = new RangedCombatCard("Milva", MoraleBoost(), mBoost, 10)
+  val rcCard1 = new RangedCombatCard("Albrich", NoEffect(), "Has no effect.", 2)
+  val rcCard2 = new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10)
+  val rcCard3 = new RangedCombatCard("Cynthia", NoEffect(), "Has no effect.", 4)
+  val rcCard4 = new RangedCombatCard("Milva", MoraleBoost(), moraleBoost, 10)
 
-  val sc1 = new SiegeCombatCard("Ballista", NoEffect(), "Has no effect.", 6)
-  val sc2 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
-  val sc3 = new SiegeCombatCard("Catapult", TightBond(), tBond, 8)
+  val scCard1 = new SiegeCombatCard("Ballista", NoEffect(), "Has no effect.", 6)
+  val scCard2 = new SiegeCombatCard("Catapult", TightBond(), tightBond, 8)
+  val scCard3 = new SiegeCombatCard("Catapult", TightBond(), tightBond, 8)
 
 
-  val wc1 = new WeatherCard("Biting Frost", BitingFrost(),
+  val wCard1 = new WeatherCard("Biting Frost", BitingFrost(),
     "Sets the strength of all Close Combat cards to 1 for both players.")
-  val wc2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
+  val wCard2 = new WeatherCard("Impenetrable Fog", ImpenetrableFog(),
     "Sets the strength of all Ranged Combat cards to 1 for both players.")
-  val wc3 = new WeatherCard("Torrential Rain", TorrentialRain(),
+  val wCard3 = new WeatherCard("Torrential Rain", TorrentialRain(),
     "Sets the strength of all Siege Combat cards to 1 for both players.")
-  val wc4 = new WeatherCard("Clear Weather", ClearWeather(),
+  val wCard4 = new WeatherCard("Clear Weather", ClearWeather(),
     "Removes all Weather Card (Biting Frost, Impenetrable Fog and Torrential Rain) effects.")
 
-  val h1: ListBuffer[Card] = ListBuffer(cc1, cc2, rc1, rc2, sc1, sc2, wc1, wc2)
-  val h2: ListBuffer[Card] = ListBuffer(cc3, rc3, rc4, sc1, sc2, sc3, wc3, wc4)
-
-  var p1: Player = _
-  var p2: Player= _
+  val hand1: List[Card] = List(ccCard1, ccCard2, rcCard1, rcCard2, scCard1, scCard2, wCard1, wCard2)
+  val hand2: List[Card] = List(ccCard3, rcCard3, rcCard4, scCard1, scCard2, scCard3, wCard3, wCard4)
+  var player1: Player = _
+  var player2: Player= _
   var board: Board = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    p1 = new Player("player1", _hand = h1.clone())
-    p2 = new Player("player2", _hand = h2.clone())
-    board = new Board(p1, p2)
+    player1 = new Player("player1", _hand = hand1)
+    player2 = new Player("player2", _hand = hand2)
+    board = new Board(player1, player2)
   }
 
   test("Biting Frost") {
-    board.playCard(p1, cc1)
-    board.playCard(p2, cc3)
-    board.playCard(p1, cc2)
-    val c1 = cc1.currentPower
-    val c2 = cc3.currentPower
-    board.playCard(p1, wc1)
-    assertEquals(cc1.currentPower, 1)
-    assertEquals(cc1.lastPower, c1)
-    assertEquals(cc3.lastPower, c2)
+    board.playCard(player1, ccCard1)
+    board.playCard(player2, ccCard3)
+    board.playCard(player1, ccCard2)
+    val c1 = ccCard1.currentPower
+    val c2 = ccCard3.currentPower
+    board.playCard(player1, wCard1)
+    assertEquals(ccCard1.currentPower, 1)
+    assertEquals(ccCard1.previousPower, c1)
+    assertEquals(ccCard3.previousPower, c2)
   }
 
   test("Impenetrable Fog") {
-    board.playCard(p1, rc1)
-    board.playCard(p2, rc3)
-    val c1 = rc1.currentPower
-    val c2 = rc3.currentPower
-    board.playCard(p1, wc2)
-    assertEquals(rc1.currentPower, 1)
-    assertEquals(rc1.lastPower, c1)
-    assertEquals(rc3.lastPower, c2)
+    board.playCard(player1, rcCard1)
+    board.playCard(player2, rcCard3)
+    val c1 = rcCard1.currentPower
+    val c2 = rcCard3.currentPower
+    board.playCard(player1, wCard2)
+    assertEquals(rcCard1.currentPower, 1)
+    assertEquals(rcCard1.previousPower, c1)
+    assertEquals(rcCard3.previousPower, c2)
   }
 
   test("Torrential Rain") {
-    board.playCard(p1, sc1)
-    board.playCard(p2, sc2)
-    val c1 = sc1.currentPower
-    val c2 = sc2.currentPower
-    board.playCard(p2, wc3)
-    assertEquals(sc1.currentPower, 1)
-    assertEquals(sc1.lastPower, c1)
-    assertEquals(sc2.lastPower, c2)
+    board.playCard(player1, scCard1)
+    board.playCard(player2, scCard2)
+    val c1 = scCard1.currentPower
+    val c2 = scCard2.currentPower
+    board.playCard(player2, wCard3)
+    assertEquals(scCard1.currentPower, 1)
+    assertEquals(scCard1.previousPower, c1)
+    assertEquals(scCard2.previousPower, c2)
   }
 
   test("Clear Weather") {
-    val c1 = cc2.currentPower
-    val r1 = rc3.currentPower
-    val s1 = sc2.currentPower
-    board.playCard(p1, cc2)
-    board.playCard(p2, rc3)
-    board.playCard(p1, sc1)
-    board.playCard(p2, sc2)
-    board.playCard(p1, wc1)
-    assertEquals(cc2.lastPower, c1)
-    board.playCard(p2, wc3)
-    assertEquals(sc2.lastPower, s1)
-    board.playCard(p1, wc2)
-    assertEquals(rc3.lastPower, r1)
+    val c1 = ccCard2.currentPower
+    val r1 = rcCard3.currentPower
+    val s1 = scCard2.currentPower
+    board.playCard(player1, ccCard2)
+    board.playCard(player2, rcCard3)
+    board.playCard(player1, scCard1)
+    board.playCard(player2, scCard2)
+    board.playCard(player1, wCard1)
+    assertEquals(ccCard2.previousPower, c1)
+    board.playCard(player2, wCard3)
+    assertEquals(scCard2.previousPower, s1)
+    board.playCard(player1, wCard2)
+    assertEquals(rcCard3.previousPower, r1)
 
-    board.playCard(p2, wc4)
-    assertEquals(cc2.currentPower, c1)
-    assertEquals(sc2.currentPower, s1)
-    assertEquals(rc3.currentPower, r1)
+    board.playCard(player2, wCard4)
+    assertEquals(ccCard2.currentPower, c1)
+    assertEquals(scCard2.currentPower, s1)
+    assertEquals(rcCard3.currentPower, r1)
   }
 
   test("undo") {
-    board.playCard(p1, cc1)
-    board.playCard(p2, cc3)
-    board.playCard(p1, wc1)
+    board.playCard(player1, ccCard1)
+    board.playCard(player2, ccCard3)
+    board.playCard(player1, wCard1)
 
-    board.playCard(p2, rc4)
-    board.playCard(p1, rc1)
-    board.playCard(p1, wc2)
+    board.playCard(player2, rcCard4)
+    board.playCard(player1, rcCard1)
+    board.playCard(player1, wCard2)
 
-    board.playCard(p2, sc2)
-    board.playCard(p1, sc1)
-    board.playCard(p2, wc3)
+    board.playCard(player2, scCard2)
+    board.playCard(player1, scCard1)
+    board.playCard(player2, wCard3)
 
-    board.playCard(p2, wc4)
+    board.playCard(player2, wCard4)
 
-    assertEquals(cc1.currentPower, cc1.lastPower)
-    assertEquals(rc4.currentPower, rc4.lastPower)
-    assertEquals(sc2.currentPower, sc2.lastPower)
+    assertEquals(ccCard1.currentPower, ccCard1.previousPower)
+    assertEquals(rcCard4.currentPower, rcCard4.previousPower)
+    assertEquals(scCard2.currentPower, scCard2.previousPower)
   }
 }
