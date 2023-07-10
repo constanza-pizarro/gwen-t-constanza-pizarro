@@ -49,7 +49,10 @@ class GameController extends Observer[String] {
     val oPlayer = _otherPlayer.get
     oPlayer
   }
-  /** Sets the current player to the other player and the other player to the current player. */
+  /** Exchanges the current player with the other player.
+   *
+   * Sets the current player to the other player and the other player to the current player.
+   */
   def changeTurn(): Unit = {
     val cPlayer: Player = currentPlayer
     _currentPlayer = _otherPlayer
