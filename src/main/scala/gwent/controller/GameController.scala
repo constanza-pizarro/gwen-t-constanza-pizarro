@@ -9,6 +9,16 @@ import gwent.{Board, Observer, Player, Section, Subject}
 
 import scala.util.Random
 
+/** Class representing a game controller in the Gwen't game.
+ *
+ * This controller represents the possible actions that can be made
+ * in an instance of the game, such as starting the game and initializing
+ * the players and the board to be used, and more.
+ *
+ * @constructor Creates a new `GameController`
+ *
+ * @author Constanza Pizarro
+ */
 class GameController extends Observer[String] {
   /** The current state of the game. */
   var state: GameState = new StartState(this)
