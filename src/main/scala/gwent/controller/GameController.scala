@@ -30,6 +30,7 @@ class GameController extends Observer[String] {
     val p1 = _player1.get
     p1
   }
+  /** Accessor method for player 1 */
   def player2: Player = {
     val p2 = _player2.get
     p2
