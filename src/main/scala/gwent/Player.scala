@@ -86,6 +86,8 @@ class Player(val name: String, private var _deck: List[Card]=List(),
     _hand = hand.filterNot(_ eq card)
     card.playCard(board, section)
   }
+  def sumPoints(): Int =
+    section.sumPoints()
   override def equals(obj: Any): Boolean = obj match {
     case other: Player =>
       (this eq other) || (name == other.name
