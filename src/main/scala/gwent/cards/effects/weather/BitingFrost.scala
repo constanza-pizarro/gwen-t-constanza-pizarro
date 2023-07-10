@@ -18,9 +18,11 @@ import gwent.*
 case class BitingFrost() extends AbstractWeatherEffect {
   override def apply(self: Card, target: Board): Unit = {
     super.apply(self, target)
-    applyEffect(target.player1.section.closeCombatZone, target.player2.section.closeCombatZone)
+    applyEffect(target.player1.section.closeCombatZone)
+    applyEffect(target.player2.section.closeCombatZone)
   }
   override def undo(target: Board): Unit = {
-    unapplyEffect(target.player1.section.closeCombatZone, target.player2.section.closeCombatZone)
+    unapplyEffect(target.player1.section.closeCombatZone)
+    unapplyEffect(target.player2.section.closeCombatZone)
   }
 }

@@ -20,44 +20,32 @@ abstract class AbstractWeatherEffect extends Effect {
   override def apply(self: Card, target: Board): Unit = {
     target.applied += this
   }
-  /** Applies a weather effect to two lists of unit cards.
+  /** Applies the weather effect to a lists of unit cards.
    *
    * Saves the previous power and sets the current power to 1 of all
    * the cards of both lists.
    *
-   * @param list1 a list of unit cards
-   * @param list2 a list of unit cards
+   * @param list a list of unit cards
    */
-  def applyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
-    list1
-      .foreach(card => {
-        card.previousPower = card.currentPower
-        card.currentPower = 1
-      })
-    list2
+  def applyEffect(list: List[UnitCard]): Unit = {
+    list
       .foreach(card => {
         card.previousPower = card.currentPower
         card.currentPower = 1
       })
   }
-  /** Reverses all weather effects to two lists of unit cards.
+  /** Reverses all weather effects from a list of unit cards.
    *
-   * Sets the current power to the previous power of all cards
-   * (of both lists) whose previous power was modified.
+   * Sets the current power to the previous power plus the power gained after
+   * the effect was applied of all cards whose previous power was modified.
    *
-   * @param list1 a list of unit cards
-   * @param list2 a list of unit cards
+   * @param list a list of unit cards
    */
-  def unapplyEffect(list1: List[UnitCard], list2: List[UnitCard]): Unit = {
-    list1
+  def unapplyEffect(list: List[UnitCard]): Unit = {
+    list
       .foreach(card => {
         val lp = card.previousPower
-        if (lp > 0) card.currentPower = lp
-      })
-    list2
-      .foreach(card => {
-        val lp = card.previousPower
-        if (lp > 0) card.currentPower = lp
+        if (lp > 0) card.currentPower = lp + card.currentPower - 1
       })
   }
 }
