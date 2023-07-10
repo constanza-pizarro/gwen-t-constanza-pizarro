@@ -20,10 +20,10 @@ abstract class AbstractWeatherEffect extends Effect {
   override def apply(self: Card, target: Board): Unit = {
     target.applied += this
   }
-  /** Applies the weather effect to a lists of unit cards.
+  /** Applies the weather effect to a list of unit cards.
    *
    * Saves the previous power and sets the current power to 1 of all
-   * the cards of both lists.
+   * the cards of the list.
    *
    * @param list a list of unit cards
    */
@@ -36,8 +36,8 @@ abstract class AbstractWeatherEffect extends Effect {
   }
   /** Reverses all weather effects from a list of unit cards.
    *
-   * Sets the current power to the previous power plus the power gained after
-   * the effect was applied of all cards whose previous power was modified.
+   * Sets the current power to the previous power plus the power gained after the
+   * effect was applied of all cards of the list whose previous power was modified.
    *
    * @param list a list of unit cards
    */
