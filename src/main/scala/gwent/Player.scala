@@ -32,6 +32,9 @@ class Player(val name: String, private var _deck: List[Card]=List(),
     val sCopy = _section
     sCopy
   }
+  def section_=(newSection: Section): Unit = {
+    _section = newSection
+  }
   /** Accessor method for the player's gem counter */
   def gemCounter: Int = {
     val gcCopy: Int = _gemCounter
