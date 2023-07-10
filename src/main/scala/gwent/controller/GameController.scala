@@ -77,18 +77,17 @@ class GameController {
                 unitCards: List[Card], weatherCards: List[Card]): Unit = {
     state.startGame() // automáticamente tira exception si no esta en el estado correcto
 
-    val player1: Player = new Player(name1, setDeck(unitCards, weatherCards))
-    val player2: Player = new Player(name2, setDeck(unitCards, weatherCards))
-
+    _player1 = Some(new Player(name1, setDeck(unitCards, weatherCards)))
+    _player2 = Some(new Player(name2, setDeck(unitCards, weatherCards)))
     _board = Some(new Board(player1, player2))
-    for (p <- board.players) {
-      _isPlaying += (p -> true)
+    _players = board.players
+    for (p <- players) {
+      p.addObserver(this)
       p.shuffleDeck()
       for (i <- 0 until 10)
         p.drawCard()
     }
-
-    _isPlaying = scala.util.Random.shuffle(isPlaying)
+    _players = scala.util.Random.shuffle(players)
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
   }
