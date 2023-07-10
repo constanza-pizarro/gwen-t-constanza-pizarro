@@ -14,9 +14,11 @@ class GameController {
   var state: GameState = new StartState(this)
   //var round: Int = 1
   private var _board: Option[Board] = None
-  private var _currentPlayer: Option[Player] = None
-  private var _otherPlayer: Option[Player] = None
-  private var _isPlaying: Map[Player, Boolean] = Map()
+  private var _player1: Option[Player] = None
+  private var _player2: Option[Player] = None
+  private var _currentPlayer: Option[Player] = _player1
+  private var _otherPlayer: Option[Player] = _player2
+  private var _players: List[Player] = List()
 
   /** Accessor method for the board */
   def board: Board = {
@@ -30,7 +32,7 @@ class GameController {
   }
   /** Accessor method for the list of players */
   def players: List[Player] = {
-    val p = isPlaying.keys.toList
+    val p = _players
     p
   }
   /** Accessor method for the current player */
