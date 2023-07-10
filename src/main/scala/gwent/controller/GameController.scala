@@ -93,17 +93,15 @@ class GameController extends Observer[String] {
   }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer
-    if (isPlaying(player)) {
-      val hand: List[Card] = player.hand
-      if (hand.isEmpty) {
-        endTurn()
-      } else {
-        if (c > hand.length) {
-          throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
-        }
-        board.playCard(player, hand(c))
-        if (isPlaying(otherPlayer)) changeTurn()
+    val hand: List[Card] = player.hand
+    if (hand.isEmpty) {
+      endTurn()
+    } else { // seguimos en el mismo estado, ya sea Turn o Alone
+      if (c >= hand.length) {
+        throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
       }
+      board.playCard(player, hand(c))
+      changeTurn()
     }
   }
   def endTurn(): Unit = {
