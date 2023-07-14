@@ -34,6 +34,7 @@ class SectionTest extends munit.FunSuite {
   val section1: Section = new Section
   val section2: Section = new Section
   val section3: Section = new Section
+  val section4: Section = new Section
 
   val player1 = new Player("player1", deck1, hand1)
   val player2 = new Player("player2", deck2, hand2)
@@ -58,6 +59,15 @@ class SectionTest extends munit.FunSuite {
   test("playSiegeCombatCard") {
     section1.playSiegeCombatCard(scCard2)
     assertEquals(section1.siegeCombatZone, List(scCard2))
+  }
+
+  test("sumPoints") {
+    section4.playSiegeCombatCard(scCard2)
+    section4.playCloseCombatCard(ccCard1)
+    section4.playRangedCombatCard(rcCard1)
+
+    assertEquals(section4.sumPoints(),
+                 scCard2.currentPower + ccCard1.currentPower + rcCard1.currentPower)
   }
 
   test("equals") {
