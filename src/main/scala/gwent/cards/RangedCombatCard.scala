@@ -24,6 +24,9 @@ import java.util.Objects
  */
 class RangedCombatCard(name: String, effect:Effect, description: String, power: Int)
   extends AbstractUnitCard(name, effect, description, power) {
+  override def copy(): Card = {
+    new RangedCombatCard(name, effect, description, power)
+  }
   override def playUnitCard(section: Section): Unit =
     section.playRangedCombatCard(this)
   override def canEqual(that: Any): Boolean = 

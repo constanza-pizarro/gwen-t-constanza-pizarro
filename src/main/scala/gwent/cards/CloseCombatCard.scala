@@ -24,6 +24,9 @@ import java.util.Objects
  */
 class CloseCombatCard(name: String, effect: Effect, description: String, power: Int)
   extends AbstractUnitCard(name, effect, description, power) {
+  override def copy(): Card = {
+    new CloseCombatCard(name, effect, description, power)
+  }
   override def playUnitCard(section: Section): Unit =
     section.playCloseCombatCard(this)
   override def canEqual(that: Any): Boolean = 

@@ -23,6 +23,9 @@ import java.util.Objects
  */
 class SiegeCombatCard(name: String, effect: Effect, description: String, power: Int)
   extends AbstractUnitCard(name, effect, description, power) {
+  override def copy(): Card = {
+    new SiegeCombatCard(name, effect, description, power)
+  }
   override def playUnitCard(section: Section): Unit =
     section.playSiegeCombatCard(this)
   override def canEqual(that: Any): Boolean = 

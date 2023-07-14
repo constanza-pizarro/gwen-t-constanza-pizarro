@@ -28,4 +28,5 @@ trait Card {
    * @param section the section of a player a card can be added to
    */
   def playCard(board: Board, section: Section): Unit
+  def copy(): Card
 }

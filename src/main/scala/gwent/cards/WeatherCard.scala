@@ -21,6 +21,9 @@ import java.util.Objects
  */
 class WeatherCard(val name: String, val effect: Effect,
                   val description: String) extends Card with Equals {
+  override def copy(): Card = {
+    new WeatherCard(name, effect, description)
+  }
   override def playCard(board: Board, section: Section): Unit =
     playWeatherCard(board)
   /** Puts the weather card on the weather zone of the board.
