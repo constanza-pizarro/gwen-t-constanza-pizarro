@@ -80,6 +80,15 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(board.weatherZone, List(wCard1))
   }
 
+  test("sumPoints") {
+    player2.playCard(ccCard1, board)
+    player2.playCard(rcCard1, board)
+    player2.playCard(scCard1, board)
+
+    assertEquals(player2.sumPoints(),
+      ccCard1.currentPower + rcCard1.currentPower + scCard1.currentPower)
+  }
+
   test("equals") {
     assertEquals(player1, player1)
     assertEquals(player2, player2)
