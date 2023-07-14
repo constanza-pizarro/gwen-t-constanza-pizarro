@@ -86,6 +86,13 @@ class CardTest extends munit.FunSuite {
     assert(!wCard2.equals(rcCard1))
   }
 
+  test("copy") {
+    assertEquals(ccCard1.copy(), ccCard1)
+    assertEquals(rcCard1.copy(), rcCard1)
+    assertEquals(scCard1.copy(), scCard1)
+    assertEquals(wCard1.copy(), wCard1)
+  }
+
   test("unit hash code") {
     assertEquals(ccCard1.hashCode(), ccCard1.hashCode())
     assertEquals(rcCard1.hashCode(), rcCard1.hashCode())
