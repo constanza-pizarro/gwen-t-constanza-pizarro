@@ -3,6 +3,8 @@ package gwent
 
 import cards.{Card, WeatherCard}
 import cards.effects.Effect
+import cl.uchile.dcc.gwent.exceptions.{InvalidNameException, InvalidPlayerException}
+
 import scala.collection.mutable.ListBuffer
 
 /** Class representing a board in the Gwen't game.

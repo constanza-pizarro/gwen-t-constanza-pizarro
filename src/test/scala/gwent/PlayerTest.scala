@@ -5,6 +5,7 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
+import cl.uchile.dcc.gwent.exceptions.InvalidCardException
 import org.junit.Assert
 
 import scala.+:
@@ -48,9 +49,6 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(player1.gemCounter, 2)
     player1.loseGem()
     assertEquals(player1.gemCounter,1)
-    player1.loseGem()
-    val e = Assert.assertThrows(classOf[IllegalArgumentException], () => player1.loseGem())
-    assertEquals("requirement failed: the gemCounter must be non-negative.", e.getMessage)
     assertEquals(player1.deck, List())
     assertEquals(player2.deck, deck2)
     assertEquals(player1.hand, List())

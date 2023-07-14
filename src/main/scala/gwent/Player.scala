@@ -2,6 +2,8 @@ package cl.uchile.dcc
 package gwent
 
 import cards.Card
+import cl.uchile.dcc.gwent.exceptions.InvalidCardException
+import cl.uchile.dcc.gwent.observer.AbstractSubject
 
 /** Class representing a player in the Gwen't game.
  *

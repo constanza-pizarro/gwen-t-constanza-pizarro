@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent.controller
+package gwent.exceptions
 
 class InvalidNumberException(message: String) extends Exception(message) {
 

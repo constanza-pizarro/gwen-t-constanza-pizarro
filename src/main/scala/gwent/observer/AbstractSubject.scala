@@ -1,5 +1,7 @@
 package cl.uchile.dcc
-package gwent
+package gwent.observer
+
+import gwent.observer.{Observer, Subject}
 
 abstract class AbstractSubject[T] extends Subject[T] {
   private var observers: List[Observer[T]] = Nil

@@ -5,8 +5,8 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
+import cl.uchile.dcc.gwent.exceptions.{InvalidNameException, InvalidPlayerException}
 import org.junit.Assert
-import scala.collection.mutable.ListBuffer
 
 class BoardTest extends munit.FunSuite {
   val scCard1 = new SiegeCombatCard("Ballista", NoEffect(),
