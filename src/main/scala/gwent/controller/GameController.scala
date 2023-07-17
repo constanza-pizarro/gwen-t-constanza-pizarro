@@ -182,10 +182,13 @@ class GameController extends Observer[Player] {
     }
   }
   override def update(observable: Subject[Player], value: Player): Unit = {
-    _loser = Some(value)
-    _winner = Some(players.filterNot(_ eq value).head)
     state.declareWinner()
-    println(s"Player $observable has no gems left")
+    println(s"Player ${value.name} has no gems left")
+    if (_winner.isEmpty) {
+      _winner = Some(players.filterNot(_ eq value).head)
+    } else {
+      println("It's a tie!")
+    }
   }
   def declareWinner(): Unit = {
     if (_winner.isDefined) {
