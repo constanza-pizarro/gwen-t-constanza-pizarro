@@ -5,7 +5,7 @@ import gwent.cards.*
 import gwent.cards.effects.unit.*
 import gwent.cards.effects.weather.*
 
-import cl.uchile.dcc.gwent.exceptions.InvalidCardException
+import cl.uchile.dcc.gwent.exceptions.*
 import org.junit.Assert
 
 import scala.+:
@@ -47,13 +47,20 @@ class PlayerTest extends munit.FunSuite {
     assertEquals(player1.name, "player1")
     assertEquals(player1.section, section1)
     assertEquals(player1.gemCounter, 2)
-    player1.loseGem()
-    assertEquals(player1.gemCounter,1)
     assertEquals(player1.deck, List())
     assertEquals(player2.deck, deck2)
     assertEquals(player1.hand, List())
     assertEquals(player2.hand, hand2)
     println(deck2)
+  }
+  
+  test("loseGem") {
+    player1.loseGem()
+    assertEquals(player1.gemCounter, 1)
+    player1.loseGem()
+
+    val e = Assert.assertThrows(classOf[InvalidMethodException], () => player1.loseGem())
+    assertEquals(e.getMessage, "the gemCounter must be non-negative.")
   }
 
   test("well defined hand and deck") {
@@ -69,7 +76,7 @@ class PlayerTest extends munit.FunSuite {
 
   test("playCard") {
     val e = Assert.assertThrows(classOf[InvalidCardException], () => player1.playCard(scCard1, board))
-    assertEquals("the card must be on the player's hand.", e.getMessage)
+    assertEquals(e.getMessage,"the card must be on the player's hand.")
     player2.playCard(ccCard1, board)
     player2.playCard(wCard1, board)
     player2.playCard(rcCard1, board)
