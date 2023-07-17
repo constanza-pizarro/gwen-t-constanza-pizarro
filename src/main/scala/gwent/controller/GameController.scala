@@ -187,6 +187,11 @@ class GameController extends Observer[Player] {
     state.declareWinner()
     println(s"Player $observable has no gems left")
   }
+  def declareWinner(): Unit = {
+    if (_winner.isDefined) {
+      println(s"Player ${_winner.get.name} has won the game")
+    }
+  }
   def isInStart: Boolean = {
     state.isInStart
   }
