@@ -24,7 +24,5 @@ trait Effect {
    *
    * @param target the board where the current weather effects are reverted
    */
-  def undo(target: Board): Unit = {
-    // do nothing uwu
-  }
+  def undo(target: Board): Unit
 }
