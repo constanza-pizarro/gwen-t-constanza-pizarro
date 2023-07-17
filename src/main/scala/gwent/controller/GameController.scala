@@ -22,7 +22,7 @@ import scala.util.Random
  *
  * @author Constanza Pizarro
  */
-class GameController extends Observer[String] {
+class GameController extends Observer[Player] {
   /** The current state of the game. */
   var state: GameState = new StartState(this)
   //var round: Int = 1
