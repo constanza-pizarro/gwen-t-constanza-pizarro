@@ -168,6 +168,7 @@ class GameController extends Observer[Player] {
     state.endTurn()
   }
   def countPoints(): Unit = {
+    state.newRound()
     val player1Points: Int = player1.sumPoints()
     val player2Points: Int = player2.sumPoints()
 
@@ -179,7 +180,6 @@ class GameController extends Observer[Player] {
       player1.loseGem()
       player2.loseGem()
     }
-    state.newRound()
   }
   override def update(observable: Subject[Player], value: Player): Unit = {
     _loser = Some(value)
