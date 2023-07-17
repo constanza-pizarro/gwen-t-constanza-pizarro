@@ -20,7 +20,7 @@ import cl.uchile.dcc.gwent.observer.AbstractSubject
  * @author Constanza Pizarro
  */
 class Player(val name: String, private var _deck: List[Card]=List(),
-             private var _hand: List[Card]=List()) extends AbstractSubject[String] {
+             private var _hand: List[Card]=List()) extends AbstractSubject[Player] {
   /** The unit section of the player.
    * Initially empty.
    */
@@ -49,7 +49,7 @@ class Player(val name: String, private var _deck: List[Card]=List(),
     }
     _gemCounter -= 1
     if (gemCounter == 0) {
-      notifyObservers(s"$name has no gems left")
+      notifyObservers(this)
     }
   }
   /** Accessor method for the player's deck */
