@@ -103,7 +103,7 @@ class GameController extends Observer[Player] {
     var deck: List[Card] = List()
     wCards.foreach(i => deck = i :: deck)
     for (i <- 0 until 21) {
-      val card: Card = uCards(Random.nextInt(uCards.length))
+      val card: Card = uCards(Random.nextInt(uCards.length)).copy()
       deck = card :: deck
     }
     deck
