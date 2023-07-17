@@ -2,8 +2,7 @@ package cl.uchile.dcc
 package gwent.controller.states
 
 import gwent.controller.GameController
-import gwent.cards.Card
-import gwent.Player
+import gwent.exceptions.InvalidTransitionException
 
 class GameState(var context: GameController) {
   /** Transitions to TurnState. */
