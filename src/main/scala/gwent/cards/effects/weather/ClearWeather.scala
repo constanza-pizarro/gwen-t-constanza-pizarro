@@ -9,4 +9,7 @@ case class ClearWeather() extends AbstractWeatherEffect {
   override def apply(self: Card, target: Board): Unit = {
     target.applied.foreach(effect => effect.undo(target))
   }
+  override def undo(target: Board): Unit = {
+    // do nothing
+  }
 }
