@@ -199,10 +199,10 @@ class GameController extends Observer[Player] {
   def isInCount: Boolean = {
     state.isInCount
   }
-  /*
   def isInRound: Boolean = {
     state.isInRound
   }
+  /*
   def isInFinal: Boolean = {
     state.isInFinal
   }*/
