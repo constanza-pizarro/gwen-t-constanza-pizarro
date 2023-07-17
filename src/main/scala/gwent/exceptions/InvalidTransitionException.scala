@@ -1,5 +1,5 @@
 package cl.uchile.dcc
-package gwent.controller.states
+package gwent.exceptions
 
 class InvalidTransitionException(message: String) extends Exception(message) {
 
