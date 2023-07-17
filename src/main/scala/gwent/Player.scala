@@ -2,7 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import cards.Card
-import cl.uchile.dcc.gwent.exceptions.InvalidCardException
+import cl.uchile.dcc.gwent.exceptions.*
 import cl.uchile.dcc.gwent.observer.AbstractSubject
 
 /** Class representing a player in the Gwen't game.
@@ -44,6 +44,9 @@ class Player(val name: String, private var _deck: List[Card]=List(),
   }
   /** Subtract a gem from the player */
   def loseGem(): Unit = {
+    if (gemCounter == 0) {
+      throw new InvalidMethodException("the gemCounter must be non-negative.")
+    }
     _gemCounter -= 1
     if (gemCounter == 0) {
       notifyObservers(s"$name has no gems left")
