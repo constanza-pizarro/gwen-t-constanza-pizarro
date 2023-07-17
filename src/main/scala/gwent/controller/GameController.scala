@@ -40,6 +40,14 @@ class GameController extends Observer[Player] {
    * Represents the player waiting for their turn.
    */
   private var _otherPlayer: Option[Player] = _player2
+  /** The winner of the game.
+   * Represents the player who won the game.
+   */
+  private var _winner: Option[Player] = None
+  /** The loser of the game.
+   * Represents the player who lost the game.
+   */
+  private var _loser: Option[Player] = None
   /** The list of players. */
   private var _players: List[Player] = List()
 
