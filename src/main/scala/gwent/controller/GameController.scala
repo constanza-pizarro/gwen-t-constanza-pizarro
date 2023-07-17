@@ -128,24 +128,15 @@ class GameController extends Observer[Player] {
   }
   def startRound(player1n: Int, player2n: Int): Unit = {
     state.startRound()
-    if (player1n > 3 || player2n > 3) {
-      throw new InvalidNumberException("the number must be less than 3")
-    }
+
+    var n1: Int = cardsDrawn(player1n, player1)
+    var n2: Int = cardsDrawn(player2n, player2)
 
     _board = Some(new Board(player1, player2))
     player1 section_= new Section
     player2 section_= new Section
 
     for (p <- players) p.shuffleDeck()
-
-    var n1: Int = player1n
-    var n2: Int = player2n
-
-    if (player1.hand.length + player1n > 10)
-      n1 -= (player1.hand.length + player1n) % 10
-    if (player2.hand.length + player2n > 10)
-      n2 -= (player2.hand.length + player2n) % 10
-
     for (i <- 0 until n1) player1.drawCard()
     for (i <- 0 until n2) player2.drawCard()
   }
