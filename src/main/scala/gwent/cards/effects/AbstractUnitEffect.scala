@@ -17,4 +17,7 @@ abstract class AbstractUnitEffect extends Effect {
   override def apply(self: Card, board: Board): Unit = {
     // do nothing c:
   }
+  override def undo(target: Board): Unit = {
+    // do nothing uwu
+  }
 }
