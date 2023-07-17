@@ -180,9 +180,11 @@ class GameController extends Observer[Player] {
     }
     state.newRound()
   }
-  override def update(observable: Subject[String], value: String): Unit = {
-    /////////
+  override def update(observable: Subject[Player], value: Player): Unit = {
+    _loser = Some(value)
+    _winner = Some(players.filterNot(_ eq value).head)
     state.declareWinner()
+    println(s"Player $observable has no gems left")
   }
   def isInStart: Boolean = {
     state.isInStart
