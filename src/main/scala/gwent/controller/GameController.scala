@@ -2,13 +2,12 @@ package cl.uchile.dcc
 package gwent.controller
 
 import gwent.cards.*
-import gwent.cards.effects.weather.*
 import gwent.cards.effects.unit.*
+import gwent.cards.effects.weather.*
 import gwent.controller.states.*
+import gwent.exceptions.InvalidNumberException
+import gwent.observer.{Observer, Subject}
 import gwent.{Board, Player, Section}
-
-import cl.uchile.dcc.gwent.exceptions.InvalidNumberException
-import cl.uchile.dcc.gwent.observer.{Observer, Subject}
 
 import scala.util.Random
 
