@@ -76,6 +76,10 @@ class GameController extends Observer[Player] {
     val oPlayer = _otherPlayer.get
     oPlayer
   }
+  def winner: Player = {
+    val winn = _winner.get
+    winn
+  }
   /** Exchanges the current player with the other player.
    *
    * Sets the current player to the other player and the other player to the current player.
