@@ -61,6 +61,21 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.startGame("player1", "player2", unitCards, weatherCards)
   }
 
+  test("changeTurn") {
+    val cPlayer: Player = gameC1.currentPlayer
+    val oPlayer: Player = gameC1.otherPlayer
+    gameC1.changeTurn()
+    assertEquals(gameC1.otherPlayer, cPlayer)
+    assertEquals(gameC1.currentPlayer, oPlayer)
+    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.newRound())
+    assertEquals(e.getMessage,s"Cannot transition from TurnState to RoundState")
+  }
+
+  test("setDeck") {
+    assert(gameC1.players.forall(_.deck.length == 15))
+    assert(gameC1.players.forall(_.hand.length == 10))
+  }
+
   test("start state") {
     assert(gameC2.isInStart)
     val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.newRound())
@@ -70,19 +85,11 @@ class GameControllerTest extends munit.FunSuite {
     assert(!gameC1.isInStart)
   }
 
-  test("setDeck") {
-    assert(gameC1.players.forall(_.deck.length == 15))
-    assert(gameC1.players.forall(_.hand.length == 10))
-  }
-
-  test("changeTurn") {
-    val cPlayer: Player = gameC1.currentPlayer
-    val oPlayer: Player = gameC1.otherPlayer
-    gameC1.changeTurn()
-    assertEquals(gameC1.otherPlayer, cPlayer)
-    assertEquals(gameC1.currentPlayer, oPlayer)
-    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.newRound())
-    assertEquals(e.getMessage,s"Cannot transition from TurnState to RoundState")
+  test("startGame") {
+    gameC2.startGame("player1", "player2", unitCards, weatherCards)
+    assertEquals(gameC2.player1.name, "player1")
+    assertEquals(gameC2.player2.name, "player2")
+    assertEquals(gameC2.players, List(gameC2.player1, gameC2.player2))
   }
 
   test("turn state") {
@@ -135,6 +142,42 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(s"Cannot transition from StartState to FinalState", e.getMessage)
   }
 
+  test("A") {
+    assert(gameC1.isInTurn)
+    gameC1.endTurn()
+    assert(gameC1.isInAlone)
+    val player: Player = gameC1.currentPlayer
+    for (i <- player.hand.indices) {
+      gameC1.playCard(0)
+    }
+    gameC1.endTurn()
+    assert(gameC1.isInCount)
+    gameC1.countPoints()
+    assert(gameC1.isInRound)
+
+    gameC1.startRound(3, 3)
+    for (p <- gameC1.players) {
+      if (p eq player) {
+        for (i <- p.hand.indices) {
+          gameC1.playCard(0)
+        }
+        gameC1.endTurn()
+      } else {
+        gameC1.endTurn()
+      }
+    }
+    gameC1.countPoints()
+  }
+
+  test("f") {
+    gameC1.endTurn()
+    gameC1.endTurn()
+    gameC1.countPoints()
+    gameC1.startRound(1, 1)
+    gameC1.endTurn()
+    gameC1.endTurn()
+    gameC1.countPoints()
+  }
   test("declareWinner") {
     gameC1.endTurn()
     gameC1.endTurn()
