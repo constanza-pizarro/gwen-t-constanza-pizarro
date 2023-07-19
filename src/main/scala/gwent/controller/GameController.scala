@@ -76,8 +76,8 @@ class GameController extends Observer[Player] {
     val oPlayer = _otherPlayer.get
     oPlayer
   }
-  def winner: Player = {
-    val winn = _winner.get
+  def winner: Option[Player] = {
+    val winn = _winner
     winn
   }
   /** Exchanges the current player with the other player.
@@ -85,9 +85,9 @@ class GameController extends Observer[Player] {
    * Sets the current player to the other player and the other player to the current player.
    */
   def changeTurn(): Unit = {
-    val cPlayer: Player = currentPlayer
+    val cPlayer: Option[Player] = _currentPlayer
     _currentPlayer = _otherPlayer
-    _otherPlayer = Some(cPlayer)
+    _otherPlayer = cPlayer
   }
   /** Sets a deck with 25 cards.
    *
@@ -112,20 +112,20 @@ class GameController extends Observer[Player] {
     state.startGame()
     _player1 = Some(new Player(name1, setDeck(unitCards, weatherCards)))
     _player2 = Some(new Player(name2, setDeck(unitCards, weatherCards)))
-    _board = Some(new Board(player1, player2))
-    _players = board.players
-    for (p <- players) {
+    _board = Some(new Board(_player1.get, _player2.get))
+    _players = List(_player1.get, _player2.get)
+    for (p <- _players) {
       p.addObserver(this)
       p.shuffleDeck()
       for (i <- 0 until 10)
         p.drawCard()
     }
-    _players = scala.util.Random.shuffle(players)
-    _currentPlayer = Some(players.head)
-    _otherPlayer = Some(players(1))
+    _players = scala.util.Random.shuffle(_players)
+    _currentPlayer = Some(_players.head)
+    _otherPlayer = Some(_players(1))
   }
   def playCard(c: Int): Unit = {
-    val player: Player = currentPlayer
+    val player: Player = _currentPlayer.get
     val hand: List[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
@@ -143,16 +143,16 @@ class GameController extends Observer[Player] {
   }
   def countPoints(): Unit = {
     state.newRound()
-    val player1Points: Int = player1.sumPoints()
-    val player2Points: Int = player2.sumPoints()
+    val player1Points: Int = _player1.get.sumPoints()
+    val player2Points: Int = _player2.get.sumPoints()
 
     if (player1Points > player2Points) {
-      player2.loseGem()
+      _player2.get.loseGem()
     } else if (player1Points < player2Points) {
-      player1.loseGem()
+      _player1.get.loseGem()
     } else {
-      player1.loseGem()
-      player2.loseGem()
+      _player1.get.loseGem()
+      _player2.get.loseGem()
     }
   }
   def startRound(player1n: Int, player2n: Int): Unit = {
@@ -162,16 +162,16 @@ class GameController extends Observer[Player] {
 
     state.startRound()
 
-    val n1: Int = cardsDrawn(player1n, player1)
-    val n2: Int = cardsDrawn(player2n, player2)
+    val n1: Int = cardsDrawn(player1n, _player1.get)
+    val n2: Int = cardsDrawn(player2n, _player2.get)
 
-    _board = Some(new Board(player1, player2))
-    player1 section_= new Section
-    player2 section_= new Section
+    _board = Some(new Board(_player1.get, _player2.get))
+    _player1.get section_= new Section
+    _player2.get section_= new Section
 
-    for (p <- players) p.shuffleDeck()
-    for (i <- 0 until n1) player1.drawCard()
-    for (i <- 0 until n2) player2.drawCard()
+    for (p <- _players) p.shuffleDeck()
+    for (i <- 0 until n1) _player1.get.drawCard()
+    for (i <- 0 until n2) _player2.get.drawCard()
   }
   def cardsDrawn(n: Int, player: Player): Int = {
     var m: Int = n
@@ -184,14 +184,14 @@ class GameController extends Observer[Player] {
     state.declareWinner()
     println(s"Player ${value.name} has no gems left")
     if (_winner.isEmpty) {
-      _winner = Some(players.filterNot(_ eq value).head)
+      _winner = Some(_players.filterNot(_ eq value).head)
     } else {
       println("It's a tie!")
     }
   }
   def declareWinner(): Unit = {
     if (_winner.isDefined) {
-      println(s"Player ${_winner.get.name} has won the game")
+      println(s"Player ${_winner.get.name} has won the game!")
     }
   }
   def playAgain(name1: String, name2: String,
