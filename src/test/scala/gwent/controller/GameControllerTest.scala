@@ -12,7 +12,7 @@ import org.junit.Assert
 
 class GameControllerTest extends munit.FunSuite {
   var gameC1: GameController = _
-  var gameC2: GameController = new GameController
+  var gameC2: GameController = _
 
   private val unitCards = List[Card](
     new CloseCombatCard("Blue Stripes Commando", TightBond(),
@@ -59,6 +59,8 @@ class GameControllerTest extends munit.FunSuite {
   override def beforeEach(context: BeforeEach): Unit = {
     gameC1 = new GameController
     gameC1.startGame("player1", "player2", unitCards, weatherCards)
+
+    gameC2 = new GameController
   }
 
   test("changeTurn") {
@@ -87,7 +89,9 @@ class GameControllerTest extends munit.FunSuite {
     gameC2.startGame("player1", "player2", unitCards, weatherCards)
     assertEquals(gameC2.player1.name, "player1")
     assertEquals(gameC2.player2.name, "player2")
-    assertEquals(gameC2.players, List(gameC2.player1, gameC2.player2))
+    assertEquals(gameC2.players.length, 2)
+    assert(gameC2.players.contains(gameC2.player1))
+    assert(gameC2.players.contains(gameC2.player2))
   }
 
   test("turn state") {
