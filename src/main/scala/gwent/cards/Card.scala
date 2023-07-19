@@ -7,7 +7,7 @@ import gwent.cards.effects.Effect
 /**
  * Represents the common structure of a card in the game.
  *
- * A card is characterized by its [[name]] and [[description]].
+ * A card is characterized by its [[name]], [[description]] and [[effect]].
  */
 trait Card {
   /** The name of the card.
