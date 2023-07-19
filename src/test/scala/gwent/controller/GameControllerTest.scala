@@ -231,6 +231,8 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.endTurn()
     gameC1.endTurn()
     gameC1.countPoints()
+    assertEquals(gameC1.player1.gemCounter, 1)
+    assertEquals(gameC1.player2.gemCounter, 1)
     gameC1.startRound(1, 1)
     gameC1.endTurn()
     gameC1.endTurn()
