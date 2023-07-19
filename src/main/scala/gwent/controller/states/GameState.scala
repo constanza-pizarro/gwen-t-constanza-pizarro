@@ -25,6 +25,9 @@ class GameState(var context: GameController) {
   def playAgain(): Unit = {
     transitionError("StartState")
   }
+  def doAction(): Unit = {
+    // do nothing
+  }
   def isInStart: Boolean = false
   def isInTurn: Boolean = false
   def isInAlone: Boolean = false
