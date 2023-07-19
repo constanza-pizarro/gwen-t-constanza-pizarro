@@ -159,7 +159,7 @@ class GameController extends Observer[Player] {
     }
   }
   def endTurn(): Unit = {
-    _currentPlayer = Some(otherPlayer) // ambos son el mismo jugador ahora
+    state.doAction()
     state.endTurn()
   }
   def countPoints(): Unit = {
