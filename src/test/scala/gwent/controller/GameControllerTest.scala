@@ -79,9 +79,9 @@ class GameControllerTest extends munit.FunSuite {
   test("start state") {
     assert(gameC2.isInStart)
     val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.countPoints())
-    assertEquals(e1.getMessage,s"Cannot transition from StartState to RoundState")
+    assertEquals(e1.getMessage,"Cannot transition from StartState to RoundState")
     val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.endTurn())
-    assertEquals(e2.getMessage,s"Cannot transition from StartState to AloneState or CountState")
+    assertEquals(e2.getMessage,"Cannot transition from StartState to AloneState or CountState")
     assert(!gameC1.isInStart)
   }
 
@@ -99,7 +99,7 @@ class GameControllerTest extends munit.FunSuite {
     assert(!gameC2.isInTurn)
     val e = Assert.assertThrows(classOf[InvalidTransitionException],
       () => gameC1.state.playAgain())
-    assertEquals(e.getMessage,s"Cannot transition from TurnState to StartState")
+    assertEquals(e.getMessage,"Cannot transition from TurnState to StartState")
   }
 
   test("playCard") {
@@ -139,9 +139,9 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC1.isInAlone)
     assert(!gameC2.isInAlone)
     val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.startGame())
-    assertEquals(e1.getMessage, s"Cannot transition from AloneState to TurnState")
+    assertEquals(e1.getMessage,"Cannot transition from AloneState to TurnState")
     val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.startRound())
-    assertEquals(e2.getMessage,s"Cannot transition from AloneState to TurnState")
+    assertEquals(e2.getMessage,"Cannot transition from AloneState to TurnState")
   }
 
   test("count state") {
@@ -156,7 +156,7 @@ class GameControllerTest extends munit.FunSuite {
 
     assert(!gameC2.isInCount)
     val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.declareWinner())
-    assertEquals(e.getMessage,s"Cannot transition from StartState to FinalState")
+    assertEquals(e.getMessage,"Cannot transition from StartState to FinalState")
   }
 
   test("countPoints") {
@@ -179,6 +179,19 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.countPoints()
     assert(gameC1.isInRound)
     assert(!gameC2.isInRound)
+  }
+
+  test("startRound") {
+    gameC1.endTurn()
+    gameC1.endTurn()
+    gameC1.countPoints()
+    assert(gameC1.isInRound)
+
+    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC1.startRound(4, 1))
+    assertEquals(e.getMessage, "both numbers must be less than 3")
+
+    gameC1.startRound(1, 1)
+    assert(gameC1.isInTurn)
   }
 
   test("A") {
@@ -226,13 +239,4 @@ class GameControllerTest extends munit.FunSuite {
     assert(!gameC2.isInRound)
   }
 
-
-  test("startRound") {
-    gameC1.endTurn()
-    gameC1.endTurn()
-    gameC1.state.newRound()
-    assert(gameC1.state.isInRound)
-    gameC1.state.startRound()
-    assert(gameC1.isInTurn)
-  }
 }
