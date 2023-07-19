@@ -124,6 +124,10 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC1.isInAlone)
     assertEquals(gameC1.currentPlayer, player2)
     assertEquals(gameC1.otherPlayer, player1)
+    gameC1.endTurn()
+    assert(gameC1.isInCount)
+    assertEquals(gameC1.currentPlayer, player2)
+    assertEquals(gameC1.otherPlayer, player1)
   }
   test("alone state") {
     gameC1.endTurn()
