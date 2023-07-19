@@ -150,12 +150,12 @@ class GameController extends Observer[Player] {
     val hand: List[Card] = player.hand
     if (hand.isEmpty) {
       endTurn()
-    } else { // seguimos en el mismo estado, ya sea Turn o Alone
+    } else {
       if (c >= hand.length) {
         throw new InvalidNumberException(s"The number must be less than ${hand.length}.")
       }
       board.playCard(player, hand(c))
-      changeTurn()
+      state.doAction() // en Turn cambia a los players
     }
   }
   def endTurn(): Unit = {
