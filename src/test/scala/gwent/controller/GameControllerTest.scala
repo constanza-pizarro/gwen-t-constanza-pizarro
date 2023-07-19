@@ -211,7 +211,7 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.endTurn()
     gameC1.countPoints()
     assert(gameC1.isInFinal)
-    assert(gameC2.isInFinal)
+    assert(!gameC2.isInFinal)
   }
 
   test("update when a player has no gems left") {
