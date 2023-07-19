@@ -152,10 +152,14 @@ class GameController extends Observer[Player] {
     }
   }
   def startRound(player1n: Int, player2n: Int): Unit = {
+    if (player1n > 3 || player2n > 3) {
+      throw new InvalidNumberException("both numbers must be less than 3")
+    }
+
     state.startRound()
 
-    var n1: Int = cardsDrawn(player1n, player1)
-    var n2: Int = cardsDrawn(player2n, player2)
+    val n1: Int = cardsDrawn(player1n, player1)
+    val n2: Int = cardsDrawn(player2n, player2)
 
     _board = Some(new Board(player1, player2))
     player1 section_= new Section
@@ -167,9 +171,6 @@ class GameController extends Observer[Player] {
   }
   private def cardsDrawn(n: Int, player: Player): Int = {
     var m: Int = n
-    if (m > 3) {
-      throw new InvalidNumberException("the number must be less than 3")
-    }
     if (player.hand.length + m > 10) {
       m -= (player.hand.length + m) % 10
     }
