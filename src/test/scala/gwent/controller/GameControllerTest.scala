@@ -227,7 +227,7 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC1.currentPlayer.gemCounter, 2)
   }
 
-  test("f") {
+  test("update when both players have no gems left") {
     gameC1.endTurn()
     gameC1.endTurn()
     gameC1.countPoints()
@@ -235,7 +235,10 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.endTurn()
     gameC1.endTurn()
     gameC1.countPoints()
+    assertEquals(gameC1.player1.gemCounter, 0)
+    assertEquals(gameC1.player2.gemCounter, 0)
   }
+
   test("declareWinner") {
     gameC1.endTurn()
     gameC1.endTurn()
