@@ -90,6 +90,14 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC2.players, List(gameC2.player1, gameC2.player2))
   }
 
+  test("turn state") {
+    assert(gameC1.isInTurn)
+    assert(!gameC2.isInTurn)
+    val e = Assert.assertThrows(classOf[InvalidTransitionException],
+      () => gameC1.playAgain("player1", "player2", unitCards, weatherCards))
+    assertEquals(e.getMessage,s"Cannot transition from TurnState to StartState")
+  }
+
   test("playCard") {
     val player: Player = gameC1.currentPlayer
     val i: Int = player.hand.length
@@ -109,14 +117,13 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC1.currentPlayer, player)
   }
 
-  test("turn state") {
-    assert(gameC1.isInTurn)
-    assert(!gameC2.isInTurn)
-    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.playAgain())
-    assertEquals(e.getMessage,s"Cannot transition from TurnState to StartState")
-    assert(!gameC1.isInRound)
+  test("endTurn") {
+    val player1: Player = gameC1.currentPlayer
+    val player2: Player = gameC1.otherPlayer
+    gameC1.endTurn()
+    assertEquals(gameC1.currentPlayer, player2)
+    assertEquals(gameC1.otherPlayer, player2)
   }
-
   test("alone state") {
     gameC1.endTurn()
     assert(gameC1.isInAlone)
@@ -125,15 +132,6 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(s"Cannot transition from AloneState to TurnState", e1.getMessage)
     val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.startRound())
     assertEquals(s"Cannot transition from AloneState to TurnState", e2.getMessage)
-  }
-
-
-  test("endTurn") {
-    val player1: Player = gameC1.currentPlayer
-    val player2: Player = gameC1.otherPlayer
-    gameC1.endTurn()
-    assertEquals(gameC1.currentPlayer, player2)
-    assertEquals(gameC1.otherPlayer, player2)
   }
 
   test("count state") {
