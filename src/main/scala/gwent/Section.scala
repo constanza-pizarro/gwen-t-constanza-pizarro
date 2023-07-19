@@ -49,6 +49,10 @@ class Section {
     _siegeCombatZone = scCard :: siegeCombatZone
     scCard.effect(scCard, siegeCombatZone)
   }
+  /** Sums the points of the section's zones.
+   *
+   * @return the sum of points
+   */
   def sumPoints(): Int =
     (closeCombatZone.foldLeft(0)((acc, c) => acc + c.currentPower)
       + rangedCombatZone.foldLeft(0)((acc, c) => acc + c.currentPower)
