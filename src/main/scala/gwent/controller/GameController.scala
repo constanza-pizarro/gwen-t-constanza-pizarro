@@ -189,6 +189,11 @@ class GameController extends Observer[Player] {
       println(s"Player ${_winner.get.name} has won the game")
     }
   }
+  def playAgain(name1: String, name2: String,
+                unitCards: List[Card], weatherCards: List[Card]): Unit = {
+    state.playAgain()
+    startGame(name1, name2, unitCards, weatherCards)
+  }
   def isInStart: Boolean = {
     state.isInStart
   }
