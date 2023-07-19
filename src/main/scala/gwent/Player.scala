@@ -93,6 +93,10 @@ class Player(val name: String, private var _deck: List[Card]=List(),
     _hand = hand.filterNot(_ eq card)
     card.playCard(board, section)
   }
+  /** Sums the points of the players' section.
+   *
+   * @return the sum of points
+   */
   def sumPoints(): Int =
     section.sumPoints()
   override def equals(obj: Any): Boolean = obj match {
