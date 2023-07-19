@@ -243,10 +243,22 @@ class GameControllerTest extends munit.FunSuite {
 
   test("declareWinner") {
     gameC1.endTurn()
+    for (i <- gameC1.currentPlayer.hand.indices) {
+      gameC1.playCard(0)
+    }
     gameC1.endTurn()
-    assert(gameC1.isInCount)
     gameC1.countPoints()
-    assert(gameC1.isInRound)
-    assert(!gameC2.isInRound)
+
+    gameC1.startRound(3, 3)
+    gameC1.playCard(0)
+    gameC1.endTurn()
+    for (i <- gameC1.currentPlayer.hand.indices) {
+      gameC1.playCard(0)
+    }
+    gameC1.endTurn()
+
+    gameC1.countPoints()
+    assert(gameC1.winner.isDefined)
+    gameC1.declareWinner()
   }
 }
