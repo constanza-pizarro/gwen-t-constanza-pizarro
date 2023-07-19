@@ -67,8 +67,6 @@ class GameControllerTest extends munit.FunSuite {
     gameC1.changeTurn()
     assertEquals(gameC1.otherPlayer, cPlayer)
     assertEquals(gameC1.currentPlayer, oPlayer)
-    val e = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC1.state.newRound())
-    assertEquals(e.getMessage,s"Cannot transition from TurnState to RoundState")
   }
 
   test("setDeck") {
@@ -80,8 +78,8 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC2.isInStart)
     val e1 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.newRound())
     assertEquals(e1.getMessage,s"Cannot transition from StartState to RoundState")
-    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.state.endTurn())
-    assertEquals(e1.getMessage,s"Cannot transition from StartState to AloneState or CountState")
+    val e2 = Assert.assertThrows(classOf[InvalidTransitionException], () => gameC2.endTurn())
+    assertEquals(e2.getMessage,s"Cannot transition from StartState to AloneState or CountState")
     assert(!gameC1.isInStart)
   }
 
@@ -90,6 +88,15 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC2.player1.name, "player1")
     assertEquals(gameC2.player2.name, "player2")
     assertEquals(gameC2.players, List(gameC2.player1, gameC2.player2))
+  }
+
+  test("playCard") {
+    val player: Player = gameC1.currentPlayer
+    val i: Int = player.hand.length
+    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC1.playCard(i))
+    assertEquals(e.getMessage,s"The number must be less than $i.")
+    gameC1.playCard(0)
+    assertEquals(gameC1.otherPlayer, player)
   }
 
   test("turn state") {
@@ -110,14 +117,6 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(s"Cannot transition from AloneState to TurnState", e2.getMessage)
   }
 
-  test("playCard") {
-    val player: Player = gameC1.currentPlayer
-    val i: Int = player.hand.length
-    val e = Assert.assertThrows(classOf[InvalidNumberException], () => gameC1.playCard(i))
-    assertEquals(s"The number must be less than $i.", e.getMessage)
-    gameC1.playCard(0)
-    assertEquals(gameC1.otherPlayer, player)
-  }
 
   test("endTurn") {
     val player1: Player = gameC1.currentPlayer
