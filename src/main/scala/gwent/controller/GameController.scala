@@ -105,8 +105,7 @@ class GameController extends Observer[Player] {
   }
   def startGame(name1: String, name2: String,
                 unitCards: List[Card], weatherCards: List[Card]): Unit = {
-    state.startGame() // automáticamente tira exception si no esta en el estado correcto
-
+    state.startGame()
     _player1 = Some(new Player(name1, setDeck(unitCards, weatherCards)))
     _player2 = Some(new Player(name2, setDeck(unitCards, weatherCards)))
     _board = Some(new Board(player1, player2))
@@ -166,7 +165,6 @@ class GameController extends Observer[Player] {
     for (i <- 0 until n1) player1.drawCard()
     for (i <- 0 until n2) player2.drawCard()
   }
-
   private def cardsDrawn(n: Int, player: Player): Int = {
     var m: Int = n
     if (m > 3) {
@@ -206,8 +204,7 @@ class GameController extends Observer[Player] {
   def isInRound: Boolean = {
     state.isInRound
   }
-  /*
   def isInFinal: Boolean = {
     state.isInFinal
-  }*/
+  }
 }
