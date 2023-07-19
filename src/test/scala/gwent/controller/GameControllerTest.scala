@@ -202,31 +202,29 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC1.cardsDrawn(3, oPlayer), 0)
   }
 
-  test("A") {
-    assert(gameC1.isInTurn)
+  test("update when a player has no gems left") {
+    val player: Player = gameC1.otherPlayer
+    gameC1.endTurn() // le toca a player
+    for (i <- player.hand.indices) {
+      gameC1.playCard(0) // player juega todas sus cartas
+    }
     gameC1.endTurn()
-    assert(gameC1.isInAlone)
-    val player: Player = gameC1.currentPlayer
+    gameC1.countPoints()
+    assertEquals(gameC1.otherPlayer.gemCounter, 1)
+    assertEquals(gameC1.currentPlayer.gemCounter, 2)
+
+    gameC1.startRound(3, 3)
+    assertEquals(gameC1.currentPlayer, player)
+    gameC1.playCard(0)
+    gameC1.endTurn()
     for (i <- player.hand.indices) {
       gameC1.playCard(0)
     }
     gameC1.endTurn()
-    assert(gameC1.isInCount)
-    gameC1.countPoints()
-    assert(gameC1.isInRound)
 
-    gameC1.startRound(3, 3)
-    for (p <- gameC1.players) {
-      if (p eq player) {
-        for (i <- p.hand.indices) {
-          gameC1.playCard(0)
-        }
-        gameC1.endTurn()
-      } else {
-        gameC1.endTurn()
-      }
-    }
     gameC1.countPoints()
+    assertEquals(gameC1.otherPlayer.gemCounter, 0)
+    assertEquals(gameC1.currentPlayer.gemCounter, 2)
   }
 
   test("f") {
@@ -246,5 +244,4 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC1.isInRound)
     assert(!gameC2.isInRound)
   }
-
 }
