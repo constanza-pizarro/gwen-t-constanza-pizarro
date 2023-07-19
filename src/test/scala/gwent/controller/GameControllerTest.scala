@@ -121,8 +121,9 @@ class GameControllerTest extends munit.FunSuite {
     val player1: Player = gameC1.currentPlayer
     val player2: Player = gameC1.otherPlayer
     gameC1.endTurn()
+    assert(gameC1.isInAlone)
     assertEquals(gameC1.currentPlayer, player2)
-    assertEquals(gameC1.otherPlayer, player2)
+    assertEquals(gameC1.otherPlayer, player1)
   }
   test("alone state") {
     gameC1.endTurn()
