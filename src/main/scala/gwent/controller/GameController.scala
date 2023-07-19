@@ -169,7 +169,7 @@ class GameController extends Observer[Player] {
     for (i <- 0 until n1) player1.drawCard()
     for (i <- 0 until n2) player2.drawCard()
   }
-  private def cardsDrawn(n: Int, player: Player): Int = {
+  def cardsDrawn(n: Int, player: Player): Int = {
     var m: Int = n
     if (player.hand.length + m > 10) {
       m -= (player.hand.length + m) % 10
