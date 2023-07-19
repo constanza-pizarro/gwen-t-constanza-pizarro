@@ -8,5 +8,8 @@ class TurnState(controller: GameController) extends GameState(controller) {
     controller.changeTurn()
     controller.state = new AloneState(controller)
   }
+  override def doAction(): Unit = {
+    controller.changeTurn()
+  }
   override def isInTurn: Boolean = true
 }
