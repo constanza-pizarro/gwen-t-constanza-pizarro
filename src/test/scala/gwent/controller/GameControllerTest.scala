@@ -194,6 +194,14 @@ class GameControllerTest extends munit.FunSuite {
     assert(gameC1.isInTurn)
   }
 
+  test("cardsDrawn") {
+    val cPlayer: Player = gameC1.currentPlayer
+    val oPlayer: Player = gameC1.otherPlayer
+    gameC1.playCard(0)
+    assertEquals(gameC1.cardsDrawn(3, cPlayer), 1)
+    assertEquals(gameC1.cardsDrawn(3, oPlayer), 0)
+  }
+
   test("A") {
     assert(gameC1.isInTurn)
     gameC1.endTurn()
