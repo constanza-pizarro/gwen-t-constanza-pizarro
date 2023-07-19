@@ -28,5 +28,9 @@ trait Card {
    * @param section the section of a player a card can be added to
    */
   def playCard(board: Board, section: Section): Unit
+  /** Makes a new card with the same parameters as the one calling the method.
+   *
+   * @return a new card with the parameters of the card calling the method
+   */
   def copy(): Card
 }
