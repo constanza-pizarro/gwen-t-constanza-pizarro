@@ -202,6 +202,17 @@ class GameControllerTest extends munit.FunSuite {
     assertEquals(gameC1.cardsDrawn(3, oPlayer), 0)
   }
 
+  test("final state") {
+    gameC1.endTurn()
+    gameC1.endTurn()
+    gameC1.countPoints()
+    gameC1.startRound(1, 1)
+    gameC1.endTurn()
+    gameC1.endTurn()
+    gameC1.countPoints()
+    assert(gameC1.isInFinal)
+  }
+
   test("update when a player has no gems left") {
     val player: Player = gameC1.otherPlayer
     gameC1.endTurn() // le toca a player
