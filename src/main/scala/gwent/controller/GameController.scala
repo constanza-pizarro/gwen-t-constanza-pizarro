@@ -121,30 +121,6 @@ class GameController extends Observer[Player] {
     _currentPlayer = Some(players.head)
     _otherPlayer = Some(players(1))
   }
-  def startRound(player1n: Int, player2n: Int): Unit = {
-    state.startRound()
-
-    var n1: Int = cardsDrawn(player1n, player1)
-    var n2: Int = cardsDrawn(player2n, player2)
-
-    _board = Some(new Board(player1, player2))
-    player1 section_= new Section
-    player2 section_= new Section
-
-    for (p <- players) p.shuffleDeck()
-    for (i <- 0 until n1) player1.drawCard()
-    for (i <- 0 until n2) player2.drawCard()
-  }
-  private def cardsDrawn(n: Int, player: Player): Int = {
-    var m: Int = n
-    if (m > 3) {
-      throw new InvalidNumberException("the number must be less than 3")
-    }
-    if (player.hand.length + m > 10) {
-      m -= (player.hand.length + m) % 10
-    }
-    m
-  }
   def playCard(c: Int): Unit = {
     val player: Player = currentPlayer
     val hand: List[Card] = player.hand
@@ -175,6 +151,31 @@ class GameController extends Observer[Player] {
       player1.loseGem()
       player2.loseGem()
     }
+  }
+  def startRound(player1n: Int, player2n: Int): Unit = {
+    state.startRound()
+
+    var n1: Int = cardsDrawn(player1n, player1)
+    var n2: Int = cardsDrawn(player2n, player2)
+
+    _board = Some(new Board(player1, player2))
+    player1 section_= new Section
+    player2 section_= new Section
+
+    for (p <- players) p.shuffleDeck()
+    for (i <- 0 until n1) player1.drawCard()
+    for (i <- 0 until n2) player2.drawCard()
+  }
+
+  private def cardsDrawn(n: Int, player: Player): Int = {
+    var m: Int = n
+    if (m > 3) {
+      throw new InvalidNumberException("the number must be less than 3")
+    }
+    if (player.hand.length + m > 10) {
+      m -= (player.hand.length + m) % 10
+    }
+    m
   }
   override def update(observable: Subject[Player], value: Player): Unit = {
     state.declareWinner()
