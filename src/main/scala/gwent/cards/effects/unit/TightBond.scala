@@ -4,7 +4,7 @@ package gwent.cards.effects.unit
 import gwent.cards.effects.AbstractUnitEffect
 import gwent.cards.*
 
-/** Class representing the tight bond effect of an unit card in the Gwen't game.
+/** Class representing the tight bond effect of a unit card in the Gwen't game.
  *
  * A `TightBond` is a type of [[AbstractUnitEffect]].
  * As per the game's rules, when a card with this effect is placed on the board 

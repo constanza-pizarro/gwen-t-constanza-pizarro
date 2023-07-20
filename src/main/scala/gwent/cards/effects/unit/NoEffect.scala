@@ -4,7 +4,7 @@ package gwent.cards.effects.unit
 import gwent.cards.effects.AbstractUnitEffect
 import gwent.cards.*
 
-/** Class representing a "null" effect of an unit card in the Gwen't game.
+/** Class representing a 'null' effect of a unit card in the Gwen't game.
  *
  * A `NoEffect` is a type of [[AbstractUnitEffect]].
  * When a card has this effect it means the card has no effect.
